@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="LevelResource" load_steps=2 format=3 uid="uid://db5lubmtte4hk"]
+
+[ext_resource type="Script" uid="uid://wvhb66ctf5ai" path="res://Scripts/level_resource.gd" id="1_s1vbo"]
+
+[resource]
+script = ExtResource("1_s1vbo")
+TopLeftBounds = Vector2(-320, -88)
+BottomRightBounds = Vector2(1280, 88)
+PlayerFollowSpeed = 100.0
+PlayerSpawnPosition = Vector2(-256, 24)
+LevelLoadSpeed = 3.0
+LevelName = "Forgotten Forest"
+RequiresFadeIn = null
+metadata/_custom_type_script = "uid://wvhb66ctf5ai"

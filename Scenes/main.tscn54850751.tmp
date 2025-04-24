@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqscvl3qsinqc"]
+
+[ext_resource type="Script" uid="uid://cv61f7aim5mr6" path="res://Scripts/game_controller.gd" id="1_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://bt0m7fahlwwhn" path="res://Scenes/player.tscn" id="2_8gbba"]
+[ext_resource type="Resource" uid="uid://db5lubmtte4hk" path="res://Resources/test_level_resource.tres" id="2_21xkr"]
+[ext_resource type="PackedScene" uid="uid://c3yj0obrh22re" path="res://Scenes/Levels/ForgottenForest.tscn" id="3_21xkr"]
+[ext_resource type="Script" uid="uid://cc0g01gjlu1ca" path="res://Scripts/camera_controller.gd" id="3_kry3j"]
+[ext_resource type="PackedScene" uid="uid://djamy8yprjwpv" path="res://Scenes/scene_switcher.tscn" id="6_21xkr"]
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("_gameCamera")]
+script = ExtResource("1_jjvhh")
+_gameCamera = NodePath("Camera2D")
+_levelResource = ExtResource("2_21xkr")
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="ForgottenForest" parent="Level" instance=ExtResource("3_21xkr")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-160, 0)
+zoom = Vector2(4, 4)
+position_smoothing_speed = 50.0
+script = ExtResource("3_kry3j")
+
+[node name="Player" parent="." instance=ExtResource("2_8gbba")]
+position = Vector2(-256, 24)
+
+[node name="FmodBankLoader" type="FmodBankLoader" parent="."]
+bank_paths = ["res://FmodBank/Desktop/Master.bank"]
+
+[node name="SceneSwitcher" parent="." instance=ExtResource("6_21xkr")]
+position = Vector2(-160, 0)
+
+[connection signal="on_level_finish_loading" from="SceneSwitcher" to="Player" method="_on_scene_switcher_on_level_finish_loading"]

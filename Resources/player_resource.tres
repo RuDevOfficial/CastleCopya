@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PlayerResource" load_steps=2 format=3 uid="uid://d4jdenihj3l0q"]
+
+[ext_resource type="Script" uid="uid://bs8y3t0lfpxkk" path="res://Scripts/player_resource.gd" id="1_gak4i"]
+
+[resource]
+script = ExtResource("1_gak4i")
+Speed = 80.0
+Gravity = 459.0
+FallingCap = 9108.0
+FallingMultiplier = 2.0
+JumpForce = 200.0
+DeadTime = 1.0
+metadata/_custom_type_script = "uid://bs8y3t0lfpxkk"
