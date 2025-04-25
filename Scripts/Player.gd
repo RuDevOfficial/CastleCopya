@@ -10,6 +10,7 @@ func _ready() -> void:
 	
 	var gameController = get_tree().root.get_node("Main")
 	gameController.on_load_level.connect(freeze_player)
+	gameController.on_load_level_early.connect(_on_scene_switcher_on_level_finish_loading)
 	
 	var sceneSwitcher = get_tree().root.get_node("Main").get_node("SceneSwitcher")
 	sceneSwitcher.on_level_begin_loading.connect(reset_player)

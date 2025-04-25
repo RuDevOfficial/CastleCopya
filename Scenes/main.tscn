@@ -33,9 +33,12 @@ position = Vector2(-160, 0)
 bank_paths = ["res://FmodBank/Desktop/Master.bank"]
 
 [node name="MusicEmitter" type="FmodEventEmitter2D" parent="."]
+event_guid = "{00000000-0002-0000-0300-000026000000}"
 attached = false
 script = ExtResource("7_6bp64")
 PlayerDeathSound = "{09c89def-771a-4a9f-9895-4b92285acdc3}"
+
+[node name="FmodListener2D" type="FmodListener2D" parent="."]
 
 [connection signal="on_level_finish_loading" from="SceneSwitcher" to="Player" method="_on_scene_switcher_on_level_finish_loading"]
 [connection signal="on_level_finish_loading" from="SceneSwitcher" to="MusicEmitter" method="_on_scene_switcher_on_level_finish_loading"]

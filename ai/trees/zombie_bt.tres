@@ -1,0 +1,46 @@
+[gd_resource type="BehaviorTree" load_steps=13 format=3 uid="uid://1ljs6o2v5nn0"]
+
+[ext_resource type="Script" uid="uid://bwmnl2wkemyrt" path="res://ai/tasks/LinearMove2D.gd" id="1_gaio8"]
+[ext_resource type="Script" uid="uid://c51as8e0wodu1" path="res://ai/tasks/HasHitWall2D.gd" id="2_cilis"]
+[ext_resource type="Script" uid="uid://b1qj8fvfbqbfv" path="res://ai/tasks/InvertNumericalValue.gd" id="3_glfdt"]
+[ext_resource type="Script" uid="uid://jx36abkf7xdb" path="res://ai/tasks/FlipSpriteFromDirection.gd" id="4_dlt0a"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_qig7e"]
+var/speed/name = &"speed"
+var/speed/type = 3
+var/speed/value = 20.0
+var/speed/hint = 0
+var/speed/hint_string = ""
+var/direction/name = &"direction"
+var/direction/type = 2
+var/direction/value = -1
+var/direction/hint = 0
+var/direction/hint_string = ""
+
+[sub_resource type="BTAction" id="BTAction_x0sr7"]
+script = ExtResource("1_gaio8")
+
+[sub_resource type="BTCondition" id="BTCondition_glfdt"]
+script = ExtResource("2_cilis")
+
+[sub_resource type="BTAction" id="BTAction_dlt0a"]
+script = ExtResource("3_glfdt")
+_valueName = "direction"
+
+[sub_resource type="BTAction" id="BTAction_r5vdh"]
+script = ExtResource("4_dlt0a")
+spriteLooksRight = false
+
+[sub_resource type="BTSequence" id="BTSequence_dlt0a"]
+children = [SubResource("BTCondition_glfdt"), SubResource("BTAction_dlt0a"), SubResource("BTAction_r5vdh")]
+
+[sub_resource type="BTParallel" id="BTParallel_cilis"]
+children = [SubResource("BTAction_x0sr7"), SubResource("BTSequence_dlt0a")]
+
+[sub_resource type="BTRepeat" id="BTRepeat_qig7e"]
+forever = true
+children = [SubResource("BTParallel_cilis")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_qig7e")
+root_task = SubResource("BTRepeat_qig7e")
