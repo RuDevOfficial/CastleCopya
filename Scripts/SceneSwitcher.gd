@@ -43,4 +43,4 @@ func _on_load_timer_timeout() -> void:
 
 func end_transition():
 	#call a signal to tell the level has finished loading
-	on_level_finish_loading.emit()
+	on_level_finish_loading.emit(_lastLevelResource)

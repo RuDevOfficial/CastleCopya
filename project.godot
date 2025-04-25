@@ -28,7 +28,7 @@ DSP/dsp_buffer_count=4
 
 [application]
 
-config/name="2D Platformer"
+config/name="CastleCopya"
 run/main_scene="uid://cqscvl3qsinqc"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"

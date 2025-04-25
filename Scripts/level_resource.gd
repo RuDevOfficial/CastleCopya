@@ -16,6 +16,9 @@ var _getPlayerButton = set_player_location_to_current.bind()
 @export var RequiresFadeIn : bool
 @export var LookLeftOnLoad : bool
 
+@export_category("Audio")
+@export var LevelMusicID : String
+
 func set_player_location_to_current() -> void:
 	var playerNode : CharacterBody2D = (EditorInterface.get_edited_scene_root().get_node("Player"))
 	PlayerSpawnPosition = playerNode.global_position

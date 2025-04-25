@@ -28,7 +28,7 @@ func reset_player(levelResource : LevelResource) -> void:
 	velocity.x = 0
 	_playerResource.CanMove = false
 
-func _on_scene_switcher_on_level_finish_loading() -> void:
+func _on_scene_switcher_on_level_finish_loading(levelResource : LevelResource) -> void:
 	_animationTree.active = true
 	_playerResource.CanMove = true
 

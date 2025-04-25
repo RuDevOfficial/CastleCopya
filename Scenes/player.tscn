@@ -1011,10 +1011,11 @@ _animationTree = NodePath("../../Animation/AnimationTree")
 script = ExtResource("5_p1odr")
 _animationTree = NodePath("../../Animation/AnimationTree")
 
-[node name="Dead" type="Node" parent="FSM" node_paths=PackedStringArray("_animationTree", "_deadTimer")]
+[node name="Dead" type="Node" parent="FSM" node_paths=PackedStringArray("_animationTree", "_deadTimer", "_deadSound")]
 script = ExtResource("6_vfarp")
 _animationTree = NodePath("../../Animation/AnimationTree")
 _deadTimer = NodePath("../../Timers/DeadTimer")
+_deadSound = NodePath("../../Sounds/DiedEmitter")
 
 [node name="Sprites" type="Node2D" parent="."]
 
@@ -1069,6 +1070,10 @@ libraries = {
 one_shot = true
 
 [node name="Sounds" type="Node2D" parent="."]
+
+[node name="DiedEmitter" type="FmodEventEmitter2D" parent="Sounds"]
+event_name = "event:/Death"
+event_guid = "{09c89def-771a-4a9f-9895-4b92285acdc3}"
 
 [node name="JumpEmitter" type="FmodEventEmitter2D" parent="Sounds"]
 event_name = "event:/Jump"
