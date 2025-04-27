@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpva4bjwun4ms"]
+
+[ext_resource type="Texture2D" uid="uid://c0hprndi04kro" path="res://Sprites/fire_2.png" id="1_18mqm"]
+[ext_resource type="Script" uid="uid://cpb4gh1h6qlc7" path="res://Scripts/SingleInstanceParticle.gd" id="1_m1ver"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m1ver"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+
+[node name="DeathParticle" type="Node2D"]
+script = ExtResource("1_m1ver")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+texture_filter = 1
+emitting = false
+amount = 1
+texture = ExtResource("1_18mqm")
+lifetime = 0.2
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_m1ver")
+
+[connection signal="finished" from="GPUParticles2D" to="." method="_on_event_finished"]

@@ -16,6 +16,7 @@ _levelResource = ExtResource("2_21xkr")
 [node name="Level" type="Node2D" parent="."]
 
 [node name="ForgottenForest" parent="Level" instance=ExtResource("3_21xkr")]
+script = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-160, 0)

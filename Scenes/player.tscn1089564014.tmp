@@ -1113,7 +1113,7 @@ _collider2D = NodePath("../../Collider")
 [node name="Attack" type="Node" parent="FSM" node_paths=PackedStringArray("_body2D", "_attackTimer", "_animationTree")]
 script = ExtResource("3_ukyrk")
 _body2D = NodePath("../..")
-_attackTime = 0.5
+_attackTime = 0.65
 _attackTimer = NodePath("../../Timers/AttackTimer")
 _animationTree = NodePath("../../Animation/AnimationTree")
 

@@ -1,4 +1,6 @@
 extends FmodEventEmitter2D
+class_name SimpleMusicManager
+
 @onready var Dead_State = get_tree().root.get_node("Main/Player/FSM/Dead")
 @export var PlayerDeathSound : String
 

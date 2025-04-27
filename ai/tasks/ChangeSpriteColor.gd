@@ -4,15 +4,16 @@ extends BTAction
 ## Note: Each method declaration is optional.
 ## At minimum, you only need to define the "_tick" method.
 
-var rigidBody2D : RigidBody2D
+var _sprite2D : Sprite2D
+@export var _color : Color
 
 # Called to generate a display name for the task (requires @tool).
 func _generate_name() -> String:
-	return "Linear Move 2D"
+	return "Change Sprite Color"
 
 # Called to initialize the task.
 func _setup() -> void:
-	rigidBody2D = agent
+	_sprite2D = agent.get_node("Sprite")
 
 # Called when the task is entered.
 func _enter() -> void:
@@ -24,13 +25,11 @@ func _exit() -> void:
 
 # Called each time this task is ticked (aka executed).
 func _tick(delta: float) -> Status:
-	var direction = blackboard.get_var("direction")
-	var speed = blackboard.get_var("speed")
+	if (_sprite2D == null):
+		return FAILURE
 	
-	var xVelocity : float = (direction * speed * delta)
-	var collision : KinematicCollision2D = rigidBody2D.move_and_collide(Vector2(xVelocity, 0))
-	blackboard.set_var("collision", collision)
-	return RUNNING
+	_sprite2D.modulate = _color
+	return SUCCESS
 
 # Strings returned from this method are displayed as warnings in the editor.
 func _get_configuration_warnings() -> PackedStringArray:

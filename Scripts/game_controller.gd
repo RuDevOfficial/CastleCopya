@@ -4,6 +4,7 @@ class_name GameController
 @export var _startWithLoading : bool = false
 @export var _gameCamera : Camera2D
 @export var _levelResource : LevelResource
+@onready var _musicEmitter : SimpleMusicManager = $MusicEmitter
 @onready var _playerCharacter : PlayerCharacter = $Player
 @onready var _sceneSwitcher : SceneSwitcher = $SceneSwitcher
 
@@ -16,7 +17,7 @@ func _ready() -> void:
 	if (_startWithLoading == true):
 		_load_level()
 	else:
-		on_load_level_early.emit(_levelResource)
+		_load_level_instantly()
 
 func _restart_level() -> void:
 	_sceneSwitcher.start_transition(_levelResource)
@@ -26,3 +27,7 @@ func _load_level() -> void:
 		_sceneSwitcher.start_transition(_levelResource)
 	else:
 		_sceneSwitcher.start_transition_noFadeIn(_levelResource)
+
+func _load_level_instantly() -> void:
+	on_load_level_early.emit(_levelResource)
+	_musicEmitter.play_music(_levelResource.LevelMusicID)

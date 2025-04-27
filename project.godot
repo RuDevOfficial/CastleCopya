@@ -41,6 +41,7 @@ FmodManager="*res://addons/fmod/FmodManager.gd"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/mode=2
 window/size/initial_screen=1920
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
@@ -85,3 +86,5 @@ crouch={
 2d_physics/layer_3="Player"
 2d_physics/layer_4="Enemies"
 2d_physics/layer_5="Invisible"
+2d_physics/layer_6="Whip"
+2d_physics/layer_7="EnemyCollideOnly"

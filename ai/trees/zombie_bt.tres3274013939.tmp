@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=29 format=3 uid="uid://1ljs6o2v5nn0"]
+[gd_resource type="BehaviorTree" load_steps=20 format=3 uid="uid://1ljs6o2v5nn0"]
 
 [ext_resource type="Script" uid="uid://bwmnl2wkemyrt" path="res://ai/tasks/LinearMove2D.gd" id="1_gaio8"]
 [ext_resource type="Script" uid="uid://c51as8e0wodu1" path="res://ai/tasks/HasHitWall2D.gd" id="2_cilis"]
@@ -6,9 +6,6 @@
 [ext_resource type="Script" uid="uid://jx36abkf7xdb" path="res://ai/tasks/FlipSpriteFromDirection.gd" id="4_dlt0a"]
 [ext_resource type="Script" uid="uid://clrvjugmx0drv" path="res://ai/tasks/IsHealthZero.gd" id="5_r5vdh"]
 [ext_resource type="Script" uid="uid://do50xpehcmrq" path="res://ai/tasks/DestroySelf.gd" id="6_v4jox"]
-[ext_resource type="Script" uid="uid://c5h88jymr0enr" path="res://ai/tasks/SpawnScene.gd" id="7_qpw4x"]
-[ext_resource type="Script" uid="uid://88bfg2dcjojd" path="res://ai/tasks/IsFlickering.gd" id="7_svoa4"]
-[ext_resource type="PackedScene" uid="uid://cpva4bjwun4ms" path="res://Scenes/oneshots/DeathParticle.tscn" id="7_vtrff"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_qig7e"]
 var/speed/name = &"speed"
@@ -40,53 +37,26 @@ spriteLooksRight = false
 custom_name = "Swap Direction on Wall Sequence"
 children = [SubResource("BTCondition_glfdt"), SubResource("BTAction_dlt0a"), SubResource("BTAction_r5vdh")]
 
-[sub_resource type="BTCondition" id="BTCondition_vtrff"]
-script = ExtResource("7_svoa4")
-
-[sub_resource type="BBVariant" id="BBVariant_qpw4x"]
-type = 3
-saved_value = 0.0
-resource_name = "<null>"
-
-[sub_resource type="BTSetVar" id="BTSetVar_vtrff"]
-variable = &"speed"
-value = SubResource("BBVariant_qpw4x")
-
-[sub_resource type="BTSequence" id="BTSequence_ny1xx"]
-children = [SubResource("BTCondition_vtrff"), SubResource("BTSetVar_vtrff")]
-
-[sub_resource type="BBVariant" id="BBVariant_45rqx"]
-type = 3
-saved_value = 20.0
-resource_name = "20.0"
-
-[sub_resource type="BTSetVar" id="BTSetVar_bq2nw"]
-variable = &"speed"
-value = SubResource("BBVariant_45rqx")
-
-[sub_resource type="BTSelector" id="BTSelector_28ath"]
-custom_name = "Is Flickering Selector"
-children = [SubResource("BTSequence_ny1xx"), SubResource("BTSetVar_bq2nw")]
-
-[sub_resource type="BTCondition" id="BTCondition_qpw4x"]
+[sub_resource type="BTCondition" id="BTCondition_v4jox"]
 script = ExtResource("5_r5vdh")
 
-[sub_resource type="BTAction" id="BTAction_u01i7"]
-custom_name = "Spawn Particle"
-script = ExtResource("7_qpw4x")
-_packedScene = ExtResource("7_vtrff")
-_samePosition = true
-_positionKey = ""
-
-[sub_resource type="BTAction" id="BTAction_vtrff"]
+[sub_resource type="BTCondition" id="BTCondition_svoa4"]
 script = ExtResource("6_v4jox")
 
-[sub_resource type="BTSequence" id="BTSequence_u01i7"]
+[sub_resource type="BTSequence" id="BTSequence_v4jox"]
 custom_name = "Is Dead Sequence"
-children = [SubResource("BTCondition_qpw4x"), SubResource("BTAction_u01i7"), SubResource("BTAction_vtrff")]
+children = [SubResource("BTCondition_v4jox"), SubResource("BTCondition_svoa4")]
+
+[sub_resource type="BTSelector" id="BTSelector_svoa4"]
+custom_name = "Damage Selector"
+children = [SubResource("BTSequence_v4jox")]
+
+[sub_resource type="BTSequence" id="BTSequence_svoa4"]
+custom_name = "Took Damage Sequence"
+children = [SubResource("BTSelector_svoa4")]
 
 [sub_resource type="BTParallel" id="BTParallel_cilis"]
-children = [SubResource("BTAction_x0sr7"), SubResource("BTSequence_dlt0a"), SubResource("BTSelector_28ath"), SubResource("BTSequence_u01i7")]
+children = [SubResource("BTAction_x0sr7"), SubResource("BTSequence_dlt0a"), SubResource("BTSequence_svoa4")]
 
 [sub_resource type="BTRepeat" id="BTRepeat_qig7e"]
 forever = true
