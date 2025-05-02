@@ -1,13 +1,20 @@
-[gd_resource type="Resource" script_class="PlayerResource" load_steps=2 format=3 uid="uid://d4jdenihj3l0q"]
+[gd_resource type="Resource" script_class="PlayerResource" load_steps=3 format=3 uid="uid://d4jdenihj3l0q"]
 
-[ext_resource type="Script" uid="uid://bs8y3t0lfpxkk" path="res://Scripts/player_resource.gd" id="1_gak4i"]
+[ext_resource type="Resource" uid="uid://ck4cen2q31hco" path="res://Resources/Subweapons/Data/Axe_Data.tres" id="1_1fyom"]
+[ext_resource type="Script" uid="uid://bs8y3t0lfpxkk" path="res://Scripts/Resources/player_resource.gd" id="2_rvt8l"]
 
 [resource]
-script = ExtResource("1_gak4i")
+resource_local_to_scene = true
+script = ExtResource("2_rvt8l")
 Speed = 80.0
+LastDirection = 1.0
 Gravity = 459.0
 FallingCap = 9108.0
 FallingMultiplier = 2.0
 JumpForce = 200.0
 DeadTime = 3.0
+KnockbackVector = Vector2(1, -1)
+KnockbackForce = 200.0
+CurrentSubweapon = ExtResource("1_1fyom")
+SubweaponUses = 20
 metadata/_custom_type_script = "uid://bs8y3t0lfpxkk"

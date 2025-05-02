@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://djamy8yprjwpv"]
 
-[ext_resource type="Script" uid="uid://cx3xjtm8p2gw4" path="res://Scripts/SceneSwitcher.gd" id="1_y7jog"]
+[ext_resource type="Script" uid="uid://cx3xjtm8p2gw4" path="res://Scripts/Functional/SceneSwitcher.gd" id="1_y7jog"]
 [ext_resource type="FontFile" uid="uid://dnm5ocei6qyrh" path="res://Fonts/calamity.ttf" id="2_y7jog"]
 
 [sub_resource type="Animation" id="Animation_344ge"]

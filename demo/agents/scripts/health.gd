@@ -23,7 +23,7 @@ signal damaged(amount: float, knockback: Vector2)
 @export var damage_sound_emitter : FmodEventEmitter2D
 
 var _current : float
-var _damaged : bool = false
+var is_damaged : bool = false
 
 func _ready() -> void:
 	_current = max_health
@@ -43,9 +43,11 @@ func take_damage(amount: float, knockback: Vector2) -> void:
 		death.emit()
 	else:
 		damaged.emit(amount, knockback)
-		_damaged = true
+		is_damaged = true
 		await get_tree().process_frame
-		_damaged = false
+		await get_tree().process_frame
+		await get_tree().process_frame
+		is_damaged = false
 
 
 ## Returns current health.

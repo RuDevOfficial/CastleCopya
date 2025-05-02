@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=29 format=3 uid="uid://1ljs6o2v5nn0"]
+[gd_resource type="BehaviorTree" load_steps=33 format=3 uid="uid://1ljs6o2v5nn0"]
 
 [ext_resource type="Script" uid="uid://bwmnl2wkemyrt" path="res://ai/tasks/LinearMove2D.gd" id="1_gaio8"]
 [ext_resource type="Script" uid="uid://c51as8e0wodu1" path="res://ai/tasks/HasHitWall2D.gd" id="2_cilis"]
@@ -21,9 +21,10 @@ var/direction/type = 2
 var/direction/value = -1
 var/direction/hint = 0
 var/direction/hint_string = ""
-
-[sub_resource type="BTAction" id="BTAction_x0sr7"]
-script = ExtResource("1_gaio8")
+var/collision/name = &"collision"
+var/collision/type = 24
+var/collision/hint = 0
+var/collision/hint_string = ""
 
 [sub_resource type="BTCondition" id="BTCondition_glfdt"]
 script = ExtResource("2_cilis")
@@ -36,9 +37,12 @@ _valueName = "direction"
 script = ExtResource("4_dlt0a")
 spriteLooksRight = false
 
+[sub_resource type="BTWaitTicks" id="BTWaitTicks_vtrff"]
+num_ticks = 3
+
 [sub_resource type="BTSequence" id="BTSequence_dlt0a"]
 custom_name = "Swap Direction on Wall Sequence"
-children = [SubResource("BTCondition_glfdt"), SubResource("BTAction_dlt0a"), SubResource("BTAction_r5vdh")]
+children = [SubResource("BTCondition_glfdt"), SubResource("BTAction_dlt0a"), SubResource("BTAction_r5vdh"), SubResource("BTWaitTicks_vtrff")]
 
 [sub_resource type="BTCondition" id="BTCondition_vtrff"]
 script = ExtResource("7_svoa4")
@@ -52,21 +56,34 @@ resource_name = "<null>"
 variable = &"speed"
 value = SubResource("BBVariant_qpw4x")
 
-[sub_resource type="BTSequence" id="BTSequence_ny1xx"]
+[sub_resource type="BTSequence" id="BTSequence_vtrff"]
 children = [SubResource("BTCondition_vtrff"), SubResource("BTSetVar_vtrff")]
 
-[sub_resource type="BBVariant" id="BBVariant_45rqx"]
+[sub_resource type="BBVariant" id="BBVariant_vtrff"]
 type = 3
 saved_value = 20.0
 resource_name = "20.0"
 
-[sub_resource type="BTSetVar" id="BTSetVar_bq2nw"]
+[sub_resource type="BTCheckVar" id="BTCheckVar_u01i7"]
 variable = &"speed"
-value = SubResource("BBVariant_45rqx")
+check_type = 5
+value = SubResource("BBVariant_vtrff")
 
-[sub_resource type="BTSelector" id="BTSelector_28ath"]
-custom_name = "Is Flickering Selector"
-children = [SubResource("BTSequence_ny1xx"), SubResource("BTSetVar_bq2nw")]
+[sub_resource type="BBVariant" id="BBVariant_u01i7"]
+type = 3
+saved_value = 20.0
+resource_name = "20.0"
+
+[sub_resource type="BTSetVar" id="BTSetVar_ny1xx"]
+variable = &"speed"
+value = SubResource("BBVariant_u01i7")
+
+[sub_resource type="BTSequence" id="BTSequence_ny1xx"]
+children = [SubResource("BTCheckVar_u01i7"), SubResource("BTSetVar_ny1xx")]
+
+[sub_resource type="BTSelector" id="BTSelector_45rqx"]
+custom_name = "Flicker Stop Speed Sequence"
+children = [SubResource("BTSequence_vtrff"), SubResource("BTSequence_ny1xx")]
 
 [sub_resource type="BTCondition" id="BTCondition_qpw4x"]
 script = ExtResource("5_r5vdh")
@@ -85,13 +102,15 @@ script = ExtResource("6_v4jox")
 custom_name = "Is Dead Sequence"
 children = [SubResource("BTCondition_qpw4x"), SubResource("BTAction_u01i7"), SubResource("BTAction_vtrff")]
 
-[sub_resource type="BTParallel" id="BTParallel_cilis"]
-children = [SubResource("BTAction_x0sr7"), SubResource("BTSequence_dlt0a"), SubResource("BTSelector_28ath"), SubResource("BTSequence_u01i7")]
+[sub_resource type="BTRandomSelector" id="BTRandomSelector_vtrff"]
+children = [SubResource("BTSequence_dlt0a"), SubResource("BTSelector_45rqx"), SubResource("BTSequence_u01i7")]
 
-[sub_resource type="BTRepeat" id="BTRepeat_qig7e"]
-forever = true
-children = [SubResource("BTParallel_cilis")]
+[sub_resource type="BTAction" id="BTAction_x0sr7"]
+script = ExtResource("1_gaio8")
+
+[sub_resource type="BTParallel" id="BTParallel_u01i7"]
+children = [SubResource("BTRandomSelector_vtrff"), SubResource("BTAction_x0sr7")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_qig7e")
-root_task = SubResource("BTRepeat_qig7e")
+root_task = SubResource("BTParallel_u01i7")

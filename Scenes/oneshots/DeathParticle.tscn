@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cpva4bjwun4ms"]
 
-[ext_resource type="Texture2D" uid="uid://c0hprndi04kro" path="res://Sprites/fire_2.png" id="1_18mqm"]
+[ext_resource type="Texture2D" uid="uid://c0hprndi04kro" path="res://Sprites/Particles/fire_2.png" id="1_18mqm"]
 [ext_resource type="Script" uid="uid://cpb4gh1h6qlc7" path="res://Scripts/SingleInstanceParticle.gd" id="1_m1ver"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m1ver"]

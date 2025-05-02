@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SM_Throw_2DVector" load_steps=2 format=3 uid="uid://n0ufhuipma8l"]
+
+[ext_resource type="Script" uid="uid://cbxuk1l3io7ka" path="res://Scripts/SubweaponModifiers/SM_Throw_2DVector.gd" id="1_asow4"]
+
+[resource]
+script = ExtResource("1_asow4")
+vector = Vector2(0, 0)
+force = 0.0
+metadata/_custom_type_script = "uid://cbxuk1l3io7ka"

@@ -152,11 +152,17 @@ script = SubResource("GDScript_y5y4w")
 [node name="Zombie" parent="Entities" instance=ExtResource("2_oc7uv")]
 position = Vector2(56, 56)
 
+[node name="Zombie4" parent="Entities" instance=ExtResource("2_oc7uv")]
+position = Vector2(-104, 24)
+
 [node name="Zombie2" parent="Entities" instance=ExtResource("2_oc7uv")]
 position = Vector2(120, 24)
 
 [node name="Zombie3" parent="Entities" instance=ExtResource("2_oc7uv")]
 position = Vector2(272, 8)
+
+[node name="Zombie5" parent="Entities" instance=ExtResource("2_oc7uv")]
+position = Vector2(448, 56)
 
 [node name="TileMap" type="Node2D" parent="."]
 
@@ -184,7 +190,7 @@ tile_set = SubResource("TileSet_h2yge")
 z_index = 1
 texture_filter = 1
 position = Vector2(0, -8)
-tile_map_data = PackedByteArray("AAAOAAEAAAAEAAIAAAAXAAEAAAAEAAIAAAA=")
+tile_map_data = PackedByteArray("AAAOAAEAAAAEAAIAAAAXAAEAAAAEAAIAAAAZAAQAAAAEAAIAAAAdAAQAAAAEAAIAAAA=")
 tile_set = SubResource("TileSet_h2yge")
 
 [node name="Background" type="Sprite2D" parent="."]

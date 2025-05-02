@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SubweaponDataResource" load_steps=4 format=3 uid="uid://dir5gqc6p8et0"]
+
+[ext_resource type="Texture2D" uid="uid://bdvjqv1n45gc1" path="res://Sprites/UI/knife_icon.png" id="1_xxmx0"]
+[ext_resource type="PackedScene" uid="uid://477dynencd7w" path="res://Scenes/Subweapons/Knife.tscn" id="2_4ytxo"]
+[ext_resource type="Script" uid="uid://c7vfc8i1k154f" path="res://Scripts/Resources/subweapon_data_resource.gd" id="3_5dljh"]
+
+[resource]
+script = ExtResource("3_5dljh")
+Icon = ExtResource("1_xxmx0")
+ThrowDelay = 0.8
+Cost = 2
+Scene = ExtResource("2_4ytxo")
+metadata/_custom_type_script = "uid://c7vfc8i1k154f"

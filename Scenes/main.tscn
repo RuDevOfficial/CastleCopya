@@ -1,17 +1,26 @@
-[gd_scene load_steps=8 format=3 uid="uid://cqscvl3qsinqc"]
+[gd_scene load_steps=15 format=3 uid="uid://cqscvl3qsinqc"]
 
-[ext_resource type="Script" uid="uid://cv61f7aim5mr6" path="res://Scripts/game_controller.gd" id="1_jjvhh"]
+[ext_resource type="Script" uid="uid://cv61f7aim5mr6" path="res://Scripts/Functional/game_controller.gd" id="1_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://bt0m7fahlwwhn" path="res://Scenes/player.tscn" id="2_8gbba"]
 [ext_resource type="Resource" uid="uid://db5lubmtte4hk" path="res://Resources/test_level_resource.tres" id="2_21xkr"]
 [ext_resource type="PackedScene" uid="uid://c3yj0obrh22re" path="res://Scenes/Levels/ForgottenForest.tscn" id="3_21xkr"]
-[ext_resource type="Script" uid="uid://cc0g01gjlu1ca" path="res://Scripts/camera_controller.gd" id="3_kry3j"]
+[ext_resource type="Script" uid="uid://cc0g01gjlu1ca" path="res://Scripts/Functional/camera_controller.gd" id="3_kry3j"]
 [ext_resource type="PackedScene" uid="uid://djamy8yprjwpv" path="res://Scenes/scene_switcher.tscn" id="6_21xkr"]
-[ext_resource type="Script" uid="uid://bn5oml7m5q763" path="res://Scripts/SimpleMusicManager.gd" id="7_6bp64"]
+[ext_resource type="Script" uid="uid://bn5oml7m5q763" path="res://Scripts/Functional/SimpleMusicManager.gd" id="7_6bp64"]
+[ext_resource type="Texture2D" uid="uid://0yb5oojirqb8" path="res://Sprites/UI/sub-weapon border.png" id="8_344ge"]
+[ext_resource type="Script" uid="uid://b6g1rf8olebxg" path="res://Scripts/UI/subweapon_ui.gd" id="8_hptm8"]
+[ext_resource type="Texture2D" uid="uid://cvfw1s415q2iq" path="res://Sprites/Subweapons/Placeholder_Subweapon.png" id="8_ynf5e"]
+[ext_resource type="Texture2D" uid="uid://dinxm4by2wync" path="res://Sprites/UI/heart.png" id="13_jkdf5"]
+[ext_resource type="Script" uid="uid://ccdpmgf0myc5u" path="res://Scripts/UI/ammo_ui.gd" id="13_wsu2k"]
+[ext_resource type="FontFile" uid="uid://4ya1hpanvmia" path="res://Fonts/Qapixa-5y9Pa.ttf" id="14_wsu2k"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("_gameCamera")]
+[sub_resource type="LabelSettings" id="LabelSettings_k12tt"]
+font = ExtResource("14_wsu2k")
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("_musicEmitter")]
 script = ExtResource("1_jjvhh")
-_gameCamera = NodePath("Camera2D")
 _levelResource = ExtResource("2_21xkr")
+_musicEmitter = NodePath("Audio/MusicEmitter")
 
 [node name="Level" type="Node2D" parent="."]
 
@@ -24,22 +33,123 @@ zoom = Vector2(4, 4)
 position_smoothing_speed = 50.0
 script = ExtResource("3_kry3j")
 
-[node name="Player" parent="." instance=ExtResource("2_8gbba")]
-position = Vector2(-256, 24)
-
 [node name="SceneSwitcher" parent="." instance=ExtResource("6_21xkr")]
 position = Vector2(-160, 0)
 
-[node name="FmodBankLoader" type="FmodBankLoader" parent="."]
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="FmodBankLoader" type="FmodBankLoader" parent="Audio"]
 bank_paths = ["res://FmodBank/Desktop/Master.bank"]
 
-[node name="MusicEmitter" type="FmodEventEmitter2D" parent="."]
+[node name="MusicEmitter" type="FmodEventEmitter2D" parent="Audio"]
 event_guid = "{00000000-0002-0000-0300-000026000000}"
 attached = false
 script = ExtResource("7_6bp64")
 PlayerDeathSound = "{09c89def-771a-4a9f-9895-4b92285acdc3}"
 
-[node name="FmodListener2D" type="FmodListener2D" parent="."]
+[node name="FmodListener2D" type="FmodListener2D" parent="Audio"]
 
-[connection signal="on_level_finish_loading" from="SceneSwitcher" to="Player" method="_on_scene_switcher_on_level_finish_loading"]
-[connection signal="on_level_finish_loading" from="SceneSwitcher" to="MusicEmitter" method="_on_scene_switcher_on_level_finish_loading"]
+[node name="Player" parent="." instance=ExtResource("2_8gbba")]
+position = Vector2(-248, 24)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="SubWeapon" type="Control" parent="UI" node_paths=PackedStringArray("icon_texture_rect")]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_hptm8")
+icon_texture_rect = NodePath("Icon")
+
+[node name="Icon" type="TextureRect" parent="UI/SubWeapon"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = 20.0
+offset_right = 24.0
+offset_bottom = 68.0
+grow_horizontal = 2
+texture = ExtResource("8_ynf5e")
+
+[node name="Overlay" type="TextureRect" parent="UI/SubWeapon"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -36.0
+offset_top = 8.0
+offset_right = 36.0
+offset_bottom = 80.0
+grow_horizontal = 2
+texture = ExtResource("8_344ge")
+
+[node name="BG" type="ColorRect" parent="UI/SubWeapon/Overlay"]
+z_index = -1
+layout_mode = 0
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 63.0
+offset_bottom = 63.0
+color = Color(0, 0, 0, 1)
+
+[node name="Ammo" type="Control" parent="UI" node_paths=PackedStringArray("label", "player")]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_wsu2k")
+label = NodePath("Control/Label")
+player = NodePath("../../Player")
+
+[node name="Control" type="Control" parent="UI/Ammo"]
+anchors_preset = 0
+offset_left = 684.0
+offset_top = 28.0
+offset_right = 764.0
+offset_bottom = 56.0
+
+[node name="TextureRect" type="TextureRect" parent="UI/Ammo/Control"]
+z_index = 1
+layout_mode = 2
+offset_left = 10.0
+offset_right = 38.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_jkdf5")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="UI/Ammo/Control"]
+z_index = 1
+layout_mode = 2
+offset_left = 40.0
+offset_top = 8.0
+offset_right = 63.0
+offset_bottom = 24.0
+text = "20"
+label_settings = SubResource("LabelSettings_k12tt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BG" type="ColorRect" parent="UI/Ammo/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="on_level_finish_loading" from="SceneSwitcher" to="Audio/MusicEmitter" method="_on_scene_switcher_on_level_finish_loading"]
+[connection signal="on_player_start" from="Player" to="UI/Ammo" method="_on_player_start"]
+[connection signal="on_subweapon_changed" from="Player" to="UI/SubWeapon" method="on_player_subweapon_changed"]
+[connection signal="on_subweapon_used_trigger" from="Player" to="UI/Ammo" method="_on_player_subweapon_used_trigger"]

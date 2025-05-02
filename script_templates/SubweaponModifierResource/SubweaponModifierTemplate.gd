@@ -1,0 +1,24 @@
+# meta-name: Bullet Modifier
+# meta-description: Template script for bullet modifiers
+# meta-default: true
+# meta-space-indent: 4
+
+extends SubweaponModifierResource
+
+func Modify(new_reference : Subweapon):
+	super.Modify(new_reference)
+
+func Update(delta: float) -> void:
+	pass
+
+func PhysicsUpdate(delta: float) -> void:
+	pass
+
+func OnContact(area : Area2D) -> void:
+	pass
+
+func OnThrown(throw_direction : Vector2) -> void:
+	pass
+
+func OnLifetimeReached() -> void:
+	pass

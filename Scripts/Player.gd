@@ -3,10 +3,13 @@ class_name PlayerCharacter
 
 @export var _playerResource : PlayerResource
 @export var _animationTree : AnimationTree
-@onready var _FSM = $FSM
+
+signal on_subweapon_changed
+signal on_subweapon_used_trigger
+signal on_player_start
 
 func _ready() -> void:
-	_playerResource.SetDefaultValues()
+	_playerResource.SetDefaultValues(self)
 	
 	var gameController = get_tree().root.get_node("Main")
 	gameController.on_load_level.connect(freeze_player)
@@ -14,6 +17,14 @@ func _ready() -> void:
 	
 	var sceneSwitcher = get_tree().root.get_node("Main").get_node("SceneSwitcher")
 	sceneSwitcher.on_level_begin_loading.connect(reset_player)
+	
+	update_subweapon(_playerResource.CurrentSubweapon)
+	on_player_start.emit(_playerResource)
+
+func _process(delta: float) -> void:
+	if (_playerResource.SubweaponUsedTrigger == true):
+		on_subweapon_used_trigger.emit(_playerResource)
+		_playerResource.SubweaponUsedTrigger = false
 
 func freeze_player(levelResource : LevelResource) -> void:
 	if (levelResource.LookLeftOnLoad == false): 
@@ -33,5 +44,8 @@ func _on_scene_switcher_on_level_finish_loading(levelResource : LevelResource) -
 	_animationTree.active = true
 	_playerResource.CanMove = true
 
-func get_state(name : String) -> Node:
-	return get_node("FSM").get_node(name)
+func get_state(new_name : String) -> Node:
+	return get_node("FSM").get_node(new_name)
+
+func update_subweapon(new_subweapon : SubweaponDataResource):
+	on_subweapon_changed.emit(new_subweapon)

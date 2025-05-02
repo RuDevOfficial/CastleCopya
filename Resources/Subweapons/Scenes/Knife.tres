@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SubweaponResource" load_steps=2 format=3 uid="uid://e0ja16n1bgmj"]
+
+[ext_resource type="Script" uid="uid://hepwe2a1uska" path="res://Scripts/Resources/subweapon_resource.gd" id="2_vgk57"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_vgk57")
+Lifetime = 3.0
+Damage = 1.0
+Speed = 400.0
+metadata/_custom_type_script = "uid://hepwe2a1uska"
