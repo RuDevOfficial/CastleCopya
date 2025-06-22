@@ -18,14 +18,15 @@ func _ready() -> void:
 	else:
 		_load_level_instantly()
 
-func _restart_level() -> void:
-	_sceneSwitcher.start_transition(_levelResource)
+func _restart_level(firstTime : bool = true) -> void:
+	_playerCharacter.get_node("Components/Health").is_damaged = false
+	_sceneSwitcher.start_transition(_levelResource, firstTime)
 
 func _load_level() -> void:
 	if (_levelResource.RequiresFadeIn):
-		_sceneSwitcher.start_transition(_levelResource)
+		_sceneSwitcher.start_transition(_levelResource, true)
 	else:
-		_sceneSwitcher.start_transition_noFadeIn(_levelResource)
+		_sceneSwitcher.start_transition_noFadeIn(_levelResource, true)
 
 func _load_level_instantly() -> void:
 	on_load_level_early.emit(_levelResource)

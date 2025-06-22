@@ -27,6 +27,7 @@ var StartingGravity : float
 
 # Other
 @export_category("Other")
+@export var StartingHealth : int
 @export var DeadTime : float
 @export var KnockbackVector : Vector2
 @export var KnockbackForce : float
@@ -36,7 +37,6 @@ var HealthComponent : Health
 @export_category("Subweapon")
 @export var CurrentSubweapon : SubweaponDataResource
 @export var SubweaponUses : int = 20
-var ThrowDelay : float = 0.0
 var SubweaponUsedTrigger : bool
 
 func SetDefaultValues(agent : Node2D) -> void:

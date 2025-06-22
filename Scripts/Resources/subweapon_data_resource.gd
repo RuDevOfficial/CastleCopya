@@ -5,6 +5,7 @@ class_name SubweaponDataResource
 @export var Icon : Texture2D
 
 @export_category("General")
-@export var ThrowDelay : float
+@export var ThrowDelay : float = 0.0
+@export var Cooldown : float = 0.5
 @export var Cost : int
 @export var Scene : PackedScene

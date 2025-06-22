@@ -29,7 +29,7 @@ func Physics_Update(_delta : float) -> void:
 	pass
 
 func _on_dead_timer_timeout() -> void:
-	player_dead.emit()
+	player_dead.emit(false)
 
 func revive(levelResource) -> void:
 	state_machine.travel("Start")

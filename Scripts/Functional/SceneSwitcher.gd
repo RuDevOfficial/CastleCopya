@@ -12,29 +12,39 @@ var _timePerChar : float
 
 var _lastLevelResource : LevelResource
 
+var _isFirstTransition : bool = true
+
 signal on_level_finish_loading
 signal on_level_begin_loading
 
-func start_transition(levelResource) -> void:
+func start_transition(levelResource, firstTime) -> void:
 	_lastLevelResource = levelResource
 	_timePerChar =  (_waitTime - _fullTextTimeOffset) / _levelName.length()
 	_label.text = ""
 	_animationPlayer.play("fade_in")
+	
+	_isFirstTransition = firstTime
 
-func start_transition_noFadeIn(levelResource)  -> void:
+func start_transition_noFadeIn(levelResource, firstTime)  -> void:
 	_lastLevelResource = levelResource
 	_timePerChar =  (_waitTime - _fullTextTimeOffset) / _levelName.length()
 	_label.text = ""
 	_animationPlayer.play("inbetween")
-	begin_load_timer()
+	begin_load_timer(firstTime)
+	
+	_isFirstTransition = firstTime
 
 # This gets triggered once the fade_in ends
-func begin_load_timer() -> void:
+func begin_load_timer(firstTime : bool = true) -> void:
+	print(_isFirstTransition)
 	on_level_begin_loading.emit(_lastLevelResource)
-	_loadTimer.start(_waitTime)
-	for character in _levelName:
-		await get_tree().create_timer(_timePerChar).timeout
-		_label.text += character
+	if (_isFirstTransition): _loadTimer.start(_waitTime)
+	else: _animationPlayer.play("fade_out")
+	
+	if (_isFirstTransition == true):
+		for character in _levelName:
+			await get_tree().create_timer(_timePerChar).timeout
+			_label.text += character
 
 # This gets triggered once the loading timer ends
 func _on_load_timer_timeout() -> void:

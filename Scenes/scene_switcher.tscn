@@ -170,6 +170,7 @@ libraries = {
 one_shot = true
 
 [node name="UI Layer" type="CanvasLayer" parent="."]
+layer = 10
 
 [node name="Label" type="Label" parent="UI Layer"]
 visible = false

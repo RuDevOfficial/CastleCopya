@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=3 uid="uid://bt0m7fahlwwhn"]
+[gd_scene load_steps=112 format=3 uid="uid://bt0m7fahlwwhn"]
 
 [ext_resource type="Script" uid="uid://cs1yvbjtnvljp" path="res://Scripts/StateMachine/StateMachine.gd" id="1_tx1dd"]
 [ext_resource type="Script" uid="uid://cnyxd33tkv1p" path="res://Scripts/Player.gd" id="1_y6uwr"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dq5h6yydckjc1" path="res://demo/agents/scripts/hurtbox.gd" id="3_ypfnu"]
 [ext_resource type="Resource" uid="uid://d4jdenihj3l0q" path="res://Resources/player_resource.tres" id="4_7dp3o"]
 [ext_resource type="Texture2D" uid="uid://bepf7kmvcu73y" path="res://Sprites/Player/frames/char08.png" id="4_fkybt"]
+[ext_resource type="Script" uid="uid://coh7npk3nxwn6" path="res://Scripts/HealthComponents/flicker.gd" id="4_sweqm"]
 [ext_resource type="Script" uid="uid://drlxjukarfeok" path="res://Scripts/PlayerStates/PlayerCrouch.gd" id="5_p1odr"]
 [ext_resource type="Texture2D" uid="uid://bc7bydosupyip" path="res://Sprites/Player/frames/char05.png" id="5_tx1dd"]
 [ext_resource type="Texture2D" uid="uid://bxu6rw7exj74g" path="res://Sprites/Player/frames/char06.png" id="6_gymyn"]
@@ -226,7 +227,7 @@ states/Moving/node = SubResource("AnimationNodeBlendSpace1D_olqyp")
 states/Moving/position = Vector2(147, -192)
 states/Start/position = Vector2(-269, -13)
 transitions = ["Start", "Moving", SubResource("AnimationNodeStateMachineTransition_wpjfl"), "Start", "Idling", SubResource("AnimationNodeStateMachineTransition_bi64h"), "Moving", "Idling", SubResource("AnimationNodeStateMachineTransition_2ijsl"), "Idling", "Moving", SubResource("AnimationNodeStateMachineTransition_p1odr"), "Moving", "Jumping", SubResource("AnimationNodeStateMachineTransition_h4iuc"), "Jumping", "Moving", SubResource("AnimationNodeStateMachineTransition_fd4e3"), "Jumping", "Idling", SubResource("AnimationNodeStateMachineTransition_qqcod"), "Idling", "Jumping", SubResource("AnimationNodeStateMachineTransition_igrcy"), "Moving", "Crouching", SubResource("AnimationNodeStateMachineTransition_xuaoq"), "Idling", "Crouching", SubResource("AnimationNodeStateMachineTransition_36dho"), "Crouching", "Idling", SubResource("AnimationNodeStateMachineTransition_wohnl"), "Crouching", "Moving", SubResource("AnimationNodeStateMachineTransition_yh6i2"), "Attacking", "Moving", SubResource("AnimationNodeStateMachineTransition_sweqm"), "Attacking", "Jumping", SubResource("AnimationNodeStateMachineTransition_ph33w"), "Jumping", "Attacking", SubResource("AnimationNodeStateMachineTransition_7ldla"), "Attacking", "Crouching", SubResource("AnimationNodeStateMachineTransition_r7t2e"), "Crouching", "Attacking", SubResource("AnimationNodeStateMachineTransition_nmr2m"), "Attacking", "Idling", SubResource("AnimationNodeStateMachineTransition_ax3m3"), "Idling", "Attacking", SubResource("AnimationNodeStateMachineTransition_3vlem"), "Moving", "Attacking", SubResource("AnimationNodeStateMachineTransition_xwi16")]
-graph_offset = Vector2(-169, -305)
+graph_offset = Vector2(-322, 73)
 
 [sub_resource type="Animation" id="Animation_0gysh"]
 length = 0.001
@@ -961,6 +962,35 @@ tracks/3/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_m376e"]
+resource_name = "crouch_left_lower"
+length = 0.001
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprites/Lower:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_ukyrk")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprites/Lower:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_qpa8y"]
 resource_name = "crouch_right"
 length = 0.20002
@@ -988,6 +1018,105 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("12_ukyrk")]
+}
+
+[sub_resource type="Animation" id="Animation_6b312"]
+resource_name = "crouch_right_lower"
+length = 0.001
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprites/Lower:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_ukyrk")]
+}
+
+[sub_resource type="Animation" id="Animation_vq3lt"]
+resource_name = "crouch_subweapon_use_left"
+length = 0.80002
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprites/Upper:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("35_xwi16"), ExtResource("36_sweqm"), ExtResource("37_ph33w"), ExtResource("11_pu2lt"), ExtResource("11_pu2lt")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprites/Lower:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("38_7ldla"), ExtResource("39_r7t2e"), ExtResource("40_nmr2m"), ExtResource("12_ukyrk"), ExtResource("12_ukyrk")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Sprites/Upper:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Sprites/Lower:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_pukcj"]
+resource_name = "crouch_subweapon_use_right"
+length = 0.80002
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprites/Upper:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("35_xwi16"), ExtResource("36_sweqm"), ExtResource("37_ph33w"), ExtResource("11_pu2lt"), ExtResource("11_pu2lt")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprites/Lower:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("38_7ldla"), ExtResource("39_r7t2e"), ExtResource("40_nmr2m"), ExtResource("12_ukyrk"), ExtResource("12_ukyrk")]
 }
 
 [sub_resource type="Animation" id="Animation_sbwqj"]
@@ -1125,6 +1254,35 @@ tracks/3/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_ph33w"]
+resource_name = "idle_left_lower"
+length = 0.001
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprites/Lower:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_fkybt")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprites/Lower:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_83xs0"]
 resource_name = "idle_right"
 length = 0.001
@@ -1172,6 +1330,35 @@ tracks/3/path = NodePath("../Sprites/Lower:flip_h")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_sweqm"]
+resource_name = "idle_right_lower"
+length = 0.001
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprites/Lower:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_fkybt")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprites/Lower:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -1331,181 +1518,6 @@ tracks/4/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_fkybt"]
-resource_name = "move_right"
-length = 0.80002
-loop_mode = 1
-step = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprites/Upper:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.793057),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("6_gymyn"), ExtResource("7_pu2lt"), ExtResource("6_gymyn"), ExtResource("5_tx1dd"), ExtResource("6_gymyn")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Sprites/Lower:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.793057),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("9_7dp3o"), ExtResource("10_h4iuc"), ExtResource("9_7dp3o"), ExtResource("8_ukyrk"), ExtResource("9_7dp3o")]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Sounds/StepEmitter")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.2, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"play_one_shot"
-}, {
-"args": [],
-"method": &"play_one_shot"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_57lvd"]
-resource_name = "subweapon_use_right"
-length = 0.30001
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprites/Upper:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("15_olqyp"), ExtResource("16_wpjfl"), ExtResource("17_bi64h"), ExtResource("18_2ijsl")]
-}
-
-[sub_resource type="Animation" id="Animation_ie7r7"]
-resource_name = "subweapon_use_left"
-length = 0.30001
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprites/Upper:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("15_olqyp"), ExtResource("16_wpjfl"), ExtResource("17_bi64h"), ExtResource("18_2ijsl")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Sprites/Upper:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_vq3lt"]
-resource_name = "crouch_subweapon_use_left"
-length = 0.80002
-step = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprites/Upper:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("35_xwi16"), ExtResource("36_sweqm"), ExtResource("37_ph33w"), ExtResource("11_pu2lt"), ExtResource("11_pu2lt")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Sprites/Lower:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("38_7ldla"), ExtResource("39_r7t2e"), ExtResource("40_nmr2m"), ExtResource("12_ukyrk"), ExtResource("12_ukyrk")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Sprites/Upper:flip_h")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../Sprites/Lower:flip_h")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_pukcj"]
-resource_name = "crouch_subweapon_use_right"
-length = 0.80002
-step = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprites/Upper:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("35_xwi16"), ExtResource("36_sweqm"), ExtResource("37_ph33w"), ExtResource("11_pu2lt"), ExtResource("11_pu2lt")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Sprites/Lower:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("38_7ldla"), ExtResource("39_r7t2e"), ExtResource("40_nmr2m"), ExtResource("12_ukyrk"), ExtResource("12_ukyrk")]
-}
-
 [sub_resource type="Animation" id="Animation_1htnp"]
 resource_name = "move_left_lower"
 length = 0.80002
@@ -1553,6 +1565,53 @@ tracks/2/keys = {
 "values": [ExtResource("9_7dp3o"), ExtResource("10_h4iuc"), ExtResource("9_7dp3o"), ExtResource("8_ukyrk"), ExtResource("9_7dp3o")]
 }
 
+[sub_resource type="Animation" id="Animation_fkybt"]
+resource_name = "move_right"
+length = 0.80002
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprites/Upper:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.793057),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("6_gymyn"), ExtResource("7_pu2lt"), ExtResource("6_gymyn"), ExtResource("5_tx1dd"), ExtResource("6_gymyn")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprites/Lower:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.793057),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("9_7dp3o"), ExtResource("10_h4iuc"), ExtResource("9_7dp3o"), ExtResource("8_ukyrk"), ExtResource("9_7dp3o")]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Sounds/StepEmitter")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"play_one_shot"
+}, {
+"args": [],
+"method": &"play_one_shot"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_xwi16"]
 resource_name = "move_right_lower"
 length = 0.80002
@@ -1588,55 +1647,26 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_sweqm"]
-resource_name = "idle_right_lower"
-length = 0.001
-step = 0.2
+[sub_resource type="Animation" id="Animation_ie7r7"]
+resource_name = "subweapon_use_left"
+length = 0.30001
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprites/Lower:texture")
+tracks/0/path = NodePath("../Sprites/Upper:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [ExtResource("4_fkybt")]
+"values": [ExtResource("15_olqyp"), ExtResource("16_wpjfl"), ExtResource("17_bi64h"), ExtResource("18_2ijsl")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../Sprites/Lower:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_ph33w"]
-resource_name = "idle_left_lower"
-length = 0.001
-step = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprites/Lower:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("4_fkybt")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Sprites/Lower:flip_h")
+tracks/1/path = NodePath("../Sprites/Upper:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1644,52 +1674,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_m376e"]
-resource_name = "crouch_left_lower"
-length = 0.001
-step = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprites/Lower:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("12_ukyrk")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Sprites/Lower:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_6b312"]
-resource_name = "crouch_right_lower"
-length = 0.001
-step = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprites/Lower:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("12_ukyrk")]
 }
 
 [sub_resource type="Animation" id="Animation_lisdf"]
@@ -1719,6 +1703,23 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_57lvd"]
+resource_name = "subweapon_use_right"
+length = 0.30001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprites/Upper:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("15_olqyp"), ExtResource("16_wpjfl"), ExtResource("17_bi64h"), ExtResource("18_2ijsl")]
 }
 
 [sub_resource type="Animation" id="Animation_n1x1j"]
@@ -1777,15 +1778,28 @@ _playerResource = ExtResource("4_7dp3o")
 _animationTree = NodePath("Animation/AnimationTree")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_1bvp3")
 
 [node name="Components" type="Node" parent="."]
 
-[node name="Health" type="Node" parent="Components"]
+[node name="Health" type="Node" parent="Components" node_paths=PackedStringArray("damage_sound_emitter", "hurtbox")]
 script = ExtResource("3_83xs0")
-max_health = 10.0
+max_health = 3.0
+damage_sound_emitter = NodePath("../../Sounds/DamageEmitter")
+invincible_time = 1.0
+hurtbox = NodePath("../../Contact/Hurtbox")
 metadata/_custom_type_script = "uid://5byn62y1oa76"
+
+[node name="Flicker" type="Node" parent="Components" node_paths=PackedStringArray("_targetetSprites")]
+script = ExtResource("4_sweqm")
+_targetetSprites = [NodePath("../../Sprites/Upper"), NodePath("../../Sprites/Lower")]
+_originalColor = Color(1, 1, 1, 1)
+_flickerColor = Color(0.999945, 0.541284, 0.476812, 1)
+_flickerTimes = 5
+_flickerTimeIndividual = 0.2
+metadata/_custom_type_script = "uid://coh7npk3nxwn6"
 
 [node name="FSM" type="Node" parent="." node_paths=PackedStringArray("_initialState")]
 script = ExtResource("1_tx1dd")
@@ -1811,10 +1825,11 @@ _animationTree = NodePath("../../Animation/AnimationTree")
 script = ExtResource("5_p1odr")
 _animationTree = NodePath("../../Animation/AnimationTree")
 
-[node name="Damaged" type="Node" parent="FSM" node_paths=PackedStringArray("spritetest")]
+[node name="Damaged" type="Node" parent="FSM" node_paths=PackedStringArray("spritetest", "health")]
 script = ExtResource("8_wohnl")
 spritetest = NodePath("../../Sprites/Upper")
 texture = ExtResource("33_yh6i2")
+health = NodePath("../../Components/Health")
 
 [node name="Dead" type="Node" parent="FSM" node_paths=PackedStringArray("_animationTree", "_deadTimer", "_deadSound")]
 script = ExtResource("6_vfarp")
@@ -1922,5 +1937,10 @@ event_guid = "{2df60c5d-d091-4b19-a348-a41281e1429b}"
 event_name = "event:/HitGround"
 event_guid = "{c7503ea2-ae6b-474d-b2c3-5bf3ba7cb4b7}"
 
+[node name="DamageEmitter" type="FmodEventEmitter2D" parent="Sounds"]
+event_name = "event:/Damage"
+event_guid = "{78e6bbd2-f852-4d40-afb2-b2c008b9ec96}"
+
+[connection signal="damaged" from="Components/Health" to="Components/Flicker" method="_on_health_damaged"]
 [connection signal="timeout" from="Timers/AttackTimer" to="FSM/Attack" method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="Timers/DeadTimer" to="FSM/Dead" method="_on_dead_timer_timeout"]

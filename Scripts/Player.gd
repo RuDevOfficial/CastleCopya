@@ -4,6 +4,8 @@ class_name PlayerCharacter
 @export var _playerResource : PlayerResource
 @export var _animationTree : AnimationTree
 
+@onready var _health : Health = $"Components/Health"
+
 signal on_subweapon_changed
 signal on_subweapon_used_trigger
 signal on_player_start
@@ -41,6 +43,7 @@ func reset_player(levelResource : LevelResource) -> void:
 	_playerResource.CanMove = false
 
 func _on_scene_switcher_on_level_finish_loading(levelResource : LevelResource) -> void:
+	_health._current = _playerResource.StartingHealth
 	_animationTree.active = true
 	_playerResource.CanMove = true
 
