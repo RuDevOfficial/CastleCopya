@@ -1770,7 +1770,7 @@ _data = {
 &"subweapon_use_right_jump": SubResource("Animation_n1x1j")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animationTree")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animationTree") groups=["player"]]
 collision_layer = 4
 collision_mask = 19
 script = ExtResource("1_y6uwr")

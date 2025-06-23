@@ -72,3 +72,6 @@ func re_enable():
 ## Returns current health.
 func get_current() -> float:
 	return _current
+
+func set_health(new_amount : int):
+	_current = new_amount

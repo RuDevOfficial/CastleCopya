@@ -38,6 +38,7 @@ font = ExtResource("14_wsu2k")
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("_musicEmitter")]
 script = ExtResource("1_jjvhh")
+_startWithLoading = true
 _levelResource = ExtResource("2_21xkr")
 _musicEmitter = NodePath("Audio/MusicEmitter")
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://d3i4xr5h8wps8"]
+[gd_scene load_steps=14 format=3 uid="uid://d3i4xr5h8wps8"]
 
 [ext_resource type="Texture2D" uid="uid://cwi1upkh2wykn" path="res://Sprites/Enemies/Zombie.png" id="1_4slyf"]
+[ext_resource type="Script" uid="uid://bcopiho0w7ugy" path="res://Scripts/Enemy.gd" id="1_5ia6i"]
 [ext_resource type="BehaviorTree" uid="uid://1ljs6o2v5nn0" path="res://ai/trees/zombie_bt.tres" id="2_5ia6i"]
 [ext_resource type="Script" uid="uid://5byn62y1oa76" path="res://demo/agents/scripts/health.gd" id="3_xx3wb"]
 [ext_resource type="Script" uid="uid://coh7npk3nxwn6" path="res://Scripts/HealthComponents/flicker.gd" id="4_j0wq0"]
@@ -60,6 +61,7 @@ z_index = -1
 collision_layer = 8
 collision_mask = 65
 lock_rotation = true
+script = ExtResource("1_5ia6i")
 
 [node name="RigidbodyCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_y5y4w")
@@ -129,3 +131,5 @@ scale = Vector2(1.14286, 1.6)
 rect = Rect2(1, 0, 12, 20)
 
 [connection signal="damaged" from="Components/Health" to="Components/Flicker" method="_on_health_damaged"]
+[connection signal="screen_entered" from="VisibleOnScreenEnabler2D" to="." method="reset_values"]
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="get_disabled"]

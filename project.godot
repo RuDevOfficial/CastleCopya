@@ -36,6 +36,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 FmodManager="*res://addons/fmod/FmodManager.gd"
+EnemyManager="*res://Scripts/Functional/EnemyManager.gd"
 
 [display]
 
@@ -58,6 +59,10 @@ folder_colors={
 "res://Scripts/": "purple",
 "res://Sprites/": "green"
 }
+
+[global_group]
+
+player=""
 
 [input]
 

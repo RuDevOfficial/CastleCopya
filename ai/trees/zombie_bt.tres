@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://b1qj8fvfbqbfv" path="res://ai/tasks/InvertNumericalValue.gd" id="3_glfdt"]
 [ext_resource type="Script" uid="uid://jx36abkf7xdb" path="res://ai/tasks/FlipSpriteFromDirection.gd" id="4_dlt0a"]
 [ext_resource type="Script" uid="uid://clrvjugmx0drv" path="res://ai/tasks/IsHealthZero.gd" id="5_r5vdh"]
-[ext_resource type="Script" uid="uid://do50xpehcmrq" path="res://ai/tasks/DestroySelf.gd" id="6_v4jox"]
 [ext_resource type="Script" uid="uid://c5h88jymr0enr" path="res://ai/tasks/SpawnScene.gd" id="7_qpw4x"]
 [ext_resource type="Script" uid="uid://88bfg2dcjojd" path="res://ai/tasks/IsFlickering.gd" id="7_svoa4"]
 [ext_resource type="PackedScene" uid="uid://cpva4bjwun4ms" path="res://Scenes/oneshots/DeathParticle.tscn" id="7_vtrff"]
@@ -95,12 +94,17 @@ _packedScene = ExtResource("7_vtrff")
 _samePosition = true
 _positionKey = ""
 
-[sub_resource type="BTAction" id="BTAction_vtrff"]
-script = ExtResource("6_v4jox")
+[sub_resource type="BBNode" id="BBNode_qpw4x"]
+saved_value = NodePath(".")
+resource_name = "."
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_vtrff"]
+node = SubResource("BBNode_qpw4x")
+method = &"get_disabled"
 
 [sub_resource type="BTSequence" id="BTSequence_u01i7"]
 custom_name = "Is Dead Sequence"
-children = [SubResource("BTCondition_qpw4x"), SubResource("BTAction_u01i7"), SubResource("BTAction_vtrff")]
+children = [SubResource("BTCondition_qpw4x"), SubResource("BTAction_u01i7"), SubResource("BTCallMethod_vtrff")]
 
 [sub_resource type="BTRandomSelector" id="BTRandomSelector_vtrff"]
 children = [SubResource("BTSequence_dlt0a"), SubResource("BTSelector_45rqx"), SubResource("BTSequence_u01i7")]
