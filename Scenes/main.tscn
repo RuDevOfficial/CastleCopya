@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cqscvl3qsinqc"]
+[gd_scene load_steps=17 format=3 uid="uid://cqscvl3qsinqc"]
 
 [ext_resource type="Script" uid="uid://cv61f7aim5mr6" path="res://Scripts/Functional/game_controller.gd" id="1_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://bt0m7fahlwwhn" path="res://Scenes/player.tscn" id="2_8gbba"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://c3yj0obrh22re" path="res://Scenes/Levels/ForgottenForest.tscn" id="3_21xkr"]
 [ext_resource type="Script" uid="uid://cc0g01gjlu1ca" path="res://Scripts/Functional/camera_controller.gd" id="3_kry3j"]
 [ext_resource type="PackedScene" uid="uid://djamy8yprjwpv" path="res://Scenes/scene_switcher.tscn" id="6_21xkr"]
-[ext_resource type="Script" uid="uid://bn5oml7m5q763" path="res://Scripts/Functional/SimpleMusicManager.gd" id="7_6bp64"]
 [ext_resource type="Texture2D" uid="uid://0yb5oojirqb8" path="res://Sprites/UI/sub-weapon border.png" id="8_344ge"]
 [ext_resource type="Script" uid="uid://b6g1rf8olebxg" path="res://Scripts/UI/subweapon_ui.gd" id="8_hptm8"]
 [ext_resource type="Resource" uid="uid://dir5gqc6p8et0" path="res://Resources/Subweapons/Data/Knife_Data.tres" id="8_wsu2k"]
@@ -35,10 +34,9 @@ metadata/_custom_type_script = "uid://bs8y3t0lfpxkk"
 [sub_resource type="LabelSettings" id="LabelSettings_k12tt"]
 font = ExtResource("14_wsu2k")
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("_musicEmitter")]
+[node name="Main" type="Node2D"]
 script = ExtResource("1_jjvhh")
 _levelResource = ExtResource("2_21xkr")
-_musicEmitter = NodePath("Audio/MusicEmitter")
 
 [node name="Level" type="Node2D" parent="."]
 
@@ -56,13 +54,7 @@ position = Vector2(-160, 0)
 [node name="Audio" type="Node2D" parent="."]
 
 [node name="FmodBankLoader" type="FmodBankLoader" parent="Audio"]
-bank_paths = ["res://FmodBank/Desktop/Master.bank", "res://FmodBank/Desktop/Master.strings.bank"]
-
-[node name="MusicEmitter" type="FmodEventEmitter2D" parent="Audio"]
-event_guid = "{00000000-0002-0000-0300-000026000000}"
-attached = false
-script = ExtResource("7_6bp64")
-PlayerDeathSound = "{09c89def-771a-4a9f-9895-4b92285acdc3}"
+bank_paths = ["res://FmodBank/Desktop/Master.strings.bank", "res://FmodBank/Desktop/Master.bank", "res://FmodBank/Desktop/MUSIC.bank", "res://FmodBank/Desktop/SFX.bank"]
 
 [node name="FmodListener2D" type="FmodListener2D" parent="Audio"]
 
@@ -182,5 +174,4 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[connection signal="on_level_finish_loading" from="SceneSwitcher" to="Audio/MusicEmitter" method="_on_scene_switcher_on_level_finish_loading"]
 [connection signal="on_level_finish_loading" from="SceneSwitcher" to="Player" method="_on_scene_switcher_on_level_finish_loading"]

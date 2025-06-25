@@ -1789,7 +1789,7 @@ shape = SubResource("RectangleShape2D_1bvp3")
 [node name="Health" type="Node" parent="Components" node_paths=PackedStringArray("damage_sound_emitter", "hurtbox")]
 script = ExtResource("3_83xs0")
 max_health = 3.0
-damage_sound_emitter = NodePath("../../Sounds/DamageEmitter")
+damage_sound_emitter = NodePath("")
 invincible_time = 1.0
 hurtbox = NodePath("../../Contact/Hurtbox")
 metadata/_custom_type_script = "uid://5byn62y1oa76"
@@ -1820,12 +1820,10 @@ script = ExtResource("1_tx1dd")
 _initialState = NodePath("Normal")
 _playerResource = ExtResource("4_7dp3o")
 
-[node name="Normal" type="Node" parent="FSM" node_paths=PackedStringArray("_body2D", "_animationTree", "_jumpSoundEmitter", "_hitGroundSoundEmitter", "subweapon_manager")]
+[node name="Normal" type="Node" parent="FSM" node_paths=PackedStringArray("_body2D", "_animationTree", "subweapon_manager")]
 script = ExtResource("2_gymyn")
 _body2D = NodePath("../..")
 _animationTree = NodePath("../../Animation/AnimationTree")
-_jumpSoundEmitter = NodePath("../../Sounds/JumpEmitter")
-_hitGroundSoundEmitter = NodePath("../../Sounds/HitGroundEmitter")
 subweapon_manager = NodePath("../../Managers/Subweapon Manager")
 
 [node name="Attack" type="Node" parent="FSM" node_paths=PackedStringArray("_body2D", "_attackTimer", "_animationTree")]
@@ -1845,11 +1843,10 @@ spritetest = NodePath("../../Sprites/Upper")
 texture = ExtResource("33_yh6i2")
 health = NodePath("../../Components/Health")
 
-[node name="Dead" type="Node" parent="FSM" node_paths=PackedStringArray("_animationTree", "_deadTimer", "_deadSound")]
+[node name="Dead" type="Node" parent="FSM" node_paths=PackedStringArray("_animationTree", "_deadTimer")]
 script = ExtResource("6_vfarp")
 _animationTree = NodePath("../../Animation/AnimationTree")
 _deadTimer = NodePath("../../Timers/DeadTimer")
-_deadSound = NodePath("../../Sounds/DiedEmitter")
 
 [node name="Contact" type="Node2D" parent="."]
 
@@ -1931,14 +1928,6 @@ one_shot = true
 
 [node name="Sounds" type="Node2D" parent="."]
 
-[node name="DiedEmitter" type="FmodEventEmitter2D" parent="Sounds"]
-event_name = "event:/Player/Death"
-event_guid = "{09c89def-771a-4a9f-9895-4b92285acdc3}"
-
-[node name="JumpEmitter" type="FmodEventEmitter2D" parent="Sounds"]
-event_name = "event:/Player/Jump"
-event_guid = "{724d08aa-7816-414e-9c5c-4014f789defa}"
-
 [node name="StepEmitter" type="FmodEventEmitter2D" parent="Sounds"]
 event_name = "event:/Player/Step"
 event_guid = "{6962f482-3038-4a91-933b-992d223ae085}"
@@ -1946,14 +1935,6 @@ event_guid = "{6962f482-3038-4a91-933b-992d223ae085}"
 [node name="WhipAttackEmitter" type="FmodEventEmitter2D" parent="Sounds"]
 event_name = "event:/Player/AttackWhip"
 event_guid = "{2df60c5d-d091-4b19-a348-a41281e1429b}"
-
-[node name="HitGroundEmitter" type="FmodEventEmitter2D" parent="Sounds"]
-event_name = "event:/Player/HitGround"
-event_guid = "{c7503ea2-ae6b-474d-b2c3-5bf3ba7cb4b7}"
-
-[node name="DamageEmitter" type="FmodEventEmitter2D" parent="Sounds"]
-event_name = "event:/Player/Damage"
-event_guid = "{78e6bbd2-f852-4d40-afb2-b2c008b9ec96}"
 
 [connection signal="damaged" from="Components/Health" to="Components/Flicker" method="_on_health_damaged"]
 [connection signal="timeout" from="Timers/AttackTimer" to="FSM/Attack" method="_on_attack_timer_timeout"]

@@ -1,10 +1,7 @@
-[gd_scene load_steps=12 format=4 uid="uid://c3yj0obrh22re"]
+[gd_scene load_steps=9 format=4 uid="uid://c3yj0obrh22re"]
 
 [ext_resource type="Texture2D" uid="uid://cd3gx7ahh2ju5" path="res://Tilesets/tileset.png" id="2_3mqfk"]
-[ext_resource type="PackedScene" uid="uid://d3i4xr5h8wps8" path="res://Scenes/zombie.tscn" id="2_oc7uv"]
-[ext_resource type="PackedScene" uid="uid://c05q0mgjbibm3" path="res://Scenes/Whipables/block.tscn" id="3_qig7e"]
 [ext_resource type="PackedScene" uid="uid://detlpwaspb8s7" path="res://Scenes/Whipables/candle.tscn" id="3_x0sr7"]
-[ext_resource type="PackedScene" uid="uid://0l0f58gvb3l3" path="res://Scenes/Consumables/consumable_axe.tscn" id="4_x0sr7"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_h2yge"]
 
@@ -144,21 +141,6 @@ gradient = SubResource("Gradient_21xkr")
 
 [node name="Entities" type="Node" parent="."]
 
-[node name="Zombie" parent="Entities" instance=ExtResource("2_oc7uv")]
-position = Vector2(56, 56)
-
-[node name="Zombie4" parent="Entities" instance=ExtResource("2_oc7uv")]
-position = Vector2(-104, 24)
-
-[node name="Zombie2" parent="Entities" instance=ExtResource("2_oc7uv")]
-position = Vector2(120, 24)
-
-[node name="Zombie3" parent="Entities" instance=ExtResource("2_oc7uv")]
-position = Vector2(272, 8)
-
-[node name="Zombie5" parent="Entities" instance=ExtResource("2_oc7uv")]
-position = Vector2(448, 56)
-
 [node name="Whipables" type="Node2D" parent="."]
 texture_filter = 1
 
@@ -174,18 +156,6 @@ position = Vector2(-224, 0)
 position = Vector2(-192, 0)
 
 [node name="Blocks" type="Node2D" parent="Whipables"]
-
-[node name="Block" parent="Whipables/Blocks" instance=ExtResource("3_qig7e")]
-position = Vector2(-88, 32)
-
-[node name="Block2" parent="Whipables/Blocks" instance=ExtResource("3_qig7e")]
-position = Vector2(-88, 16)
-
-[node name="Block3" parent="Whipables/Blocks" instance=ExtResource("3_qig7e")]
-position = Vector2(-88, 0)
-
-[node name="Axe" parent="Whipables/Blocks" instance=ExtResource("4_x0sr7")]
-position = Vector2(-152, -4)
 
 [node name="TileMap" type="Node2D" parent="."]
 

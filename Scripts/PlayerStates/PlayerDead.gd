@@ -2,7 +2,6 @@ extends State
 class_name PlayerDead
 @export var _animationTree : AnimationTree
 @export var _deadTimer : Timer
-@export var _deadSound : FmodEventEmitter2D
 var state_machine
 @onready var sceneSwitcher = get_tree().root.get_node("Main").get_node("SceneSwitcher")
 
@@ -16,7 +15,8 @@ func Enter() -> void:
 	sceneSwitcher.on_level_begin_loading.connect(revive)
 	
 	_deadTimer.start(_playerResource.DeadTime)
-	_deadSound.play_one_shot()
+	SfxManager.do_one_shot("Death")
+	MusManager.stop_music(true)
 	player_just_died.emit()
 
 func Exit() -> void:

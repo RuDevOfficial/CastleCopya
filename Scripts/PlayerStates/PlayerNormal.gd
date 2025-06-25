@@ -4,8 +4,6 @@ class_name PlayerNormal
 @export var _body2D : CharacterBody2D
 @export var _animationTree : AnimationTree
 @export_category("Sounds")
-@export var _jumpSoundEmitter : FmodEventEmitter2D
-@export var _hitGroundSoundEmitter : FmodEventEmitter2D
 
 @export var subweapon_manager : SubweaponManager
 
@@ -49,12 +47,12 @@ func Physics_Update(_delta : float) -> void:
 	
 	if (isJumping):
 		_playerResource.Velocity.y = -_playerResource.JumpForce
-		_jumpSoundEmitter.play_one_shot()
+		SfxManager.do_one_shot("Jump")
 	elif (reachedMaxHeight or isJumpCancelled):
 		_playerResource.Gravity = _playerResource.StartingGravity * _playerResource.FallingMultiplier
 	elif (_body2D.is_on_floor()):
 		if (_playerResource.Velocity.y != 0):
-			_hitGroundSoundEmitter.play_one_shot()
+			SfxManager.do_one_shot("HitGround")
 		
 		_playerResource.Gravity = _playerResource.StartingGravity
 		_playerResource.Velocity.y = 0

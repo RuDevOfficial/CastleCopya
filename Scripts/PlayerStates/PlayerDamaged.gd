@@ -22,6 +22,8 @@ func Enter() -> void:
 	
 	var state_machine = _playerResource.AnimTree.get("parameters/playback")
 	state_machine.travel("Damaged")
+	
+	SfxManager.do_one_shot("Damage")
 
 func Exit() -> void:
 	_delay = 0.0
