@@ -36,8 +36,6 @@ var HealthComponent : Health
 # Subweapons
 @export_category("Subweapon")
 @export var CurrentSubweapon : SubweaponDataResource
-@export var SubweaponUses : int = 20
-var SubweaponUsedTrigger : bool
 
 func SetDefaultValues(agent : Node2D) -> void:
 	StartingGravity = Gravity

@@ -2,13 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cd3gx7ahh2ju5" path="res://Tilesets/tileset.png" id="2_3mqfk"]
 [ext_resource type="PackedScene" uid="uid://d3i4xr5h8wps8" path="res://Scenes/zombie.tscn" id="2_oc7uv"]
-
-[sub_resource type="GDScript" id="GDScript_y5y4w"]
-script/source = "extends Node2D
-
-func _ready() -> void:
-	pass
-"
+[ext_resource type="PackedScene" uid="uid://detlpwaspb8s7" path="res://Scenes/Whipables/candle.tscn" id="3_x0sr7"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_h2yge"]
 
@@ -145,7 +139,6 @@ colors = PackedColorArray(0.0647988, 0.268006, 0.266216, 1)
 gradient = SubResource("Gradient_21xkr")
 
 [node name="ForgottenForest" type="Node2D"]
-script = SubResource("GDScript_y5y4w")
 
 [node name="Entities" type="Node" parent="."]
 
@@ -163,6 +156,18 @@ position = Vector2(272, 8)
 
 [node name="Zombie5" parent="Entities" instance=ExtResource("2_oc7uv")]
 position = Vector2(448, 56)
+
+[node name="Whipables" type="Node2D" parent="."]
+texture_filter = 1
+
+[node name="Candle" parent="Whipables" instance=ExtResource("3_x0sr7")]
+position = Vector2(-256, 0)
+
+[node name="Candle2" parent="Whipables" instance=ExtResource("3_x0sr7")]
+position = Vector2(-224, 0)
+
+[node name="Candle3" parent="Whipables" instance=ExtResource("3_x0sr7")]
+position = Vector2(-192, 0)
 
 [node name="TileMap" type="Node2D" parent="."]
 
@@ -194,7 +199,7 @@ tile_map_data = PackedByteArray("AAAOAAEAAAAEAAIAAAAXAAEAAAAEAAIAAAAZAAQAAAAEAAI
 tile_set = SubResource("TileSet_h2yge")
 
 [node name="Background" type="Sprite2D" parent="."]
-z_index = -1
+z_index = -2
 position = Vector2(480, 0)
 scale = Vector2(6.25, 180)
 texture = SubResource("GradientTexture1D_6bp64")

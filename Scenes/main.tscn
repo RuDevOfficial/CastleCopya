@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://ccdpmgf0myc5u" path="res://Scripts/UI/ammo_ui.gd" id="13_wsu2k"]
 [ext_resource type="FontFile" uid="uid://4ya1hpanvmia" path="res://Fonts/Qapixa-5y9Pa.ttf" id="14_wsu2k"]
 
-[sub_resource type="Resource" id="Resource_wsu2k"]
+[sub_resource type="Resource" id="Resource_h1bgf"]
 resource_local_to_scene = true
 script = ExtResource("9_k12tt")
 Speed = 80.0
@@ -30,7 +30,6 @@ DeadTime = 3.0
 KnockbackVector = Vector2(0.5, -0.5)
 KnockbackForce = 100.0
 CurrentSubweapon = ExtResource("8_wsu2k")
-SubweaponUses = 20
 metadata/_custom_type_script = "uid://bs8y3t0lfpxkk"
 
 [sub_resource type="LabelSettings" id="LabelSettings_k12tt"]
@@ -38,14 +37,12 @@ font = ExtResource("14_wsu2k")
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("_musicEmitter")]
 script = ExtResource("1_jjvhh")
-_startWithLoading = true
 _levelResource = ExtResource("2_21xkr")
 _musicEmitter = NodePath("Audio/MusicEmitter")
 
 [node name="Level" type="Node2D" parent="."]
 
 [node name="ForgottenForest" parent="Level" instance=ExtResource("3_21xkr")]
-script = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-160, 0)
@@ -71,7 +68,7 @@ PlayerDeathSound = "{09c89def-771a-4a9f-9895-4b92285acdc3}"
 
 [node name="Player" parent="." instance=ExtResource("2_8gbba")]
 position = Vector2(-248, 24)
-_playerResource = SubResource("Resource_wsu2k")
+_playerResource = SubResource("Resource_h1bgf")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -165,7 +162,7 @@ offset_right = 27.0
 offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "20"
+text = "0"
 label_settings = SubResource("LabelSettings_k12tt")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -187,6 +184,3 @@ color = Color(0, 0, 0, 1)
 
 [connection signal="on_level_finish_loading" from="SceneSwitcher" to="Audio/MusicEmitter" method="_on_scene_switcher_on_level_finish_loading"]
 [connection signal="on_level_finish_loading" from="SceneSwitcher" to="Player" method="_on_scene_switcher_on_level_finish_loading"]
-[connection signal="on_player_start" from="Player" to="UI/Ammo" method="_on_player_start"]
-[connection signal="on_subweapon_changed" from="Player" to="UI/SubWeapon" method="on_player_subweapon_changed"]
-[connection signal="on_subweapon_used_trigger" from="Player" to="UI/Ammo" method="_on_player_subweapon_used_trigger"]

@@ -6,10 +6,8 @@ class_name PlayerNormal
 @export_category("Sounds")
 @export var _jumpSoundEmitter : FmodEventEmitter2D
 @export var _hitGroundSoundEmitter : FmodEventEmitter2D
-@export var _subweaponCooldownTimer : Timer
 
-var can_use_subweapon : bool = true
-var play_subweapon_animation : bool = false
+@export var subweapon_manager : SubweaponManager
 
 func Enter() -> void:
 	_animationTree.set("parameters/conditions/attack", false)
@@ -23,12 +21,9 @@ func Update(_delta : float) -> void:
 	if (_playerResource.CanMove == false): return
 	
 	if (Input.is_action_just_pressed("attack") and Input.is_action_pressed("ready_subweapon")):
-		
-		var totalSubweaponuses : int = _playerResource.SubweaponUses - _playerResource.CurrentSubweapon.Cost
-		if (can_use_subweapon == true and totalSubweaponuses >= 0):
-			can_use_subweapon = false
-			await get_tree().create_timer(_playerResource.CurrentSubweapon.ThrowDelay).timeout
-			spawn_subweapon(totalSubweaponuses)
+		subweapon_manager.try_use_subweapon(
+			_playerResource.LastDirection, 
+			_playerResource.Agent.global_position)
 	elif (Input.is_action_just_pressed("attack")):
 		_playerResource.WasCrouched = false
 		Exiting.emit(self, "Attack")
@@ -101,19 +96,20 @@ func update_animation() -> void:
 	_animationTree.set("parameters/Moving/blend_position", _playerResource.LastDirection)
 	_animationTree.set("parameters/Jumping/blend_position", _playerResource.LastDirection)
 
-func spawn_subweapon(totalSubweaponuses : float) -> void:
-	_playerResource.SubweaponUses = clampi(totalSubweaponuses, 0, _playerResource.SubweaponUses)
-	_animationTree.set("parameters/conditions/subweapon", true)
-	_animationTree.set("parameters/conditions/notSubweapon", false)
-	_playerResource.SubweaponUsedTrigger = true
-	
-	var instance : Subweapon = _playerResource.CurrentSubweapon.Scene.instantiate()
-	get_tree().root.add_child(instance)
-	instance.global_position = _playerResource.Agent.global_position
-	instance.throw(Vector2(_playerResource.LastDirection, -1))
-	
-	await get_tree().create_timer(_playerResource.CurrentSubweapon.Cooldown).timeout
-	
-	_animationTree.set("parameters/conditions/subweapon", false)
-	_animationTree.set("parameters/conditions/notSubweapon", true)
-	can_use_subweapon = true
+
+#func spawn_subweapon(totalSubweaponuses : float) -> void:
+	#_playerResource.SubweaponUses = clampi(totalSubweaponuses, 0, _playerResource.SubweaponUses)
+	#_animationTree.set("parameters/conditions/subweapon", true)
+	#_animationTree.set("parameters/conditions/notSubweapon", false)
+	#_playerResource.SubweaponUsedTrigger = true
+	#
+	#var instance : Subweapon = _playerResource.CurrentSubweapon.Scene.instantiate()
+	#get_tree().root.add_child(instance)
+	#instance.global_position = _playerResource.Agent.global_position
+	#instance.throw(Vector2(_playerResource.LastDirection, -1))
+	#
+	#await get_tree().create_timer(_playerResource.CurrentSubweapon.Cooldown).timeout
+	#
+	#_animationTree.set("parameters/conditions/subweapon", false)
+	#_animationTree.set("parameters/conditions/notSubweapon", true)
+	#can_use_subweapon = true

@@ -4,10 +4,9 @@ extends Control
 @export var player : PlayerCharacter
 
 func _ready() -> void:
-	pass
+	var node : SubweaponManager = get_tree().root.get_node("Main/Player/Managers/Subweapon Manager")
+	node.on_weapon_use.connect(update_count)
+	node.on_weapon_refill.connect(update_count)
 
-func _on_player_start(_playerResource : PlayerResource) -> void:
-	label.text = str(_playerResource.SubweaponUses)
-
-func _on_player_subweapon_used_trigger(_playerResource : PlayerResource) -> void:
-	label.text = str(_playerResource.SubweaponUses)
+func update_count(amount : int) -> void:
+	label.text = str(amount)

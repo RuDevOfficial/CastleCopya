@@ -1,4 +1,4 @@
-[gd_scene load_steps=112 format=3 uid="uid://bt0m7fahlwwhn"]
+[gd_scene load_steps=114 format=3 uid="uid://bt0m7fahlwwhn"]
 
 [ext_resource type="Script" uid="uid://cs1yvbjtnvljp" path="res://Scripts/StateMachine/StateMachine.gd" id="1_tx1dd"]
 [ext_resource type="Script" uid="uid://cnyxd33tkv1p" path="res://Scripts/Player.gd" id="1_y6uwr"]
@@ -11,7 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://bepf7kmvcu73y" path="res://Sprites/Player/frames/char08.png" id="4_fkybt"]
 [ext_resource type="Script" uid="uid://coh7npk3nxwn6" path="res://Scripts/HealthComponents/flicker.gd" id="4_sweqm"]
 [ext_resource type="Script" uid="uid://drlxjukarfeok" path="res://Scripts/PlayerStates/PlayerCrouch.gd" id="5_p1odr"]
+[ext_resource type="Script" uid="uid://b2df00xtvgntd" path="res://Scripts/subweapon_manager.gd" id="5_ph33w"]
 [ext_resource type="Texture2D" uid="uid://bc7bydosupyip" path="res://Sprites/Player/frames/char05.png" id="5_tx1dd"]
+[ext_resource type="Resource" uid="uid://dir5gqc6p8et0" path="res://Resources/Subweapons/Data/Knife_Data.tres" id="6_7ldla"]
 [ext_resource type="Texture2D" uid="uid://bxu6rw7exj74g" path="res://Sprites/Player/frames/char06.png" id="6_gymyn"]
 [ext_resource type="Script" uid="uid://bv66xviixtqj" path="res://Scripts/PlayerStates/PlayerDead.gd" id="6_vfarp"]
 [ext_resource type="Texture2D" uid="uid://qn7ahvu36y37" path="res://Sprites/Player/Whip0.png" id="7_2ijsl"]
@@ -1801,18 +1803,30 @@ _flickerTimes = 5
 _flickerTimeIndividual = 0.2
 metadata/_custom_type_script = "uid://coh7npk3nxwn6"
 
+[node name="Managers" type="Node" parent="."]
+
+[node name="Subweapon Manager" type="Node" parent="Managers"]
+script = ExtResource("5_ph33w")
+current_subweapon_data = ExtResource("6_7ldla")
+
+[node name="DelayTimer" type="Timer" parent="Managers/Subweapon Manager"]
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="Managers/Subweapon Manager"]
+one_shot = true
+
 [node name="FSM" type="Node" parent="." node_paths=PackedStringArray("_initialState")]
 script = ExtResource("1_tx1dd")
 _initialState = NodePath("Normal")
 _playerResource = ExtResource("4_7dp3o")
 
-[node name="Normal" type="Node" parent="FSM" node_paths=PackedStringArray("_body2D", "_animationTree", "_jumpSoundEmitter", "_hitGroundSoundEmitter", "_subweaponCooldownTimer")]
+[node name="Normal" type="Node" parent="FSM" node_paths=PackedStringArray("_body2D", "_animationTree", "_jumpSoundEmitter", "_hitGroundSoundEmitter", "subweapon_manager")]
 script = ExtResource("2_gymyn")
 _body2D = NodePath("../..")
 _animationTree = NodePath("../../Animation/AnimationTree")
 _jumpSoundEmitter = NodePath("../../Sounds/JumpEmitter")
 _hitGroundSoundEmitter = NodePath("../../Sounds/HitGroundEmitter")
-_subweaponCooldownTimer = NodePath("../../Timers/SubweaponCooldownTimer")
+subweapon_manager = NodePath("../../Managers/Subweapon Manager")
 
 [node name="Attack" type="Node" parent="FSM" node_paths=PackedStringArray("_body2D", "_attackTimer", "_animationTree")]
 script = ExtResource("3_ukyrk")
@@ -1840,8 +1854,8 @@ _deadSound = NodePath("../../Sounds/DiedEmitter")
 [node name="Contact" type="Node2D" parent="."]
 
 [node name="Hitbox" type="Area2D" parent="Contact"]
-collision_layer = 36
-collision_mask = 8
+collision_layer = 32
+collision_mask = 520
 script = ExtResource("10_xuaoq")
 metadata/_custom_type_script = "uid://dntc3c582m5w8"
 

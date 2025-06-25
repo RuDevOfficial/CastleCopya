@@ -8,7 +8,7 @@
 script = ExtResource("3_5dljh")
 Icon = ExtResource("1_xxmx0")
 ThrowDelay = 0.0
-Cooldown = 0.2
+Cooldown = 1.0
 Cost = 2
 Scene = ExtResource("2_4ytxo")
 metadata/_custom_type_script = "uid://c7vfc8i1k154f"
