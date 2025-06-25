@@ -46,4 +46,8 @@ collision_mask = 160
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_uh3ks")
 
+[node name="BreakSound" type="FmodEventEmitter2D" parent="."]
+event_name = "event:/Objects/Candle_Break"
+event_guid = "{6c651f8c-e55c-446b-afb7-cbefb86d4813}"
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]

@@ -74,6 +74,7 @@ texture = ExtResource("2_v382s")
 collision_layer = 128
 collision_mask = 8
 script = ExtResource("4_v382s")
+damage = 3.0
 metadata/_custom_type_script = "uid://dntc3c582m5w8"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
@@ -84,3 +85,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_orq4e")
 }
 autoplay = "Subweapon_Spin"
+
+[node name="ThrowSound" type="FmodEventEmitter2D" parent="."]
+event_name = "event:/Player/Axe_Throw"
+event_guid = "{06d9a9d0-509c-4847-89a4-914d9a2105ac}"
+autoplay = true
+auto_release = true

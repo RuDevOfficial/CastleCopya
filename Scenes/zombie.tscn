@@ -122,7 +122,11 @@ debug_color = Color(0.662745, 0.360784, 0.462745, 0.419608)
 [node name="Sounds" type="Node2D" parent="."]
 
 [node name="DamageEmitter" type="FmodEventEmitter2D" parent="Sounds"]
-event_name = "event:/EnemyDamage"
+event_name = "event:/Enemy/EnemyDamage"
+event_guid = "{e122641b-c20b-4c14-8aa6-de4b8c5e3c2f}"
+
+[node name="DeathEmitter" type="FmodEventEmitter2D" parent="Sounds"]
+event_name = "event:/Enemy/EnemyDamage"
 event_guid = "{e122641b-c20b-4c14-8aa6-de4b8c5e3c2f}"
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]

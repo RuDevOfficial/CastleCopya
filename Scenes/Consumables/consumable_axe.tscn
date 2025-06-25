@@ -1,29 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://cldhscb4jfiex"]
+[gd_scene load_steps=6 format=3 uid="uid://0l0f58gvb3l3"]
 
-[ext_resource type="Script" uid="uid://d2jpo3nwihwjd" path="res://Scripts/Consumables/Consumable_Heart.gd" id="1_vsgpy"]
-[ext_resource type="Texture2D" uid="uid://ds0xv83rmrccq" path="res://Sprites/Environment/heart.png" id="2_58qaa"]
+[ext_resource type="Script" uid="uid://ddneme0pecniw" path="res://Scenes/Consumables/consumable_axe.gd" id="1_wrym6"]
+[ext_resource type="Resource" uid="uid://ck4cen2q31hco" path="res://Resources/Subweapons/Data/Axe_Data.tres" id="2_lpfo2"]
+[ext_resource type="Texture2D" uid="uid://cyr4pscgfnvym" path="res://Sprites/Subweapons/Axe_Subweapon.png" id="2_rgg8q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w5a3r"]
-size = Vector2(8, 8)
+size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n3wfp"]
-size = Vector2(8, 8)
+size = Vector2(16, 16)
 
-[node name="Heart" type="RigidBody2D"]
+[node name="Axe" type="RigidBody2D"]
 z_index = 1
 texture_filter = 1
 collision_layer = 0
 lock_rotation = true
 continuous_cd = 1
-script = ExtResource("1_vsgpy")
-amount = 1
+script = ExtResource("1_wrym6")
+subweapon_data_resource = ExtResource("2_lpfo2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_w5a3r")
 debug_color = Color(0.549266, 0.425587, 0.946056, 0.42)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_58qaa")
+texture = ExtResource("2_rgg8q")
 
 [node name="Trigger" type="Area2D" parent="."]
 collision_layer = 1024
@@ -33,7 +34,7 @@ collision_mask = 4
 shape = SubResource("RectangleShape2D_n3wfp")
 
 [node name="CollectSound" type="FmodEventEmitter2D" parent="."]
-event_name = "event:/Player/Heart_Collect"
-event_guid = "{6449907e-f0fb-432c-b763-92bb53557d51}"
+event_name = "event:/Player/Subweapon_Collect"
+event_guid = "{469e01c5-71c9-4f1f-88bc-46b53b774f2f}"
 
 [connection signal="area_entered" from="Trigger" to="." method="_on_player_enter_area"]

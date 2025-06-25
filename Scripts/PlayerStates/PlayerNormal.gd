@@ -23,7 +23,7 @@ func Update(_delta : float) -> void:
 	if (Input.is_action_just_pressed("attack") and Input.is_action_pressed("ready_subweapon")):
 		subweapon_manager.try_use_subweapon(
 			_playerResource.LastDirection, 
-			_playerResource.Agent.global_position)
+			_playerResource.Agent)
 	elif (Input.is_action_just_pressed("attack")):
 		_playerResource.WasCrouched = false
 		Exiting.emit(self, "Attack")

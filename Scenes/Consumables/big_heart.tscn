@@ -32,4 +32,8 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
 shape = SubResource("RectangleShape2D_n3wfp")
 
+[node name="CollectSound" type="FmodEventEmitter2D" parent="."]
+event_name = "event:/Player/Heart_Collect"
+event_guid = "{6449907e-f0fb-432c-b763-92bb53557d51}"
+
 [connection signal="area_entered" from="Trigger" to="." method="_on_player_enter_area"]

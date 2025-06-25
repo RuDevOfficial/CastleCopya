@@ -7,6 +7,12 @@ var particle_pivot : Node2D
 
 @onready var random : RandomNumberGenerator = RandomNumberGenerator.new()
 
+@onready var area2D : Area2D = $Area2D
+@onready var sprite : Sprite2D = $Sprite
+@onready var break_sound : FmodEventEmitter2D = $BreakSound
+
+var object_hidden : bool = false
+
 func _ready() -> void:
 	particle_pivot = get_node("ParticleSpawnPivot")
 	
@@ -15,11 +21,16 @@ func _ready() -> void:
 		new_pivot.name = "ParticleSpawnPivot"
 		particle_pivot = new_pivot
 		add_child(new_pivot)
+	
+	SignalBus.on_level_fade_completed.connect(show_object)
 
 func _on_area_entered(area: Area2D) -> void:
+	if (object_hidden): return
+	
 	drop_new_object()
+	generate_sound()
 	spawn_particle()
-	queue_free()
+	hide_object()
 
 func drop_new_object() -> void:
 	if (consumable_list.size() == 0): return
@@ -49,3 +60,31 @@ func spawn_particle() -> void:
 	var particle = particle_scene.instantiate()
 	particle.global_position = particle_pivot.global_position
 	get_tree().root.add_child(particle)
+
+func generate_sound() -> void:
+	break_sound.play_one_shot()
+
+func show_object() -> void:
+	object_hidden = false
+	
+	area2D.monitorable = true
+	area2D.monitoring = true
+	
+	sprite.visible = true
+	
+	additional_show_object()
+
+
+func hide_object() -> void:
+	
+	object_hidden = true
+	
+	area2D.monitorable = false
+	area2D.monitoring = false
+	
+	sprite.visible = false
+	
+	additional_hide_object()
+
+func additional_show_object() -> void: pass
+func additional_hide_object() -> void: pass

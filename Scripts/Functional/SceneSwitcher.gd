@@ -42,6 +42,7 @@ func begin_load_timer(firstTime : bool = true) -> void:
 	if (_isFirstTransition): _loadTimer.start(_waitTime)
 	else:
 		on_level_fading_completed.emit()
+		SignalBus.on_level_fade_completed.emit()
 		_animationPlayer.play("fade_out")
 	
 	if (_isFirstTransition == true):
@@ -52,6 +53,7 @@ func begin_load_timer(firstTime : bool = true) -> void:
 # This gets triggered once the loading timer ends
 func _on_load_timer_timeout() -> void:
 	#call level loader to change level and resource and stuff
+	SignalBus.on_level_fade_completed.emit() # fix this 2 signals, remove 1 :)
 	on_level_fading_completed.emit()
 	_animationPlayer.play("fade_out")
 

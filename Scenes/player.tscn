@@ -1932,27 +1932,27 @@ one_shot = true
 [node name="Sounds" type="Node2D" parent="."]
 
 [node name="DiedEmitter" type="FmodEventEmitter2D" parent="Sounds"]
-event_name = "event:/Death"
+event_name = "event:/Player/Death"
 event_guid = "{09c89def-771a-4a9f-9895-4b92285acdc3}"
 
 [node name="JumpEmitter" type="FmodEventEmitter2D" parent="Sounds"]
-event_name = "event:/Jump"
+event_name = "event:/Player/Jump"
 event_guid = "{724d08aa-7816-414e-9c5c-4014f789defa}"
 
 [node name="StepEmitter" type="FmodEventEmitter2D" parent="Sounds"]
-event_name = "event:/Step"
+event_name = "event:/Player/Step"
 event_guid = "{6962f482-3038-4a91-933b-992d223ae085}"
 
 [node name="WhipAttackEmitter" type="FmodEventEmitter2D" parent="Sounds"]
-event_name = "event:/AttackWhip"
+event_name = "event:/Player/AttackWhip"
 event_guid = "{2df60c5d-d091-4b19-a348-a41281e1429b}"
 
 [node name="HitGroundEmitter" type="FmodEventEmitter2D" parent="Sounds"]
-event_name = "event:/HitGround"
+event_name = "event:/Player/HitGround"
 event_guid = "{c7503ea2-ae6b-474d-b2c3-5bf3ba7cb4b7}"
 
 [node name="DamageEmitter" type="FmodEventEmitter2D" parent="Sounds"]
-event_name = "event:/Damage"
+event_name = "event:/Player/Damage"
 event_guid = "{78e6bbd2-f852-4d40-afb2-b2c008b9ec96}"
 
 [connection signal="damaged" from="Components/Health" to="Components/Flicker" method="_on_health_damaged"]

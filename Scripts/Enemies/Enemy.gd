@@ -10,6 +10,8 @@ class_name Enemy
 
 @onready var sprite : Sprite2D = $Sprite
 
+@onready var death_sound : FmodEventEmitter2D = $Sounds/DeathEmitter
+
 var target_player : Node2D
 
 var starting_position : Vector2
@@ -42,6 +44,9 @@ func reset_values():
 	sprite.visible = true
 
 func get_disabled():
+	
+	death_sound.play_one_shot()
+	
 	global_position = starting_position
 	health_component.set_health(starting_health)
 	
