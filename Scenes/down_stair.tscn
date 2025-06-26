@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://3utls2r72dky"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sqoif"]
+radius = 4.0
+
+[sub_resource type="Curve2D" id="Curve2D_fn0f0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 48, 48)
+}
+point_count = 2
+
+[node name="DownStair" type="Node2D"]
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Triggers" type="Node2D" parent="."]
+
+[node name="Start" type="Area2D" parent="Triggers"]
+collision_layer = 2048
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Start"]
+shape = SubResource("CircleShape2D_sqoif")
+debug_color = Color(0.767316, 0, 0.179415, 0.42)
+
+[node name="End" type="Area2D" parent="Triggers"]
+position = Vector2(48, 48)
+collision_layer = 2048
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/End"]
+shape = SubResource("CircleShape2D_sqoif")
+debug_color = Color(0.767316, 0, 0.179415, 0.42)
+
+[node name="Path" type="Path2D" parent="."]
+curve = SubResource("Curve2D_fn0f0")
+
+[node name="Follow" type="PathFollow2D" parent="Path"]
+rotation = 0.785398
+loop = false

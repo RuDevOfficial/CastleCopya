@@ -10,7 +10,7 @@ class_name Enemy
 
 @onready var sprite : Sprite2D = $Sprite
 
-@onready var death_sound : FmodEventEmitter2D = $Sounds/DeathEmitter
+@export var death_sound_key : String
 
 var target_player : Node2D
 
@@ -43,9 +43,11 @@ func reset_values():
 	
 	sprite.visible = true
 
+func get_killed():
+	SfxManager.do_one_shot(death_sound_key)
+	get_disabled()
+
 func get_disabled():
-	
-	death_sound.play_one_shot()
 	
 	global_position = starting_position
 	health_component.set_health(starting_health)

@@ -8,4 +8,5 @@ script = ExtResource("2_vgk57")
 Lifetime = 3.0
 Damage = 1.0
 Speed = 400.0
+SoundKey = "Dagger_Throw"
 metadata/_custom_type_script = "uid://hepwe2a1uska"

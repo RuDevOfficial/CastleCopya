@@ -54,10 +54,4 @@ metadata/_custom_type_script = "uid://dntc3c582m5w8"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_mh4l0")
 
-[node name="ThrowSound" type="FmodEventEmitter2D" parent="."]
-event_name = "event:/Player/Dagger_Throw"
-event_guid = "{54f86ad0-43d7-4706-ae00-98a017c45071}"
-autoplay = true
-auto_release = true
-
 [connection signal="area_entered" from="Hitbox" to="." method="_on_area_entered"]

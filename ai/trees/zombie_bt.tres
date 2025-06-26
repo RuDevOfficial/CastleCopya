@@ -100,7 +100,7 @@ resource_name = "."
 
 [sub_resource type="BTCallMethod" id="BTCallMethod_vtrff"]
 node = SubResource("BBNode_qpw4x")
-method = &"get_disabled"
+method = &"get_killed"
 
 [sub_resource type="BTSequence" id="BTSequence_u01i7"]
 custom_name = "Is Dead Sequence"

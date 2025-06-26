@@ -8,9 +8,12 @@ class_name Subweapon
 var current_time : float = 0.0
 var lifetime_reached : bool = false
 
+var sound_emitter : FmodEventEmitter2D
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Subweapon_Resource.Initialize(self)
+	sound_emitter = SfxManager.attach_one_shot(Subweapon_Resource.SoundKey, self)
 	
 	for modifier in Modifiers:
 		modifier.Modify(self)
@@ -44,6 +47,7 @@ func on_lifetime_reached() -> void:
 	for modifier in Modifiers:
 		modifier.OnLifetimeReached()
 	
+	sound_emitter.stop()
 	queue_free()
 
 func throw(throw_direction : Vector2) -> void:

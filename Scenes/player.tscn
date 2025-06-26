@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=3 uid="uid://bt0m7fahlwwhn"]
+[gd_scene load_steps=115 format=3 uid="uid://bt0m7fahlwwhn"]
 
 [ext_resource type="Script" uid="uid://cs1yvbjtnvljp" path="res://Scripts/StateMachine/StateMachine.gd" id="1_tx1dd"]
 [ext_resource type="Script" uid="uid://cnyxd33tkv1p" path="res://Scripts/Player.gd" id="1_y6uwr"]
@@ -13,11 +13,11 @@
 [ext_resource type="Script" uid="uid://drlxjukarfeok" path="res://Scripts/PlayerStates/PlayerCrouch.gd" id="5_p1odr"]
 [ext_resource type="Script" uid="uid://b2df00xtvgntd" path="res://Scripts/subweapon_manager.gd" id="5_ph33w"]
 [ext_resource type="Texture2D" uid="uid://bc7bydosupyip" path="res://Sprites/Player/frames/char05.png" id="5_tx1dd"]
-[ext_resource type="Resource" uid="uid://dir5gqc6p8et0" path="res://Resources/Subweapons/Data/Knife_Data.tres" id="6_7ldla"]
 [ext_resource type="Texture2D" uid="uid://bxu6rw7exj74g" path="res://Sprites/Player/frames/char06.png" id="6_gymyn"]
 [ext_resource type="Script" uid="uid://bv66xviixtqj" path="res://Scripts/PlayerStates/PlayerDead.gd" id="6_vfarp"]
 [ext_resource type="Texture2D" uid="uid://qn7ahvu36y37" path="res://Sprites/Player/Whip0.png" id="7_2ijsl"]
 [ext_resource type="Texture2D" uid="uid://b413w2h5xw7pu" path="res://Sprites/Player/frames/char07.png" id="7_pu2lt"]
+[ext_resource type="Script" uid="uid://c3h4kj44wn52s" path="res://Scripts/PlayerStates/PlayerStairs.gd" id="8_7ldla"]
 [ext_resource type="Texture2D" uid="uid://d24heok8u1b3v" path="res://Sprites/Player/frames/char13.png" id="8_ukyrk"]
 [ext_resource type="Script" uid="uid://d78pq5alxi87" path="res://Scripts/PlayerStates/PlayerDamaged.gd" id="8_wohnl"]
 [ext_resource type="Texture2D" uid="uid://c4obfx0nm7mrl" path="res://Sprites/Player/Dead.png" id="9_0gysh"]
@@ -45,10 +45,13 @@
 [ext_resource type="Texture2D" uid="uid://bpsxijyi3mxrw" path="res://Sprites/Player/frames/char12.png" id="40_nmr2m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
-size = Vector2(14, 29)
+size = Vector2(14, 27)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xuaoq"]
-size = Vector2(24.5, 11.5)
+size = Vector2(24.5, 4.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ldla"]
+size = Vector2(14, 27)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ax3m3"]
 animation = &"attack_left"
@@ -1780,16 +1783,14 @@ _playerResource = ExtResource("4_7dp3o")
 _animationTree = NodePath("Animation/AnimationTree")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, 1.5)
+position = Vector2(0, -13.5)
 shape = SubResource("RectangleShape2D_1bvp3")
 
 [node name="Components" type="Node" parent="."]
 
-[node name="Health" type="Node" parent="Components" node_paths=PackedStringArray("damage_sound_emitter", "hurtbox")]
+[node name="Health" type="Node" parent="Components" node_paths=PackedStringArray("hurtbox")]
 script = ExtResource("3_83xs0")
 max_health = 3.0
-damage_sound_emitter = NodePath("")
 invincible_time = 1.0
 hurtbox = NodePath("../../Contact/Hurtbox")
 metadata/_custom_type_script = "uid://5byn62y1oa76"
@@ -1807,7 +1808,6 @@ metadata/_custom_type_script = "uid://coh7npk3nxwn6"
 
 [node name="Subweapon Manager" type="Node" parent="Managers"]
 script = ExtResource("5_ph33w")
-current_subweapon_data = ExtResource("6_7ldla")
 
 [node name="DelayTimer" type="Timer" parent="Managers/Subweapon Manager"]
 one_shot = true
@@ -1820,11 +1820,17 @@ script = ExtResource("1_tx1dd")
 _initialState = NodePath("Normal")
 _playerResource = ExtResource("4_7dp3o")
 
-[node name="Normal" type="Node" parent="FSM" node_paths=PackedStringArray("_body2D", "_animationTree", "subweapon_manager")]
+[node name="Normal" type="Node" parent="FSM" node_paths=PackedStringArray("_body2D", "_animationTree", "subweapon_manager", "stair_area")]
 script = ExtResource("2_gymyn")
 _body2D = NodePath("../..")
 _animationTree = NodePath("../../Animation/AnimationTree")
 subweapon_manager = NodePath("../../Managers/Subweapon Manager")
+stair_area = NodePath("../../Contact/InteractArea")
+
+[node name="Stairs" type="Node" parent="FSM" node_paths=PackedStringArray("controller", "area")]
+script = ExtResource("8_7ldla")
+controller = NodePath("../..")
+area = NodePath("../../Contact/InteractArea")
 
 [node name="Attack" type="Node" parent="FSM" node_paths=PackedStringArray("_body2D", "_attackTimer", "_animationTree")]
 script = ExtResource("3_ukyrk")
@@ -1849,6 +1855,7 @@ _animationTree = NodePath("../../Animation/AnimationTree")
 _deadTimer = NodePath("../../Timers/DeadTimer")
 
 [node name="Contact" type="Node2D" parent="."]
+position = Vector2(0, -15)
 
 [node name="Hitbox" type="Area2D" parent="Contact"]
 collision_layer = 32
@@ -1872,7 +1879,17 @@ metadata/_custom_type_script = "uid://dq5h6yydckjc1"
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_1bvp3")
 
+[node name="InteractArea" type="Area2D" parent="Contact"]
+collision_layer = 0
+collision_mask = 2048
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Contact/InteractArea"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_7ldla")
+debug_color = Color(0.366382, 0.61246, 0.197709, 0.42)
+
 [node name="Sprites" type="Node2D" parent="."]
+position = Vector2(0, -16)
 
 [node name="Upper" type="Sprite2D" parent="Sprites"]
 texture_filter = 1
@@ -1929,11 +1946,11 @@ one_shot = true
 [node name="Sounds" type="Node2D" parent="."]
 
 [node name="StepEmitter" type="FmodEventEmitter2D" parent="Sounds"]
-event_name = "event:/Player/Step"
+event_name = "event:/Step"
 event_guid = "{6962f482-3038-4a91-933b-992d223ae085}"
 
 [node name="WhipAttackEmitter" type="FmodEventEmitter2D" parent="Sounds"]
-event_name = "event:/Player/AttackWhip"
+event_name = "event:/AttackWhip"
 event_guid = "{2df60c5d-d091-4b19-a348-a41281e1429b}"
 
 [connection signal="damaged" from="Components/Health" to="Components/Flicker" method="_on_health_damaged"]

@@ -59,7 +59,7 @@ bank_paths = ["res://FmodBank/Desktop/Master.strings.bank", "res://FmodBank/Desk
 [node name="FmodListener2D" type="FmodListener2D" parent="Audio"]
 
 [node name="Player" parent="." instance=ExtResource("2_8gbba")]
-position = Vector2(-248, 24)
+position = Vector2(32, 72)
 _playerResource = SubResource("Resource_h1bgf")
 
 [node name="UI" type="CanvasLayer" parent="."]

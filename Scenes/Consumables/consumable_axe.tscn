@@ -18,6 +18,7 @@ lock_rotation = true
 continuous_cd = 1
 script = ExtResource("1_wrym6")
 subweapon_data_resource = ExtResource("2_lpfo2")
+sound_key = "Subweapon_Collect"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_w5a3r")
@@ -32,9 +33,5 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
 shape = SubResource("RectangleShape2D_n3wfp")
-
-[node name="CollectSound" type="FmodEventEmitter2D" parent="."]
-event_name = "event:/Player/Subweapon_Collect"
-event_guid = "{469e01c5-71c9-4f1f-88bc-46b53b774f2f}"
 
 [connection signal="area_entered" from="Trigger" to="." method="_on_player_enter_area"]

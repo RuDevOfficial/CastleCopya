@@ -5,7 +5,8 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_ce6g1")
-Lifetime = 1.8
+Lifetime = 1.2
 Damage = 3.0
 Speed = 80.0
+SoundKey = "Axe_Throw"
 metadata/_custom_type_script = "uid://hepwe2a1uska"

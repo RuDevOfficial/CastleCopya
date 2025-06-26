@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://7686kwe7c603"]
+
+[ext_resource type="Script" uid="uid://1kgp8gaw1ke6" path="res://Scripts/Whipable.gd" id="1_elaa6"]
+[ext_resource type="Script" uid="uid://cehvau528ctb2" path="res://Scripts/Drop.gd" id="2_tq3if"]
+[ext_resource type="PackedScene" uid="uid://0l0f58gvb3l3" path="res://Scenes/Consumables/consumable_axe.tscn" id="3_kkytq"]
+[ext_resource type="Texture2D" uid="uid://dx736ynhwwh0g" path="res://Sprites/Environment/blue_candle.png" id="5_elaa6"]
+[ext_resource type="PackedScene" uid="uid://cpva4bjwun4ms" path="res://Scenes/oneshots/DeathParticle.tscn" id="5_ols2m"]
+
+[sub_resource type="Resource" id="Resource_tq3if"]
+script = ExtResource("2_tq3if")
+object = ExtResource("3_kkytq")
+weight = 100.0
+metadata/_custom_type_script = "uid://cehvau528ctb2"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uh3ks"]
+size = Vector2(8, 16)
+
+[node name="Blue Candle" type="Node2D"]
+z_index = -1
+script = ExtResource("1_elaa6")
+consumable_list = Array[ExtResource("2_tq3if")]([SubResource("Resource_tq3if")])
+particle_scene = ExtResource("5_ols2m")
+sound_key = "Candle_Break"
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("5_elaa6")
+hframes = 2
+
+[node name="ParticleSpawnPivot" type="Node2D" parent="."]
+position = Vector2(0, -4)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 160
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_uh3ks")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]

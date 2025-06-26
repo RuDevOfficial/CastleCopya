@@ -1,7 +1,7 @@
 extends Node2D
 class_name Consumable
 
-@onready var collect_sound : FmodEventEmitter2D = $CollectSound
+@export var sound_key : String
 
 func _on_player_enter_area(area : Area2D) -> void:
 	generate_sound_effect()
@@ -12,6 +12,6 @@ func consume_item() -> void:
 	pass
 
 func generate_sound_effect() -> void:
-	if (collect_sound == null): return
+	if (sound_key == null): return
 	
-	collect_sound.play_one_shot()
+	SfxManager.do_one_shot(sound_key)

@@ -13,5 +13,8 @@ var Agent : Node2D
 var Velocity : Vector2
 var Direction : Vector2
 
+@export_category("Other")
+@export var SoundKey : String
+
 func Initialize(agent : Node2D) -> void:
 	Agent = agent

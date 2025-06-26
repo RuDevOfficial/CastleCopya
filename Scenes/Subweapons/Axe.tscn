@@ -85,9 +85,3 @@ libraries = {
 &"": SubResource("AnimationLibrary_orq4e")
 }
 autoplay = "Subweapon_Spin"
-
-[node name="ThrowSound" type="FmodEventEmitter2D" parent="."]
-event_name = "event:/Player/Axe_Throw"
-event_guid = "{06d9a9d0-509c-4847-89a4-914d9a2105ac}"
-autoplay = true
-auto_release = true

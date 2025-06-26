@@ -7,6 +7,8 @@ class_name PlayerNormal
 
 @export var subweapon_manager : SubweaponManager
 
+@export var stair_area : Area2D
+
 func Enter() -> void:
 	_animationTree.set("parameters/conditions/attack", false)
 	_animationTree.set("parameters/conditions/notAttack", true)
@@ -18,6 +20,14 @@ func Update(_delta : float) -> void:
 	# If cannot move we don't check anythingd
 	if (_playerResource.CanMove == false): return
 	
+	# STAIR MOVEMENT RELATED TRANSITION
+	if (Input.is_action_just_pressed("enter_stairs_up") || Input.is_action_just_pressed("enter_stairs_down")):
+		if (_body2D.is_on_floor()):
+			if (stair_area.get_overlapping_areas().size() > 0):
+				Exiting.emit(self, "Stairs")
+				return
+	
+	# ATTACK RELATED TRANSITIONS
 	if (Input.is_action_just_pressed("attack") and Input.is_action_pressed("ready_subweapon")):
 		subweapon_manager.try_use_subweapon(
 			_playerResource.LastDirection, 
@@ -25,11 +35,15 @@ func Update(_delta : float) -> void:
 	elif (Input.is_action_just_pressed("attack")):
 		_playerResource.WasCrouched = false
 		Exiting.emit(self, "Attack")
+		return
 	
+	# CROUCH AND HEALTH RELATED TRANSITIONS
 	if (Input.is_action_pressed("crouch")):
 		Exiting.emit(self, "Crouch")
+		return
 	elif (_playerResource.HealthComponent.is_damaged):
 		Exiting.emit(self, "Damaged")
+		return
 
 func Physics_Update(_delta : float) -> void:
 	# If cannot move we don't check anything

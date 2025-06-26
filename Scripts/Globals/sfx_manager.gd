@@ -13,10 +13,22 @@ func do_one_shot(key : String) -> bool:
 	if (result == false): return false
 	
 	var event_emitter = FmodEventEmitter2D.new()
-	event_emitter.autoplay = true;
 	event_emitter.event_guid = sound_dictionary.get(key)
 	event_emitter.play()
 	return true
+
+func attach_one_shot(key : String, node : Node2D) -> FmodEventEmitter2D:
+	var result : bool = sound_dictionary.has(key)
+	if (result == false): return null
+	
+	var emitter : FmodEventEmitter2D = FmodEventEmitter2D.new()
+	node.add_child(emitter)
+	emitter.allow_fadeout = true
+	emitter.attached = true
+	emitter.event_guid = sound_dictionary.get(key)
+	emitter.play()
+	
+	return emitter
 
 func generate_event_dictionary():
 	

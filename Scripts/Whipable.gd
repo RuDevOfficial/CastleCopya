@@ -11,6 +11,8 @@ var particle_pivot : Node2D
 @onready var sprite : Sprite2D = $Sprite
 @onready var break_sound : FmodEventEmitter2D = $BreakSound
 
+@export var sound_key : String
+
 var object_hidden : bool = false
 
 func _ready() -> void:
@@ -62,7 +64,7 @@ func spawn_particle() -> void:
 	get_tree().root.add_child(particle)
 
 func generate_sound() -> void:
-	break_sound.play_one_shot()
+	SfxManager.do_one_shot(sound_key)
 
 func show_object() -> void:
 	object_hidden = false
