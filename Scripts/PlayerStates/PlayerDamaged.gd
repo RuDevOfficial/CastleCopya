@@ -24,6 +24,8 @@ func Enter() -> void:
 	state_machine.travel("Damaged")
 	
 	SfxManager.do_one_shot("Damage")
+	
+	SignalBus.on_player_take_damage.emit(health.max_health, health.get_current())
 
 func Exit() -> void:
 	_delay = 0.0

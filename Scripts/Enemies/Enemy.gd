@@ -59,3 +59,10 @@ func get_disabled():
 	behavior_player.active = false
 	
 	sprite.visible = false
+
+
+func _on_health_damaged(amount: float, knockback: Vector2) -> void:
+	SignalBus.on_enemy_hit.emit(self)
+
+func _on_health_death() -> void:
+	SignalBus.on_enemy_death.emit()

@@ -1,4 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://3utls2r72dky"]
+[gd_scene load_steps=7 format=3 uid="uid://3utls2r72dky"]
+
+[ext_resource type="Texture2D" uid="uid://fw45t1s2gqfm" path="res://Sprites/Environment/StairsEnd.png" id="1_1a8tc"]
+[ext_resource type="Texture2D" uid="uid://b85nyqj1626y4" path="res://Sprites/Environment/StairsDecorationMiddle.png" id="2_ldn76"]
+[ext_resource type="Texture2D" uid="uid://cbc2kip13r0xn" path="res://Sprites/Environment/Stair.png" id="3_6452k"]
+[ext_resource type="Texture2D" uid="uid://d2v18g5cxpbcj" path="res://Sprites/Environment/StairComplete.png" id="4_v6gsg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sqoif"]
 radius = 4.0
@@ -10,8 +15,39 @@ _data = {
 point_count = 2
 
 [node name="DownStair" type="Node2D"]
+texture_filter = 1
 
 [node name="Sprites" type="Node2D" parent="."]
+
+[node name="Start" type="Sprite2D" parent="Sprites"]
+position = Vector2(0, -8)
+texture = ExtResource("1_1a8tc")
+flip_h = true
+
+[node name="Rail2" type="Sprite2D" parent="Sprites"]
+position = Vector2(24, 8)
+texture = ExtResource("2_ldn76")
+flip_h = true
+
+[node name="Rail3" type="Sprite2D" parent="Sprites"]
+position = Vector2(40, 24)
+texture = ExtResource("2_ldn76")
+flip_h = true
+
+[node name="Step3" type="Sprite2D" parent="Sprites"]
+position = Vector2(8, 8)
+texture = ExtResource("3_6452k")
+flip_h = true
+
+[node name="Step4" type="Sprite2D" parent="Sprites"]
+position = Vector2(24, 24)
+texture = ExtResource("3_6452k")
+flip_h = true
+
+[node name="InitialStep" type="Sprite2D" parent="Sprites"]
+position = Vector2(48, 40)
+texture = ExtResource("4_v6gsg")
+flip_h = true
 
 [node name="Triggers" type="Node2D" parent="."]
 

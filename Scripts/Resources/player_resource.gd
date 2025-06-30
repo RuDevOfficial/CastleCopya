@@ -13,6 +13,7 @@ var CanMove : bool
 @export var LastDirection : float = 1
 var Velocity : Vector2
 var WasCrouched : bool
+@export var stair_movement_multiplier : float
 
 # Gravity Related
 @export_category("Gravity")
@@ -32,9 +33,11 @@ var StartingGravity : float
 @export var KnockbackVector : Vector2
 @export var KnockbackForce : float
 var HealthComponent : Health
+var IsOnStairs : bool
 
 # Subweapons
-@export_category("Subweapon")
+@export_category("Attack")
+@export var AttackTime : float
 @export var CurrentSubweapon : SubweaponDataResource
 
 func SetDefaultValues(agent : Node2D) -> void:

@@ -107,21 +107,3 @@ func update_animation() -> void:
 	_animationTree.set("parameters/Idling/blend_position", _playerResource.LastDirection)
 	_animationTree.set("parameters/Moving/blend_position", _playerResource.LastDirection)
 	_animationTree.set("parameters/Jumping/blend_position", _playerResource.LastDirection)
-
-
-#func spawn_subweapon(totalSubweaponuses : float) -> void:
-	#_playerResource.SubweaponUses = clampi(totalSubweaponuses, 0, _playerResource.SubweaponUses)
-	#_animationTree.set("parameters/conditions/subweapon", true)
-	#_animationTree.set("parameters/conditions/notSubweapon", false)
-	#_playerResource.SubweaponUsedTrigger = true
-	#
-	#var instance : Subweapon = _playerResource.CurrentSubweapon.Scene.instantiate()
-	#get_tree().root.add_child(instance)
-	#instance.global_position = _playerResource.Agent.global_position
-	#instance.throw(Vector2(_playerResource.LastDirection, -1))
-	#
-	#await get_tree().create_timer(_playerResource.CurrentSubweapon.Cooldown).timeout
-	#
-	#_animationTree.set("parameters/conditions/subweapon", false)
-	#_animationTree.set("parameters/conditions/notSubweapon", true)
-	#can_use_subweapon = true

@@ -8,4 +8,5 @@ class_name SubweaponDataResource
 @export var ThrowDelay : float = 0.0
 @export var Cooldown : float = 0.5
 @export var Cost : int
+@export var ThrowOffset : Vector2
 @export var Scene : PackedScene

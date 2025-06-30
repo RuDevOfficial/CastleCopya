@@ -2,7 +2,6 @@ extends State
 class_name PlayerAttack
 
 @export var _body2D : CharacterBody2D
-@export var _attackTime : float
 @export var _attackTimer : Timer
 @export var _animationTree : AnimationTree
 
@@ -16,7 +15,7 @@ func Enter() -> void:
 	
 	_animationTree.set("parameters/Attacking/blend_position", Vector2(_playerResource.LastDirection, crouched))
 	
-	_attackTimer.start(_attackTime)
+	_attackTimer.start(_playerResource.AttackTime)
 	
 	if (_body2D.is_on_floor()):
 		_playerResource.Velocity.x = 0

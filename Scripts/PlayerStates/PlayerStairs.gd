@@ -8,12 +8,17 @@ class_name PlayerStairs
 
 var follow_path : PathFollow2D
 
+var start_stair_vector : Vector2
+
 var begin_at_start : bool = true
 var stairs_go_up : bool = false
 var stair_vector : Vector2
 var last_axis : Vector2
 
+var attacking_on_stairs : bool = false
+
 func Enter():
+	_playerResource.IsOnStairs = true
 	
 	var area_entered = area.get_overlapping_areas().get(0)
 	
@@ -21,17 +26,22 @@ func Enter():
 	follow_path = path_node.get_child(0)
 	
 	var axis : Vector2 = Vector2.DOWN * Input.get_axis("enter_stairs_up", "enter_stairs_down")
-	animation_tree.set("parameters/Stairs/blend_position", Vector2.ZERO)
+	
+		# CHECK THE FIRST 2 POINTS
+	var point_0 : Vector2 = path_node.curve.get_point_position(0)
+	var point_1 : Vector2 = path_node.curve.get_point_position(1)
+		
+	# DOT PRODUCT POSITIVE MEANS IT IS GOING IN THE RIGHT DIRECTION
+	# IF NOT GO BACK TO THE NORMAL STATE
+	start_stair_vector = (point_1 - point_0).normalized()
 	
 	if (area_entered.name == "Start"):
 		# CHECK THE FIRST 2 POINTS
-		var point_0 : Vector2 = path_node.curve.get_point_position(0)
-		var point_1 : Vector2 = path_node.curve.get_point_position(1)
 		
 		# DOT PRODUCT POSITIVE MEANS IT IS GOING IN THE RIGHT DIRECTION
 		# IF NOT GO BACK TO THE NORMAL STATE
 		stair_vector = (point_1 - point_0).normalized()
-		stairs_go_up = stair_vector.y < 0
+		stairs_go_up = start_stair_vector.y < 0
 		
 		if (stair_vector.dot(axis) < 0): 
 			Exiting.emit(self, "Normal")
@@ -46,8 +56,8 @@ func Enter():
 		var total_points = path_node.curve.point_count
 		
 		# CHECK THE FIRST 2 POINTS
-		var point_0 : Vector2 = path_node.curve.get_point_position(total_points - 1)
-		var point_1 : Vector2 = path_node.curve.get_point_position(total_points - 2)
+		point_0 = path_node.curve.get_point_position(total_points - 1)
+		point_1 = path_node.curve.get_point_position(total_points - 2)
 		
 		# DOT PRODUCT POSITIVE MEANS IT IS GOING IN THE RIGHT DIRECTION
 		# IF NOT GO BACK TO THE NORMAL STATE
@@ -69,56 +79,66 @@ func Enter():
 	animation_tree.set("parameters/conditions/on_stairs", true)
 
 func Exit():
+	_playerResource.IsOnStairs = false
+	
 	animation_tree.set("parameters/conditions/not_on_stairs", true)
 	animation_tree.set("parameters/conditions/on_stairs", false)
 
-func Update(_delta: float):
-	if (Input.is_action_pressed("enter_stairs_up") || Input.is_action_pressed("enter_stairs_down")):
-		var axis : Vector2 = Vector2.DOWN * Input.get_axis("enter_stairs_up", "enter_stairs_down")
+func Update(delta: float):
+	
+	if (Input.is_action_just_pressed("attack") && attacking_on_stairs == false):
+		attacking_on_stairs = true
+		var timer : SceneTreeTimer = get_tree().create_timer(_playerResource.AttackTime)
+		timer.timeout.connect(func(): 
+			attacking_on_stairs = false
+			animation_tree.set("parameters/conditions/attacking_stair", false)
+			animation_tree.set("parameters/conditions/not_attacking_stair", true))
 		
-		if (stair_vector.x > 0 && axis.y < 0 ||
-			stair_vector.x < 0 && axis.y > 0):
-				animation_tree.set("parameters/Stairs/blend_position", Vector2(1, 1))
-		elif (stair_vector.x < 0 && axis.y < 0 ||
-			stair_vector.x > 0 && axis.y > 0):
-				animation_tree.set("parameters/Stairs/blend_position", Vector2(-1, -1))
+		# DO LOGIC ANIMATION HERE
+		animation_tree.set("parameters/conditions/attacking_stair", true)
+		animation_tree.set("parameters/conditions/not_attacking_stair", false)
 		
-		last_axis = axis
+		var left_input = PlayerInput.get_last_input().x
+		if (start_stair_vector.x > 0 && start_stair_vector.y < 0): 
+			animation_tree.set("parameters/AttackStair/blend_position", Vector2(left_input, 1))
+		elif (start_stair_vector.x > 0 && start_stair_vector.y > 0):
+			animation_tree.set("parameters/AttackStair/blend_position", Vector2(left_input, -1))
+	
+	if (attacking_on_stairs == true): return
+	
+	if (PlayerInput.is_non_zero()):
+			if (start_stair_vector.x > 0 && start_stair_vector.y < 0): 
+				if (PlayerInput.is_inputting_up_right_corner(false)): animation_tree.set("parameters/Stairs/blend_position", Vector2(1, -1))
+				else: animation_tree.set("parameters/Stairs/blend_position", Vector2(-1, 1))
+			elif (start_stair_vector.x > 0 && start_stair_vector.y > 0):
+				if (PlayerInput.is_inputting_down_right_corner(false)): animation_tree.set("parameters/Stairs/blend_position", Vector2(1, 1))
+				else: animation_tree.set("parameters/Stairs/blend_position", Vector2(-1, -1))
 	else:
-		animation_tree.set("parameters/Stairs/blend_position", Vector2(last_axis.x, 0))
+		animation_tree.set("parameters/Stairs/blend_position", Vector2(PlayerInput.get_last_input().x, 0))
 	
 	if (follow_path.progress_ratio == 1 || follow_path.progress_ratio == 0):
 		controller.motion_mode = CharacterBody2D.MOTION_MODE_GROUNDED
+		_playerResource.LastDirection = PlayerInput.get_input().x
 		Exiting.emit(self, "Normal")
 		return
 
 func Physics_Update(delta: float):
-	if (Input.is_action_pressed("enter_stairs_up")):
-		if (begin_at_start && stairs_go_up):
-			follow_path.progress_ratio += delta / 2
-			
-		elif (begin_at_start == false && stairs_go_up == false):
-			follow_path.progress_ratio += delta / 2
-		
-		elif (begin_at_start == false && stairs_go_up):
-			follow_path.progress_ratio -= delta / 2
-		
-		elif (begin_at_start && stairs_go_up == false):
-			follow_path.progress_ratio -= delta / 2
-		
-		controller.global_position = follow_path.global_position
+	if (PlayerInput.is_non_zero() == false): return
+	if (attacking_on_stairs == true): return
 	
-	elif (Input.is_action_pressed("enter_stairs_down")):
-		if (begin_at_start && stairs_go_up):
-			follow_path.progress_ratio -= delta / 2
+	var downwards_delta: float = delta * _playerResource.stair_movement_multiplier
+	
+	if (start_stair_vector.x > 0 && start_stair_vector.y < 0):
+		if (PlayerInput.is_inputting_up_right_corner(false)): follow_path.progress_ratio += delta / 2
+		elif (PlayerInput.is_inputting_down_left_corner(false)): follow_path.progress_ratio -= downwards_delta / 2
+	elif (start_stair_vector.x > 0 && start_stair_vector.y > 0):
+		if (PlayerInput.is_inputting_down_right_corner(false)): follow_path.progress_ratio += downwards_delta / 2
+		elif (PlayerInput.is_inputting_up_left_corner(false)): follow_path.progress_ratio -= delta / 2
+	elif (start_stair_vector.x < 0 && start_stair_vector.y > 0):
+		if (PlayerInput.is_inputting_down_left_corner(false)): follow_path.progress_ratio += downwards_delta / 2
+		elif (PlayerInput.is_inputting_up_right_corner(false)): follow_path.progress_ratio -= delta / 2
+	else:
+		if (PlayerInput.is_inputting_up_left_corner(false)): follow_path.progress_ratio += delta / 2
+		elif (PlayerInput.is_inputting_down_right_corner(false)): follow_path.progress_ratio -= downwards_delta / 2
 		
-		elif (begin_at_start == false && stairs_go_up == false):
-			follow_path.progress_ratio -= delta / 2
-		
-		elif (begin_at_start && stairs_go_up == false):
-			follow_path.progress_ratio += delta / 2
-		
-		elif (begin_at_start == false && stairs_go_up):
-			follow_path.progress_ratio += delta / 2
-		
-		controller.global_position = follow_path.global_position
+	controller.global_position = follow_path.global_position

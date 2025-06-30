@@ -10,5 +10,6 @@ Icon = ExtResource("1_wyn34")
 ThrowDelay = 0.3
 Cooldown = 0.5
 Cost = 3
+ThrowOffset = Vector2(0, -24)
 Scene = ExtResource("2_866ry")
 metadata/_custom_type_script = "uid://c7vfc8i1k154f"

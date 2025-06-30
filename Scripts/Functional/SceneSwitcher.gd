@@ -54,6 +54,7 @@ func begin_load_timer(firstTime : bool = true) -> void:
 func _on_load_timer_timeout() -> void:
 	#call level loader to change level and resource and stuff
 	MusManager.play_music(_lastLevelResource.LevelMusicID)
+	SignalBus.on_level_fade_completed.emit()
 	on_level_fading_completed.emit()
 	_animationPlayer.play("fade_out")
 

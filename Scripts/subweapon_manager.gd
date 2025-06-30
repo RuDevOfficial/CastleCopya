@@ -3,6 +3,7 @@ class_name SubweaponManager
 
 var max_uses : int = 20
 var current_uses : int = 0
+@export var starting_uses : int
 
 var cooldown_reached : bool = true
 
@@ -23,6 +24,8 @@ func _ready() -> void:
 	
 	cooldown_timer.timeout.connect(func(): cooldown_reached = true)
 	change_subweapon(current_subweapon_data)
+	
+	refill_uses(current_uses, true)
 
 func refill_uses(amount : int, override_total_uses : bool = false) -> void:
 	if (override_total_uses): current_uses = maxi(amount, max_uses)
@@ -67,7 +70,7 @@ func use_subweapon(direction : int, game_object : Node2D) -> void:
 	#spawn subweapon here
 	var subweapon_instance = current_subweapon_data.Scene.instantiate()
 	get_tree().root.add_child(subweapon_instance)
-	subweapon_instance.global_position = game_object.global_position
+	subweapon_instance.global_position = game_object.global_position + current_subweapon_data.ThrowOffset
 	subweapon_instance.throw(Vector2(direction, -1))
 	
 	cooldown_reached = false

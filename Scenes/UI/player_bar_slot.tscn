@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvny2qjcq2m18"]
+
+[ext_resource type="Texture2D" uid="uid://du4k6gyxjp5os" path="res://Sprites/UI/PlayerBarSlot.png" id="1_3yy0n"]
+
+[node name="PlayerBarSlot" type="TextureRect"]
+texture = ExtResource("1_3yy0n")
+expand_mode = 3

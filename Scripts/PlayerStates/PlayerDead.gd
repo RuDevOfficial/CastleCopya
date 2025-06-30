@@ -18,6 +18,8 @@ func Enter() -> void:
 	SfxManager.do_one_shot("Death")
 	MusManager.stop_music(true)
 	player_just_died.emit()
+	
+	SignalBus.on_player_death.emit()
 
 func Exit() -> void:
 	pass

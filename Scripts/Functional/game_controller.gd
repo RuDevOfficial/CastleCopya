@@ -10,6 +10,8 @@ signal on_load_level
 signal on_load_level_early
 
 func _ready() -> void:
+	SignalBus.on_level_loaded.emit(_playerCharacter, _levelResource)
+	
 	on_load_level.emit(_levelResource)
 	_playerCharacter.get_state("Dead").player_dead.connect(_restart_level)
 	if (_startWithLoading == true):
