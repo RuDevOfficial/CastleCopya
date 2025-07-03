@@ -6,13 +6,28 @@ class_name PlayerCharacter
 
 @onready var _health : Health = $"Components/Health"
 
+var last_spawn_position : Vector2
+
 func _ready() -> void:
 	_playerResource.SetDefaultValues(self)
 	
-	SignalBus.on_level_generated.connect(func(level_resource):
+	SignalBus.on_level_generated.connect(func(level_resource, level_instance):
+		last_spawn_position = level_resource.PlayerSpawnPosition
 		show_player()
-		reset_player(level_resource)
+		reset_player()
 		activate_player())
+	
+	SignalBus.on_middle_transition.connect(func(is_player_respawning):
+		if (is_player_respawning == false): return
+		
+		_health.set_health(_playerResource.StartingHealth)
+		
+		show_player()
+		reset_player()
+		)
+	
+	SignalBus.on_end_transition.connect(func(is_player_respawning):
+		if (is_player_respawning == true): activate_player())
 	
 	#var gameController = get_tree().root.get_node("Main")
 	#gameController.on_load_level.connect(freeze_player)
@@ -44,8 +59,8 @@ func show_player() -> void:
 	disable_mode = CollisionObject2D.DISABLE_MODE_REMOVE
 	visible = true
 
-func reset_player(levelResource : LevelResource) -> void:
-	global_position = levelResource.PlayerSpawnPosition
+func reset_player() -> void:
+	global_position = last_spawn_position
 	velocity.x = 0
 	_playerResource.CanMove = false
 

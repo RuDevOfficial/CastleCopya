@@ -152,7 +152,7 @@ sources/0 = SubResource("TileSetAtlasSource_sqoif")
 
 [sub_resource type="Curve2D" id="Curve2D_n3wfp"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -192, 0, 0, 0, 0, 0, 448, 0)
+"points": PackedVector2Array(0, 0, 0, 0, -320, 0, 0, 0, 0, 0, 576, 0)
 }
 point_count = 2
 

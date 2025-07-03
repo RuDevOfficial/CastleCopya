@@ -5,7 +5,11 @@ class_name PlayerAttack
 @export var _attackTimer : Timer
 @export var _animationTree : AnimationTree
 
+var is_attacking : bool = false
+
 func Enter() -> void:
+	is_attacking = true
+	
 	_animationTree.set("parameters/conditions/attack", true)
 	_animationTree.set("parameters/conditions/notAttack", false)
 	
@@ -21,7 +25,7 @@ func Enter() -> void:
 		_playerResource.Velocity.x = 0
 
 func Exit() -> void:
-	pass
+	is_attacking = false
 
 func Update(_delta : float) -> void:
 	pass
@@ -50,3 +54,9 @@ func _on_attack_timer_timeout() -> void:
 		Exiting.emit(self, "Normal")
 	else:
 		Exiting.emit(self, "Crouch")
+
+func _on_health_damaged(amount: float, knockback: Vector2) -> void:
+	if (is_attacking == false): return
+	
+	_attackTimer.stop()
+	Exiting.emit(self, "Damaged")

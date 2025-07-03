@@ -45,7 +45,9 @@ func reset_values():
 
 func get_killed():
 	SfxManager.do_one_shot(death_sound_key)
+	
 	get_disabled()
+	sprite.visible = false
 
 func get_disabled():
 	
@@ -58,11 +60,11 @@ func get_disabled():
 	behavior_player.blackboard.set_var("direction", starting_direction)
 	behavior_player.active = false
 	
-	sprite.visible = false
-
+	sprite.visible = true
 
 func _on_health_damaged(amount: float, knockback: Vector2) -> void:
 	SignalBus.on_enemy_hit.emit(self)
 
 func _on_health_death() -> void:
+	sprite.visible = false
 	SignalBus.on_enemy_death.emit()

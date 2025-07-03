@@ -49,6 +49,11 @@ func take_damage(amount: float, knockback: Vector2) -> void:
 	
 	if _current <= 0.0:
 		death.emit()
+		
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		is_damaged = false
 	else:
 		damaged.emit(amount, knockback)
 		if (damage_sound_emitter != null): damage_sound_emitter.play_one_shot()

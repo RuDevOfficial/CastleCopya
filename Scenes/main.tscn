@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=4 uid="uid://cqscvl3qsinqc"]
+[gd_scene load_steps=71 format=4 uid="uid://cqscvl3qsinqc"]
 
 [ext_resource type="PackedScene" uid="uid://bt0m7fahlwwhn" path="res://Scenes/player.tscn" id="2_8gbba"]
 [ext_resource type="Resource" uid="uid://db5lubmtte4hk" path="res://Resources/test_level_resource.tres" id="2_21xkr"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://b5gd580ul1xbt" path="res://Sprites/Player/run_1.png" id="9_ueoa1"]
 [ext_resource type="Texture2D" uid="uid://dny2pv3h5k1en" path="res://Sprites/Player/run_2.png" id="10_6vcvc"]
 [ext_resource type="Script" uid="uid://blsahv2cipsds" path="res://Scripts/Functional/transition_manager.gd" id="10_kltya"]
+[ext_resource type="Script" uid="uid://b23qyew1k8tgn" path="res://Scripts/Functional/camera_manager.gd" id="10_neg2b"]
 [ext_resource type="Texture2D" uid="uid://dinxm4by2wync" path="res://Sprites/UI/heart.png" id="13_jkdf5"]
 [ext_resource type="Script" uid="uid://ccdpmgf0myc5u" path="res://Scripts/UI/ammo_ui.gd" id="13_wsu2k"]
 [ext_resource type="FontFile" uid="uid://4ya1hpanvmia" path="res://Fonts/Qapixa-5y9Pa.ttf" id="14_wsu2k"]
@@ -1201,6 +1202,12 @@ color = Color(0, 0, 0, 0)
 libraries = {
 &"": SubResource("AnimationLibrary_aqgau")
 }
+
+[node name="CameraManager" type="Node" parent="Managers" node_paths=PackedStringArray("camera", "level_parent", "player")]
+script = ExtResource("10_neg2b")
+camera = NodePath("../../Camera2D")
+level_parent = NodePath("../../Level")
+player = NodePath("../../Player")
 
 [node name="Audio" type="Node2D" parent="."]
 

@@ -17,4 +17,4 @@ func generate_new_level(new_index : int) -> void:
 	
 	current_level_index = new_index
 	MusManager.play_music(level_resource.LevelMusicID)
-	SignalBus.on_level_generated.emit(level_resource)
+	SignalBus.on_level_generated.emit(level_resource, current_level_instance)

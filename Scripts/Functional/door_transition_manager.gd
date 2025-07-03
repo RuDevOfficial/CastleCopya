@@ -18,7 +18,6 @@ func begin_door_transition(door : Door) -> void:
 	if (is_transitioning): return
 	is_transitioning = true
 	
-	camera.is_following_player = false
 	player.freeze_player(null)
 	
 	player.visible = false
@@ -52,7 +51,6 @@ func begin_door_transition(door : Door) -> void:
 	tween_camera.tween_property(camera, "global_position", Vector2(door.camera_end_pivot.global_position.x, camera.global_position.y), 3)
 	tween_camera.tween_callback(func():
 		player.global_position = dummy_player.global_position
-		camera.is_following_player = true
 		player.visible = true
 		player.activate_player()
 		dummy_player.visible = false)

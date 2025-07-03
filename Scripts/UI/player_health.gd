@@ -19,8 +19,11 @@ func _ready() -> void:
 	SignalBus.on_player_take_damage.connect(player_damage_override_bar_status)
 	SignalBus.on_player_death.connect(death_override_all_bars)
 	#SignalBus.on_level_fade_completed.connect(scene_switcher_fade_complete)
+	
+	SignalBus.on_middle_transition.connect(func(is_player_respawning):
+		if (is_player_respawning == true): scene_switcher_fade_complete())
 
-func level_loaded_add_bars(level_resource : LevelResource) -> void:
+func level_loaded_add_bars(level_resource : LevelResource, level_instance : Node2D) -> void:
 	add_max_bars(player_resource.StartingHealth)
 
 func player_damage_override_bar_status(max_health : int, current : int) -> void:

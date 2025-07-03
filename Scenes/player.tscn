@@ -3002,5 +3002,6 @@ event_name = "event:/AttackWhip"
 event_guid = "{2df60c5d-d091-4b19-a348-a41281e1429b}"
 
 [connection signal="damaged" from="Components/Health" to="Components/Flicker" method="_on_health_damaged"]
+[connection signal="damaged" from="Components/Health" to="FSM/Attack" method="_on_health_damaged"]
 [connection signal="timeout" from="Timers/AttackTimer" to="FSM/Attack" method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="Timers/DeadTimer" to="FSM/Dead" method="_on_dead_timer_timeout"]
