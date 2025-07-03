@@ -9,7 +9,7 @@
 size = Vector2(8, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m7558"]
-size = Vector2(2, 48)
+size = Vector2(2, 2)
 
 [sub_resource type="Animation" id="Animation_kj2pw"]
 length = 0.001
@@ -177,6 +177,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="Trigger" type="CollisionShape2D" parent="Area"]
+position = Vector2(0, 23)
 shape = SubResource("RectangleShape2D_m7558")
 debug_color = Color(0.993886, 0.71016, 0.822289, 0.42)
 

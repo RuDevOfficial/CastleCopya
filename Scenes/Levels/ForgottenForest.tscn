@@ -158,9 +158,9 @@ point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_p3cfc"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 704, 0, 0, 0, -21.78, 0, 1152, 0)
+"points": PackedVector2Array(0, 0, 0, 0, 576, 0, 0, 0, -21.78, 0, 1152, 0, 0, 0, 0, 0, 576, 0)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_21xkr"]
 offsets = PackedFloat32Array(0)
@@ -177,12 +177,15 @@ texture_filter = 1
 [node name="Enemies" type="Node2D" parent="Entities"]
 
 [node name="Zombie" parent="Entities/Enemies" instance=ExtResource("1_oc7uv")]
+z_index = 0
 position = Vector2(344, 8)
 
 [node name="Zombie2" parent="Entities/Enemies" instance=ExtResource("1_oc7uv")]
+z_index = 0
 position = Vector2(112, 56)
 
 [node name="Zombie3" parent="Entities/Enemies" instance=ExtResource("1_oc7uv")]
+z_index = 0
 position = Vector2(-96, 24)
 
 [node name="Whipables" type="Node2D" parent="Entities"]

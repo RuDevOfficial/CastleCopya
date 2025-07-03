@@ -53,6 +53,5 @@ func begin_door_transition(door : Door) -> void:
 		player.global_position = dummy_player.global_position
 		player.visible = true
 		player.activate_player()
-		dummy_player.visible = false)
-	
-	SignalBus.on_door_transition_finish.emit()
+		dummy_player.visible = false
+		SignalBus.on_door_transition_finish.emit())

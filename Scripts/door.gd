@@ -1,7 +1,7 @@
 extends StaticBody2D
 class_name Door
 
-@onready var camera_end_pivot = $CameraPivot
+@onready var camera_end_pivot : Node2D = $CameraPivot
 @onready var animation_player = $AnimationPlayer
 
 @export var open_sprite : CompressedTexture2D

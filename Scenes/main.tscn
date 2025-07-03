@@ -1142,6 +1142,7 @@ texture_filter = 1
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-160, 0)
 zoom = Vector2(4, 4)
+process_callback = 0
 position_smoothing_speed = 50.0
 
 [node name="Managers" type="Node" parent="."]
