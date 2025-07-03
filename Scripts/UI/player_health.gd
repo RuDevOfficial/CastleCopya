@@ -1,6 +1,7 @@
 extends Control
 class_name PlayerHealthUIManager
 
+@export var player_resource : PlayerResource
 @export var bar_scene : PackedScene
 
 @export var empty_bar_texture : CompressedTexture2D
@@ -12,13 +13,15 @@ var bar_list : Array[TextureRect]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	SignalBus.on_level_loaded.connect(level_loaded_add_bars)
+	SignalBus.on_level_generated.connect(level_loaded_add_bars)
+	
+	#SignalBus.on_level_loaded.connect(level_loaded_add_bars)
 	SignalBus.on_player_take_damage.connect(player_damage_override_bar_status)
 	SignalBus.on_player_death.connect(death_override_all_bars)
-	SignalBus.on_level_fade_completed.connect(scene_switcher_fade_complete)
+	#SignalBus.on_level_fade_completed.connect(scene_switcher_fade_complete)
 
-func level_loaded_add_bars(_playerCharacter : PlayerCharacter, _levelResource : LevelResource) -> void:
-	add_max_bars(_playerCharacter._playerResource.StartingHealth)
+func level_loaded_add_bars(level_resource : LevelResource) -> void:
+	add_max_bars(player_resource.StartingHealth)
 
 func player_damage_override_bar_status(max_health : int, current : int) -> void:
 	update_bar_state(max_health, current)

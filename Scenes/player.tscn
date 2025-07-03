@@ -2817,7 +2817,7 @@ _data = {
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animationTree") groups=["player"]]
 collision_layer = 4
-collision_mask = 19
+collision_mask = 4115
 script = ExtResource("1_y6uwr")
 _playerResource = ExtResource("4_7dp3o")
 _animationTree = NodePath("Animation/AnimationTree")

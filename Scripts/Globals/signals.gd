@@ -15,3 +15,15 @@ signal on_player_death
 #ENEMY RELATED
 signal on_enemy_hit
 signal on_enemy_death
+
+#DOOR TRANSITION RELATED
+signal on_door_transition_start
+signal on_door_transition_finish
+
+#NEW TRANSITION SIGNALS
+signal on_begin_transition
+signal on_middle_transition
+signal on_end_transition
+
+#LEVEL GENERATION RELATED
+signal on_level_generated

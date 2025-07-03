@@ -1,27 +1,182 @@
-[gd_scene load_steps=44 format=4 uid="uid://cqscvl3qsinqc"]
+[gd_scene load_steps=70 format=4 uid="uid://cqscvl3qsinqc"]
 
-[ext_resource type="Script" uid="uid://cv61f7aim5mr6" path="res://Scripts/Functional/game_controller.gd" id="1_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://bt0m7fahlwwhn" path="res://Scenes/player.tscn" id="2_8gbba"]
 [ext_resource type="Resource" uid="uid://db5lubmtte4hk" path="res://Resources/test_level_resource.tres" id="2_21xkr"]
-[ext_resource type="PackedScene" uid="uid://c3yj0obrh22re" path="res://Scenes/Levels/ForgottenForest.tscn" id="3_21xkr"]
-[ext_resource type="Script" uid="uid://cc0g01gjlu1ca" path="res://Scripts/Functional/camera_controller.gd" id="3_kry3j"]
-[ext_resource type="PackedScene" uid="uid://djamy8yprjwpv" path="res://Scenes/scene_switcher.tscn" id="6_21xkr"]
+[ext_resource type="Script" uid="uid://c6tp3c7vmt7kl" path="res://Scripts/Functional/level_loader_manager.gd" id="4_cbgmd"]
+[ext_resource type="Script" uid="uid://wvhb66ctf5ai" path="res://Scripts/Resources/level_resource.gd" id="5_1w6v2"]
+[ext_resource type="Script" uid="uid://dynvr0i6g3si1" path="res://Scripts/Functional/door_transition_manager.gd" id="6_gt3je"]
+[ext_resource type="Texture2D" uid="uid://cs26y0taqxgiv" path="res://Sprites/Player/CharacterIdle.png" id="7_3pmx8"]
 [ext_resource type="Resource" uid="uid://dir5gqc6p8et0" path="res://Resources/Subweapons/Data/Knife_Data.tres" id="7_jkdf5"]
+[ext_resource type="Texture2D" uid="uid://bb16ggcj6powd" path="res://Sprites/Player/run_0.png" id="8_1w6v2"]
 [ext_resource type="Texture2D" uid="uid://0yb5oojirqb8" path="res://Sprites/UI/sub-weapon border.png" id="8_344ge"]
 [ext_resource type="Script" uid="uid://b6g1rf8olebxg" path="res://Scripts/UI/subweapon_ui.gd" id="8_hptm8"]
 [ext_resource type="Script" uid="uid://bs8y3t0lfpxkk" path="res://Scripts/Resources/player_resource.gd" id="8_wsu2k"]
 [ext_resource type="Texture2D" uid="uid://cvfw1s415q2iq" path="res://Sprites/Subweapons/Placeholder_Subweapon.png" id="8_ynf5e"]
+[ext_resource type="Texture2D" uid="uid://b5gd580ul1xbt" path="res://Sprites/Player/run_1.png" id="9_ueoa1"]
+[ext_resource type="Texture2D" uid="uid://dny2pv3h5k1en" path="res://Sprites/Player/run_2.png" id="10_6vcvc"]
+[ext_resource type="Script" uid="uid://blsahv2cipsds" path="res://Scripts/Functional/transition_manager.gd" id="10_kltya"]
 [ext_resource type="Texture2D" uid="uid://dinxm4by2wync" path="res://Sprites/UI/heart.png" id="13_jkdf5"]
 [ext_resource type="Script" uid="uid://ccdpmgf0myc5u" path="res://Scripts/UI/ammo_ui.gd" id="13_wsu2k"]
 [ext_resource type="FontFile" uid="uid://4ya1hpanvmia" path="res://Fonts/Qapixa-5y9Pa.ttf" id="14_wsu2k"]
 [ext_resource type="Script" uid="uid://ccbs3viy4b7up" path="res://Scripts/UI/player_health.gd" id="15_h1bgf"]
+[ext_resource type="Texture2D" uid="uid://cd3gx7ahh2ju5" path="res://Tilesets/tileset.png" id="16_7k868"]
+[ext_resource type="Script" uid="uid://dueddiht74nx5" path="res://Scripts/UI/intro_ui.gd" id="16_hpc6h"]
 [ext_resource type="PackedScene" uid="uid://dvny2qjcq2m18" path="res://Scenes/UI/player_bar_slot.tscn" id="16_k12tt"]
 [ext_resource type="Texture2D" uid="uid://b12n3cuk5bvqu" path="res://Sprites/UI/PlayerBarSlotEmpty.png" id="17_b3802"]
 [ext_resource type="Texture2D" uid="uid://du4k6gyxjp5os" path="res://Sprites/UI/PlayerBarSlot.png" id="18_fevyy"]
+[ext_resource type="Script" uid="uid://dbb6e5tffbn2q" path="res://Scripts/UI/gameplay_ui.gd" id="18_kltya"]
 [ext_resource type="Script" uid="uid://bh1yjisousnpq" path="res://Scenes/enemy_health.gd" id="19_fevyy"]
 [ext_resource type="PackedScene" uid="uid://cv6pqx4n8mqhk" path="res://Scenes/UI/enemy_bar_slot.tscn" id="20_ee4r6"]
 [ext_resource type="Texture2D" uid="uid://btojmi0evh0r5" path="res://Sprites/UI/EnemyBarSlotEmpty.png" id="21_gt3je"]
 [ext_resource type="Texture2D" uid="uid://0src6ru887bk" path="res://Sprites/UI/EnemyBarSlot.png" id="22_3pmx8"]
+[ext_resource type="Resource" uid="uid://d4jdenihj3l0q" path="res://Resources/player_resource.tres" id="26_e08e2"]
+[ext_resource type="Script" uid="uid://b3liisx2fnh7d" path="res://Scripts/UI/menu_ui.gd" id="28_6vcvc"]
+[ext_resource type="Texture2D" uid="uid://dq2ayh5wtrwwi" path="res://Sprites/yvan5es92g091.png" id="28_7k868"]
+[ext_resource type="Theme" uid="uid://c4y647t1lso3h" path="res://Themes/menu.tres" id="28_ueoa1"]
+
+[sub_resource type="Animation" id="Animation_hpc6h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_3pmx8")]
+}
+
+[sub_resource type="Animation" id="Animation_7k868"]
+resource_name = "idle"
+length = 0.001
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_3pmx8")]
+}
+
+[sub_resource type="Animation" id="Animation_kltya"]
+resource_name = "run"
+length = 0.80002
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("8_1w6v2"), ExtResource("9_ueoa1"), ExtResource("10_6vcvc"), ExtResource("9_ueoa1"), ExtResource("8_1w6v2")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e08e2"]
+_data = {
+&"RESET": SubResource("Animation_hpc6h"),
+&"idle": SubResource("Animation_7k868"),
+&"run": SubResource("Animation_kltya")
+}
+
+[sub_resource type="Animation" id="Animation_k2e45"]
+length = 0.001
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_536cc"]
+resource_name = "end"
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"end_transition"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_hdf80"]
+resource_name = "idle"
+
+[sub_resource type="Animation" id="Animation_jwpg7"]
+resource_name = "start"
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"middle_transition"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aqgau"]
+_data = {
+&"RESET": SubResource("Animation_k2e45"),
+&"end": SubResource("Animation_536cc"),
+&"idle": SubResource("Animation_hdf80"),
+&"start": SubResource("Animation_jwpg7")
+}
 
 [sub_resource type="Resource" id="Resource_jkdf5"]
 resource_local_to_scene = true
@@ -40,6 +195,101 @@ KnockbackForce = 100.0
 AttackTime = 0.5
 CurrentSubweapon = ExtResource("7_jkdf5")
 metadata/_custom_type_script = "uid://bs8y3t0lfpxkk"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kltya"]
+texture = ExtResource("16_7k868")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+0:8/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+0:9/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_e08e2"]
+sources/0 = SubResource("TileSetAtlasSource_kltya")
+
+[sub_resource type="Animation" id="Animation_r33sp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(83, 144)]
+}
+
+[sub_resource type="Animation" id="Animation_e08e2"]
+resource_name = "idle"
+
+[sub_resource type="Animation" id="Animation_neg2b"]
+resource_name = "running"
+length = 3.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(83, 144), Vector2(116, 144)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"cutscene_finished"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hdf80"]
+_data = {
+&"RESET": SubResource("Animation_r33sp"),
+&"idle": SubResource("Animation_e08e2"),
+&"running": SubResource("Animation_neg2b")
+}
 
 [sub_resource type="LabelSettings" id="LabelSettings_k12tt"]
 font = ExtResource("14_wsu2k")
@@ -884,21 +1134,73 @@ font = SubResource("FontFile_neg2b")
 font_size = 26
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_jjvhh")
-_levelResource = ExtResource("2_21xkr")
+texture_filter = 1
 
 [node name="Level" type="Node2D" parent="."]
-
-[node name="ForgottenForest" parent="Level" instance=ExtResource("3_21xkr")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-160, 0)
 zoom = Vector2(4, 4)
 position_smoothing_speed = 50.0
-script = ExtResource("3_kry3j")
 
-[node name="SceneSwitcher" parent="." instance=ExtResource("6_21xkr")]
-position = Vector2(-160, 4)
+[node name="Managers" type="Node" parent="."]
+
+[node name="StageLoader" type="Node" parent="Managers" node_paths=PackedStringArray("target_parent_node")]
+script = ExtResource("4_cbgmd")
+target_parent_node = NodePath("../../Level")
+level_list = Array[ExtResource("5_1w6v2")]([ExtResource("2_21xkr")])
+
+[node name="DoorTransitionManager" type="Node" parent="Managers" node_paths=PackedStringArray("camera", "player")]
+script = ExtResource("6_gt3je")
+camera = NodePath("../../Camera2D")
+player = NodePath("../../Player")
+
+[node name="DummyPlayer" type="Node2D" parent="Managers/DoorTransitionManager"]
+texture_filter = 1
+position = Vector2(544, 24)
+
+[node name="Sprite2D" type="Sprite2D" parent="Managers/DoorTransitionManager/DummyPlayer"]
+position = Vector2(0, -16)
+texture = ExtResource("7_3pmx8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Managers/DoorTransitionManager/DummyPlayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_e08e2")
+}
+
+[node name="TransitionManager" type="CanvasLayer" parent="Managers"]
+layer = 10
+script = ExtResource("10_kltya")
+
+[node name="Control" type="Control" parent="Managers/TransitionManager"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="Managers/TransitionManager/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Managers/TransitionManager/Control"]
+libraries = {
+&"": SubResource("AnimationLibrary_aqgau")
+}
 
 [node name="Audio" type="Node2D" parent="."]
 
@@ -908,12 +1210,12 @@ bank_paths = ["res://FmodBank/Desktop/Master.strings.bank", "res://FmodBank/Desk
 [node name="FmodListener2D" type="FmodListener2D" parent="Audio"]
 
 [node name="Player" parent="." instance=ExtResource("2_8gbba")]
-position = Vector2(-288, 40)
+position = Vector2(-272, 40)
 _playerResource = SubResource("Resource_jkdf5")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="UI"]
+[node name="Menu" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -923,26 +1225,127 @@ grow_vertical = 2
 pivot_offset = Vector2(-316, -116)
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("28_6vcvc")
 
-[node name="ColorRect" type="ColorRect" parent="UI/Control"]
+[node name="ColorRect" type="ColorRect" parent="UI/Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Template" type="Sprite2D" parent="UI/Menu"]
+position = Vector2(636, 386)
+scale = Vector2(0.762846, 0.762846)
+texture = ExtResource("28_7k868")
+
+[node name="Play Button" type="Button" parent="UI/Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -262.5
+offset_top = 64.0
+offset_right = 262.5
+offset_bottom = 111.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("28_ueoa1")
+text = "PUSH START KEY"
+flat = true
+
+[node name="Go to Gameplay" type="Button" parent="UI/Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -262.0
+offset_top = 144.0
+offset_right = 263.0
+offset_bottom = 191.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("28_ueoa1")
+text = "INSTANT GAMEPLAY"
+flat = true
+
+[node name="Intro" type="Control" parent="UI"]
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("16_hpc6h")
+
+[node name="Player" type="Sprite2D" parent="UI/Intro"]
+position = Vector2(83, 144)
+texture = ExtResource("7_3pmx8")
+
+[node name="Graphics" type="TileMapLayer" parent="UI/Intro"]
+z_index = -1
+texture_filter = 1
+tile_map_data = PackedByteArray("AAAEAAsAAAABAAEAAAAFAAsAAAABAAEAAAAGAAsAAAACAAEAAAAHAAsAAAACAAEAAAABAAsAAAABAAEAAAACAAsAAAACAAEAAAADAAsAAAABAAEAAAAIAAsAAAACAAEAAAAJAAsAAAABAAEAAAAKAAsAAAACAAEAAAALAAsAAAABAAEAAAAMAAsAAAABAAEAAAANAAsAAAACAAEAAAAOAAsAAAABAAEAAAAPAAsAAAABAAEAAAAQAAsAAAABAAEAAAARAAsAAAACAAEAAAASAAsAAAABAAEAAAATAAsAAAABAAEAAAAAAAsAAAADAAEAAAABAAoAAAACAAAAAAACAAoAAAABAAAAAAADAAoAAAABAAAAAAAEAAoAAAACAAAAAAAFAAoAAAABAAAAAAAGAAoAAAABAAAAAAAHAAoAAAACAAAAAAAIAAoAAAABAAAAAAAJAAoAAAACAAAAAAAKAAoAAAABAAAAAAALAAoAAAACAAAAAAAMAAoAAAACAAAAAAANAAoAAAABAAAAAAAOAAoAAAABAAAAAAAPAAoAAAACAAAAAAAQAAoAAAACAAAAAAARAAoAAAABAAAAAAASAAoAAAACAAAAAAAAAAoAAAACAAAAAAATAAoAAAABAAAAAAAAAAMAAAAAAAMAAAAAAAQAAAAAAAQAAAAAAAUAAAAAAAUAAAAAAAYAAAAAAAYAAAAAAAcAAAAAAAcAAAAAAAgAAAAAAAgAAAAAAAkAAAAAAAkAAAABAAMAAAABAAMAAAABAAQAAAABAAQAAAABAAUAAAABAAUAAAABAAYAAAABAAYAAAABAAcAAAABAAcAAAABAAgAAAABAAgAAAABAAkAAAABAAkAAAACAAMAAAACAAMAAAACAAQAAAACAAQAAAACAAUAAAACAAUAAAACAAYAAAACAAYAAAACAAcAAAACAAcAAAACAAgAAAACAAgAAAACAAkAAAACAAkAAAADAAMAAAAAAAMAAAADAAQAAAAAAAQAAAADAAUAAAAAAAUAAAADAAYAAAAAAAYAAAADAAcAAAAAAAcAAAADAAgAAAAAAAgAAAADAAkAAAAAAAkAAAAEAAMAAAABAAMAAAAEAAQAAAABAAQAAAAEAAUAAAABAAUAAAAEAAYAAAABAAYAAAAEAAcAAAABAAcAAAAEAAgAAAABAAgAAAAEAAkAAAABAAkAAAAFAAMAAAACAAMAAAAFAAQAAAACAAQAAAAFAAUAAAACAAUAAAAFAAYAAAACAAYAAAAFAAcAAAACAAcAAAAFAAgAAAACAAgAAAAFAAkAAAACAAkAAAAGAAMAAAAAAAMAAAAGAAQAAAAAAAQAAAAGAAUAAAAAAAUAAAAGAAYAAAAAAAYAAAAGAAcAAAAAAAcAAAAGAAgAAAAAAAgAAAAGAAkAAAAAAAkAAAAHAAMAAAABAAMAAAAHAAQAAAABAAQAAAAHAAUAAAABAAUAAAAHAAYAAAABAAYAAAAHAAcAAAABAAcAAAAHAAgAAAABAAgAAAAHAAkAAAABAAkAAAAIAAMAAAACAAMAAAAIAAQAAAACAAQAAAAIAAUAAAACAAUAAAAIAAYAAAACAAYAAAAIAAcAAAACAAcAAAAIAAgAAAACAAgAAAAIAAkAAAACAAkAAAAJAAMAAAAAAAMAAAAJAAQAAAAAAAQAAAAJAAUAAAAAAAUAAAAJAAYAAAAAAAYAAAAJAAcAAAAAAAcAAAAJAAgAAAAAAAgAAAAJAAkAAAAAAAkAAAAKAAMAAAABAAMAAAAKAAQAAAABAAQAAAAKAAUAAAABAAUAAAAKAAYAAAABAAYAAAAKAAcAAAABAAcAAAAKAAgAAAABAAgAAAAKAAkAAAABAAkAAAALAAMAAAACAAMAAAALAAQAAAACAAQAAAALAAUAAAACAAUAAAALAAYAAAACAAYAAAALAAcAAAACAAcAAAALAAgAAAACAAgAAAALAAkAAAACAAkAAAAMAAMAAAAAAAMAAAAMAAQAAAAAAAQAAAAMAAUAAAAAAAUAAAAMAAYAAAAAAAYAAAAMAAcAAAAAAAcAAAAMAAgAAAAAAAgAAAAMAAkAAAAAAAkAAAANAAMAAAABAAMAAAANAAQAAAABAAQAAAANAAUAAAABAAUAAAANAAYAAAABAAYAAAANAAcAAAABAAcAAAANAAgAAAABAAgAAAANAAkAAAABAAkAAAAOAAMAAAACAAMAAAAOAAQAAAACAAQAAAAOAAUAAAACAAUAAAAOAAYAAAACAAYAAAAOAAcAAAACAAcAAAAOAAgAAAACAAgAAAAOAAkAAAACAAkAAAAPAAMAAAAAAAMAAAAPAAQAAAAAAAQAAAAPAAUAAAAAAAUAAAAPAAYAAAAAAAYAAAAPAAcAAAAAAAcAAAAPAAgAAAAAAAgAAAAPAAkAAAAAAAkAAAAQAAMAAAABAAMAAAAQAAQAAAABAAQAAAAQAAUAAAABAAUAAAAQAAYAAAABAAYAAAAQAAcAAAABAAcAAAAQAAgAAAABAAgAAAAQAAkAAAABAAkAAAARAAMAAAACAAMAAAARAAQAAAACAAQAAAARAAUAAAACAAUAAAARAAYAAAACAAYAAAARAAcAAAACAAcAAAARAAgAAAACAAgAAAARAAkAAAACAAkAAAASAAMAAAAAAAMAAAASAAQAAAAAAAQAAAASAAUAAAAAAAUAAAASAAYAAAAAAAYAAAASAAcAAAAAAAcAAAASAAgAAAAAAAgAAAASAAkAAAAAAAkAAAATAAMAAAABAAMAAAATAAQAAAABAAQAAAATAAUAAAABAAUAAAATAAYAAAABAAYAAAATAAcAAAABAAcAAAATAAgAAAABAAgAAAATAAkAAAABAAkAAAAAAAAAAAABAAMAAAABAAAAAAABAAMAAAACAAAAAAABAAMAAAADAAAAAAABAAMAAAAEAAAAAAABAAMAAAAFAAAAAAABAAMAAAAGAAAAAAABAAMAAAAHAAAAAAABAAMAAAAIAAAAAAABAAMAAAAJAAAAAAABAAMAAAAKAAAAAAABAAMAAAALAAAAAAABAAMAAAAMAAAAAAABAAMAAAANAAAAAAABAAMAAAAOAAAAAAABAAMAAAAPAAAAAAABAAMAAAAQAAAAAAABAAMAAAARAAAAAAABAAMAAAARAAEAAAABAAMAAAASAAEAAAABAAMAAAATAAEAAAABAAMAAAATAAAAAAABAAMAAAASAAAAAAABAAMAAAAQAAEAAAABAAMAAAAPAAEAAAABAAMAAAAOAAEAAAABAAMAAAANAAEAAAABAAMAAAAMAAEAAAABAAMAAAALAAEAAAABAAMAAAAKAAEAAAABAAMAAAAJAAEAAAABAAMAAAAIAAEAAAABAAMAAAAHAAEAAAABAAMAAAAGAAEAAAABAAMAAAAFAAEAAAABAAMAAAAEAAEAAAABAAMAAAADAAEAAAABAAMAAAACAAEAAAABAAMAAAABAAEAAAABAAMAAAAAAAEAAAABAAMAAAAAAAIAAAABAAMAAAABAAIAAAABAAMAAAACAAIAAAABAAMAAAADAAIAAAABAAMAAAAEAAIAAAABAAMAAAAFAAIAAAABAAMAAAAGAAIAAAABAAMAAAAHAAIAAAABAAMAAAAIAAIAAAABAAMAAAAJAAIAAAABAAMAAAAKAAIAAAABAAMAAAALAAIAAAABAAMAAAAMAAIAAAABAAMAAAANAAIAAAABAAMAAAAOAAIAAAABAAMAAAAPAAIAAAABAAMAAAAQAAIAAAABAAMAAAARAAIAAAABAAMAAAASAAIAAAABAAMAAAATAAIAAAABAAMAAAD//wMAAAACAAMAAAD//wQAAAACAAQAAAD//wUAAAACAAUAAAD//wYAAAACAAYAAAD//wcAAAACAAcAAAD//wgAAAACAAgAAAD//wkAAAACAAkAAAD+/wMAAAABAAMAAAD+/wQAAAABAAQAAAD+/wUAAAABAAUAAAD+/wYAAAABAAYAAAD+/wcAAAABAAcAAAD+/wgAAAABAAgAAAD+/wkAAAABAAkAAAD9/wMAAAAAAAMAAAD9/wQAAAAAAAQAAAD9/wUAAAAAAAUAAAD9/wYAAAAAAAYAAAD9/wcAAAAAAAcAAAD9/wgAAAAAAAgAAAD9/wkAAAAAAAkAAAAUAAMAAAAAAAMAAAAUAAQAAAAAAAQAAAAUAAUAAAAAAAUAAAAUAAYAAAAAAAYAAAAUAAcAAAAAAAcAAAAUAAgAAAAAAAgAAAAUAAkAAAAAAAkAAAAVAAMAAAABAAMAAAAVAAQAAAABAAQAAAAVAAUAAAABAAUAAAAVAAYAAAABAAYAAAAVAAcAAAABAAcAAAAVAAgAAAABAAgAAAAVAAkAAAABAAkAAAAWAAMAAAACAAMAAAAWAAQAAAACAAQAAAAWAAUAAAACAAUAAAAWAAYAAAACAAYAAAAWAAcAAAACAAcAAAAWAAgAAAACAAgAAAAWAAkAAAACAAkAAAAUAAIAAAAAAAMAAAAVAAIAAAABAAMAAAAWAAIAAAACAAMAAAAUAAEAAAAAAAMAAAAVAAEAAAABAAMAAAAWAAEAAAACAAMAAAAUAAAAAAAAAAMAAAAVAAAAAAABAAMAAAAWAAAAAAACAAMAAAD9/wAAAAAAAAMAAAD+/wAAAAABAAMAAAD//wAAAAACAAMAAAD9/wEAAAAAAAMAAAD+/wEAAAABAAMAAAD//wEAAAACAAMAAAD9/wIAAAAAAAMAAAD+/wIAAAABAAMAAAD//wIAAAACAAMAAAD9////AAAAAAMAAAD+////AAABAAMAAAD/////AAACAAMAAAAAAP//AAAAAAMAAAABAP//AAABAAMAAAACAP//AAACAAMAAAADAP//AAAAAAMAAAAEAP//AAABAAMAAAAFAP//AAACAAMAAAAGAP//AAAAAAMAAAAHAP//AAABAAMAAAAIAP//AAACAAMAAAAJAP//AAAAAAMAAAAKAP//AAABAAMAAAALAP//AAACAAMAAAAMAP//AAAAAAMAAAANAP//AAABAAMAAAAOAP//AAACAAMAAAAPAP//AAAAAAMAAAAQAP//AAABAAMAAAARAP//AAACAAMAAAASAP//AAAAAAMAAAATAP//AAABAAMAAAAUAP//AAAAAAMAAAAVAP//AAABAAMAAAAWAP//AAACAAMAAAD9/woAAAABAAAAAAD+/woAAAACAAAAAAD//woAAAABAAAAAAAVAAoAAAABAAAAAAAWAAoAAAACAAAAAAAUAAoAAAACAAAAAAD+/wsAAAACAAEAAAD//wsAAAADAAEAAAD9/wsAAAABAAEAAAAUAAsAAAABAAEAAAAVAAsAAAACAAEAAAAWAAsAAAADAAEAAAA=")
+tile_set = SubResource("TileSet_e08e2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/Intro"]
+libraries = {
+&"": SubResource("AnimationLibrary_hdf80")
+}
+
+[node name="Gameplay" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(-316, -116)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("18_kltya")
+
+[node name="ColorRect" type="ColorRect" parent="UI/Gameplay"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 104.0
 grow_horizontal = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="SubWeapon" type="Control" parent="UI/Control" node_paths=PackedStringArray("icon_texture_rect")]
+[node name="SubWeapon" type="Control" parent="UI/Gameplay" node_paths=PackedStringArray("icon_texture_rect")]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 grow_horizontal = 2
+mouse_filter = 2
 script = ExtResource("8_hptm8")
 icon_texture_rect = NodePath("Icon")
 
-[node name="Icon" type="TextureRect" parent="UI/Control/SubWeapon"]
+[node name="Icon" type="TextureRect" parent="UI/Gameplay/SubWeapon"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -955,7 +1358,7 @@ grow_horizontal = 2
 texture = ExtResource("8_ynf5e")
 expand_mode = 3
 
-[node name="Overlay" type="TextureRect" parent="UI/Control/SubWeapon"]
+[node name="Overlay" type="TextureRect" parent="UI/Gameplay/SubWeapon"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -968,7 +1371,7 @@ grow_horizontal = 2
 texture = ExtResource("8_344ge")
 expand_mode = 3
 
-[node name="Ammo" type="Control" parent="UI/Control" node_paths=PackedStringArray("label", "player")]
+[node name="Ammo" type="Control" parent="UI/Gameplay" node_paths=PackedStringArray("label", "player")]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 5
@@ -979,11 +1382,12 @@ offset_bottom = 88.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+mouse_filter = 2
 script = ExtResource("13_wsu2k")
 label = NodePath("Label")
 player = NodePath("../../../Player")
 
-[node name="TextureRect" type="TextureRect" parent="UI/Control/Ammo"]
+[node name="TextureRect" type="TextureRect" parent="UI/Gameplay/Ammo"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -1000,7 +1404,7 @@ grow_vertical = 2
 texture = ExtResource("13_jkdf5")
 expand_mode = 2
 
-[node name="Label" type="Label" parent="UI/Control/Ammo"]
+[node name="Label" type="Label" parent="UI/Gameplay/Ammo"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -1019,7 +1423,7 @@ label_settings = SubResource("LabelSettings_k12tt")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BG" type="ColorRect" parent="UI/Control/Ammo"]
+[node name="BG" type="ColorRect" parent="UI/Gameplay/Ammo"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1034,7 +1438,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="PlayerHealth" type="Control" parent="UI/Control"]
+[node name="PlayerHealth" type="Control" parent="UI/Gameplay"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -1044,13 +1448,15 @@ offset_top = 16.0
 offset_right = -44.0
 offset_bottom = 48.0
 grow_horizontal = 2
+mouse_filter = 2
 theme = SubResource("Theme_hdf80")
 script = ExtResource("15_h1bgf")
+player_resource = ExtResource("26_e08e2")
 bar_scene = ExtResource("16_k12tt")
 empty_bar_texture = ExtResource("17_b3802")
 full_bar_texture = ExtResource("18_fevyy")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/PlayerHealth"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Gameplay/PlayerHealth"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.078
@@ -1065,14 +1471,14 @@ grow_horizontal = 0
 grow_vertical = 0
 alignment = 2
 
-[node name="Label" type="Label" parent="UI/Control/PlayerHealth/HBoxContainer"]
+[node name="Label" type="Label" parent="UI/Gameplay/PlayerHealth/HBoxContainer"]
 layout_mode = 2
 text = "PLAYER"
 label_settings = SubResource("LabelSettings_r33sp")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="EnemyHealth" type="Control" parent="UI/Control"]
+[node name="EnemyHealth" type="Control" parent="UI/Gameplay"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -1082,13 +1488,14 @@ offset_top = 60.0
 offset_right = -44.0
 offset_bottom = 92.0
 grow_horizontal = 2
+mouse_filter = 2
 theme = SubResource("Theme_hdf80")
 script = ExtResource("19_fevyy")
 bar_scene = ExtResource("20_ee4r6")
 empty_bar_texture = ExtResource("21_gt3je")
 full_bar_texture = ExtResource("22_3pmx8")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/EnemyHealth"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Gameplay/EnemyHealth"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.078
@@ -1103,11 +1510,11 @@ grow_horizontal = 0
 grow_vertical = 0
 alignment = 2
 
-[node name="Label" type="Label" parent="UI/Control/EnemyHealth/HBoxContainer"]
+[node name="Label" type="Label" parent="UI/Gameplay/EnemyHealth/HBoxContainer"]
 layout_mode = 2
 text = "ENEMY"
 label_settings = SubResource("LabelSettings_r33sp")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="on_level_finish_loading" from="SceneSwitcher" to="Player" method="_on_scene_switcher_on_level_finish_loading"]
+[connection signal="pressed" from="UI/Menu/Go to Gameplay" to="UI/Menu" method="_on_go_to_gameplay_pressed"]

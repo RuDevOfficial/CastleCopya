@@ -52,7 +52,9 @@ func change_subweapon(new_subweapon_data : SubweaponDataResource) -> void:
 	on_subweapon_swapped.emit(current_subweapon_data)
 
 func try_use_subweapon(direction : int, game_object : Node2D) -> void:
-	if (can_use_subweapon()): use_subweapon(direction, game_object)
+	if (can_use_subweapon()): 
+		cooldown_reached = false
+		use_subweapon(direction, game_object)
 
 func can_use_subweapon() -> bool:
 	if (cooldown_reached && current_subweapon_data != null):
@@ -73,5 +75,4 @@ func use_subweapon(direction : int, game_object : Node2D) -> void:
 	subweapon_instance.global_position = game_object.global_position + current_subweapon_data.ThrowOffset
 	subweapon_instance.throw(Vector2(direction, -1))
 	
-	cooldown_reached = false
 	cooldown_timer.start(current_subweapon_data.Cooldown)

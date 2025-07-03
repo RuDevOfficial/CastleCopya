@@ -41,6 +41,8 @@ SignalBus="*res://Scripts/Globals/signals.gd"
 MusManager="*res://Scripts/Globals/mus_manager.gd"
 SfxManager="*res://Scripts/Globals/sfx_manager.gd"
 PlayerInput="*res://Scripts/Globals/help_input.gd"
+GStateManager="*res://Scripts/Functional/game_state_manager.gd"
+SaveManager="*res://Scripts/Globals/save_game_manager.gd"
 
 [display]
 
@@ -48,6 +50,7 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/mode=2
 window/size/initial_screen=1
+window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
@@ -60,7 +63,8 @@ enabled=PackedStringArray("res://addons/fmod/plugin.cfg")
 folder_colors={
 "res://Scenes/": "red",
 "res://Scripts/": "purple",
-"res://Sprites/": "green"
+"res://Sprites/": "green",
+"res://Streams/": "pink"
 }
 
 [global_group]
@@ -124,3 +128,4 @@ enter_stairs_down={
 2d_physics/layer_10="Whipable"
 2d_physics/layer_11="Drop"
 2d_physics/layer_12="StairEntrance"
+2d_physics/layer_13="Door"
