@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_s1vbo")
 level_scene = ExtResource("1_24fa5")
-PlayerSpawnPosition = Vector2(-272, 40)
+PlayerSpawnPosition = Vector2(518.259, 23.925)
 LevelName = "Forgotten Forest"
 LookLeftOnLoad = false
 LevelMusicID = "Forest"

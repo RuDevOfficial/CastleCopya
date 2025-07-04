@@ -45,13 +45,12 @@ func begin_door_transition(door : Door) -> void:
 	
 	# ========= STEP 3 ============
 	
-	await get_tree().create_timer(0.2).timeout #CAMERA MOVES TO THE PIVOT
+	SignalBus.on_door_transition_camera_transition_start.emit()
+	await SignalBus.on_door_transition_finish
+	#await get_tree().create_timer(3).timeout #CAMERA MOVES TO THE PIVOT
 	
-	var tween_camera = get_tree().create_tween()
-	tween_camera.tween_property(camera, "global_position", Vector2(door.camera_end_pivot.global_position.x, camera.global_position.y), 3)
-	tween_camera.tween_callback(func():
-		player.global_position = dummy_player.global_position
-		player.visible = true
-		player.activate_player()
-		dummy_player.visible = false
-		SignalBus.on_door_transition_finish.emit())
+	player.global_position = dummy_player.global_position
+	player.visible = true
+	player.activate_player()
+	dummy_player.visible = false
+	#SignalBus.on_door_transition_finish.emit()

@@ -18,7 +18,8 @@ signal on_enemy_death
 
 #DOOR TRANSITION RELATED
 signal on_door_transition_start
-signal on_door_transition_finish
+signal on_door_transition_camera_transition_start
+signal on_door_transition_finish # UNUSED
 
 #NEW TRANSITION SIGNALS
 signal on_begin_transition
