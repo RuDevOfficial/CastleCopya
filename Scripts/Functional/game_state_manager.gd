@@ -13,16 +13,18 @@ signal on_exit_intro
 
 signal on_enter_gameplay
 signal on_exit_gameplay
+
+signal on_enter_intermission
+signal on_exit_intermission
 #endregion
 
 var current_game_data : GameDataResource
 var current_state : GameState = GameState.Ready # Needs to be Ready
 
-enum GameState { Ready, Menu, Options, Intro, Transition, Gameplay }
+enum GameState { Ready, Menu, Options, Intro, Intermission, Gameplay }
 
 var scene_switcher : SceneSwitcher
 var transition_manager : TransitionManager
-var stage_loader : StageLoader
 
 func _ready() -> void:
 	connect_signals()
@@ -43,7 +45,7 @@ func change_state(new_state : GameState) -> void:
 			GameState.Menu: exit_menu()
 			GameState.Options: pass
 			GameState.Intro: exit_intro()
-			GameState.Transition: pass
+			GameState.Intermission: exit_intermission()
 			GameState.Gameplay: exit_gameplay()
 	
 	# ENTER STATE
@@ -51,7 +53,7 @@ func change_state(new_state : GameState) -> void:
 		GameState.Menu: enter_menu()
 		GameState.Options: pass
 		GameState.Intro: enter_intro()
-		GameState.Transition: pass
+		GameState.Intermission: enter_intermission()
 		GameState.Gameplay: enter_gameplay()
 	
 	current_state = new_state
@@ -65,10 +67,12 @@ func enter_intro() -> void: on_enter_intro.emit()
 func exit_intro() -> void: on_exit_intro.emit()
 
 func enter_gameplay() -> void:
-	stage_loader.generate_new_level(current_game_data.CURRENT_LEVEL)
+	StageManager.generate_new_level(current_game_data.CURRENT_LEVEL)
 	on_enter_gameplay.emit()
-
 func exit_gameplay() -> void: on_exit_gameplay.emit()
+
+func enter_intermission() -> void: on_enter_intermission.emit()
+func exit_intermission() -> void: on_exit_intermission.emit()
 
 #endregion
 
@@ -88,8 +92,17 @@ func connect_signals() -> void:
 	intro_control.intro_cutscene_finished.connect(func(): 
 		transition_manager.try_transition(GameState.Gameplay)
 		)
+	
+	SignalBus.on_clear_level.connect(func():
+		StageManager.increase_current_level()
+		await get_tree().create_timer(4).timeout #HARDCODED TIME TODO CHANGE
+		transition_manager.try_transition(GameState.Intermission)
+		)
+	
+	SignalBus.on_finish_intermission.connect(func():
+		transition_manager.try_transition(GameState.Gameplay)
+		)
 
 func get_references() -> void:
 	scene_switcher = get_tree().root.get_node("Main/Managers/SceneSwitcher")
 	transition_manager = get_tree().root.get_node("Main/Managers/TransitionManager")
-	stage_loader = get_tree().root.get_node("Main/Managers/StageLoader")

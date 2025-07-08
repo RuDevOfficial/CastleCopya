@@ -7,10 +7,10 @@ signal on_middle_gameplay_transition
 signal on_end_gameplay_transition
 
 func _ready() -> void:
+	# CONNECT SIGNALS
 	GStateManager.on_enter_gameplay.connect(func(): is_active = true)
 	GStateManager.on_exit_gameplay.connect(func(): is_active = false)
 	
-	# CONNECT SIGNALS
 	SignalBus.on_player_death.connect(try_start_transition)
 
 func try_start_transition() -> void:

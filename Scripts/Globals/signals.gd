@@ -26,5 +26,10 @@ signal on_begin_transition
 signal on_middle_transition
 signal on_end_transition
 
-#LEVEL GENERATION RELATED
+#LEVEL RELATED
 signal on_level_generated
+signal on_clear_level
+signal on_reach_last_camera_path
+
+#INTERMISSION RELATED
+signal on_finish_intermission

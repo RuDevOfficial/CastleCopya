@@ -44,6 +44,7 @@ PlayerInput="*res://Scripts/Globals/help_input.gd"
 GStateManager="*res://Scripts/Functional/game_state_manager.gd"
 SaveManager="*res://Scripts/Globals/save_game_manager.gd"
 GameplayManager="*res://Scripts/Functional/gameplay_manager.gd"
+StageManager="*res://Scripts/Functional/stage_manager.gd"
 
 [display]
 

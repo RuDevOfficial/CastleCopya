@@ -11,31 +11,7 @@ var last_spawn_position : Vector2
 func _ready() -> void:
 	_playerResource.SetDefaultValues(self)
 	
-	SignalBus.on_level_generated.connect(func(level_resource, level_instance):
-		last_spawn_position = level_resource.PlayerSpawnPosition
-		show_player()
-		reset_player()
-		activate_player())
-	
-	SignalBus.on_middle_transition.connect(func(is_player_respawning):
-		if (is_player_respawning == false): return
-		
-		_health.set_health(_playerResource.StartingHealth)
-		
-		show_player()
-		reset_player()
-		)
-	
-	SignalBus.on_end_transition.connect(func(is_player_respawning):
-		if (is_player_respawning == true): activate_player())
-	
-	#var gameController = get_tree().root.get_node("Main")
-	#gameController.on_load_level.connect(freeze_player)
-	#gameController.on_load_level_early.connect(_on_scene_switcher_on_level_finish_loading)
-	#
-	#var sceneSwitcher = get_tree().root.get_node("Main/Managers/SceneSwitcher")
-	#sceneSwitcher.on_level_begin_loading.connect(reset_player)
-	
+	connect_signals()
 	freeze_player(null)
 	hide_player()
 
@@ -75,3 +51,25 @@ func _on_scene_switcher_on_level_finish_loading(levelResource : LevelResource) -
 
 func get_state(new_name : String) -> Node:
 	return get_node("FSM").get_node(new_name)
+
+func connect_signals() -> void:
+	
+	SignalBus.on_level_generated.connect(func(level_resource, level_instance):
+		last_spawn_position = level_resource.PlayerSpawnPosition
+		show_player()
+		reset_player()
+		activate_player())
+	
+	SignalBus.on_middle_transition.connect(func(is_player_respawning):
+		if (is_player_respawning == false): return
+		
+		_health.set_health(_playerResource.StartingHealth)
+		
+		show_player()
+		reset_player()
+		)
+	
+	SignalBus.on_end_transition.connect(func(is_player_respawning):
+		if (is_player_respawning == true): activate_player())
+	
+	SignalBus.on_clear_level.connect(func(): freeze_player(null))

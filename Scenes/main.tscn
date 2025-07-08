@@ -1,9 +1,8 @@
-[gd_scene load_steps=71 format=4 uid="uid://cqscvl3qsinqc"]
+[gd_scene load_steps=79 format=4 uid="uid://cqscvl3qsinqc"]
 
+[ext_resource type="Texture2D" uid="uid://de12hl6rn1ppj" path="res://Sprites/UI/inbetween.png" id="1_hdf80"]
 [ext_resource type="PackedScene" uid="uid://bt0m7fahlwwhn" path="res://Scenes/player.tscn" id="2_8gbba"]
-[ext_resource type="Resource" uid="uid://db5lubmtte4hk" path="res://Resources/test_level_resource.tres" id="2_21xkr"]
-[ext_resource type="Script" uid="uid://c6tp3c7vmt7kl" path="res://Scripts/Functional/level_loader_manager.gd" id="4_cbgmd"]
-[ext_resource type="Script" uid="uid://wvhb66ctf5ai" path="res://Scripts/Resources/level_resource.gd" id="5_1w6v2"]
+[ext_resource type="Texture2D" uid="uid://gfe4ej8yt3w4" path="res://Sprites/UI/bat1.png" id="3_jwpg7"]
 [ext_resource type="Script" uid="uid://dynvr0i6g3si1" path="res://Scripts/Functional/door_transition_manager.gd" id="6_gt3je"]
 [ext_resource type="Texture2D" uid="uid://cs26y0taqxgiv" path="res://Sprites/Player/CharacterIdle.png" id="7_3pmx8"]
 [ext_resource type="Resource" uid="uid://dir5gqc6p8et0" path="res://Resources/Subweapons/Data/Knife_Data.tres" id="7_jkdf5"]
@@ -34,6 +33,15 @@
 [ext_resource type="Script" uid="uid://b3liisx2fnh7d" path="res://Scripts/UI/menu_ui.gd" id="28_6vcvc"]
 [ext_resource type="Texture2D" uid="uid://dq2ayh5wtrwwi" path="res://Sprites/yvan5es92g091.png" id="28_7k868"]
 [ext_resource type="Theme" uid="uid://c4y647t1lso3h" path="res://Themes/menu.tres" id="28_ueoa1"]
+[ext_resource type="Texture2D" uid="uid://c363padkm5d6o" path="res://Sprites/UI/bat2.png" id="35_hdf80"]
+[ext_resource type="Script" uid="uid://cxod5uquyq1tj" path="res://Scripts/UI/intermission_ui.gd" id="35_r33sp"]
+[ext_resource type="Script" uid="uid://0h6cqey43d7" path="res://Scenes/debug_ui.gd" id="36_hdf80"]
+
+[sub_resource type="Curve2D" id="Curve2D_k2e45"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -197, -12, 0, 0, 0, 0, -231, -34, 0, 0, 0, 0, -174, -46, 0, 0, 0, 0, -89, -23, 0, 0, 0, 0, -106, -57, 0, 0, 0, 0, -170, -74)
+}
+point_count = 6
 
 [sub_resource type="Animation" id="Animation_hpc6h"]
 length = 0.001
@@ -118,10 +126,10 @@ tracks/0/path = NodePath("ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0.8), Color(0, 0, 0, 0.6), Color(0, 0, 0, 0.4), Color(0, 0, 0, 0.2), Color(0, 0, 0, 0)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -151,10 +159,10 @@ tracks/0/path = NodePath("ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.2), Color(0, 0, 0, 0.4), Color(0, 0, 0, 0.6), Color(0, 0, 0, 0.8), Color(0, 0, 0, 1)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -1134,23 +1142,128 @@ cache/0/30/0/glyphs/35/texture_idx = 0
 font = SubResource("FontFile_neg2b")
 font_size = 26
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_hdf80"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_1w6v2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ueoa1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_6vcvc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ueoa1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jwpg7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_jwpg7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_hdf80")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_aqgau"]
+resource_name = "transition"
+length = 6.0
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dummy:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-73, 612), Vector2(1351, 612)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"end_intermission"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_8cuat"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dummy:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-73, 612)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o1aky"]
+_data = {
+&"RESET": SubResource("Animation_8cuat"),
+&"transition": SubResource("Animation_aqgau")
+}
+
 [node name="Main" type="Node2D"]
 texture_filter = 1
 
 [node name="Level" type="Node2D" parent="."]
 
+[node name="Intermission" type="Node2D" parent="."]
+visible = false
+
+[node name="Sprite" type="Sprite2D" parent="Intermission"]
+position = Vector2(-160, -36)
+scale = Vector2(0.705, 0.705)
+texture = ExtResource("1_hdf80")
+
+[node name="Dummy" type="Sprite2D" parent="Intermission"]
+position = Vector2(-304, 48)
+texture = ExtResource("7_3pmx8")
+
+[node name="LevelPoints" type="Path2D" parent="Intermission"]
+curve = SubResource("Curve2D_k2e45")
+
+[node name="Follow" type="PathFollow2D" parent="Intermission/LevelPoints"]
+position = Vector2(-197, -12)
+rotates = false
+
+[node name="Sprite" type="Sprite2D" parent="Intermission/LevelPoints/Follow"]
+texture = ExtResource("3_jwpg7")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-160, 0)
 zoom = Vector2(4, 4)
 process_callback = 0
-position_smoothing_speed = 50.0
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 
 [node name="Managers" type="Node" parent="."]
-
-[node name="StageLoader" type="Node" parent="Managers" node_paths=PackedStringArray("target_parent_node")]
-script = ExtResource("4_cbgmd")
-target_parent_node = NodePath("../../Level")
-level_list = Array[ExtResource("5_1w6v2")]([ExtResource("2_21xkr")])
 
 [node name="DoorTransitionManager" type="Node" parent="Managers" node_paths=PackedStringArray("camera", "player")]
 script = ExtResource("6_gt3je")
@@ -1224,6 +1337,7 @@ _playerResource = SubResource("Resource_jkdf5")
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Menu" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1320,7 +1434,6 @@ libraries = {
 }
 
 [node name="Gameplay" type="Control" parent="UI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1525,4 +1638,119 @@ label_settings = SubResource("LabelSettings_r33sp")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Intermission" type="Control" parent="UI" node_paths=PackedStringArray("point_list_parent")]
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(-316, -116)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("35_r33sp")
+point_list_parent = NodePath("Points")
+
+[node name="BG" type="ColorRect" parent="UI/Intermission"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="UI/Intermission"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.6
+offset_left = 6.0
+offset_top = 13.0
+offset_right = -12.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_hdf80")
+
+[node name="Points" type="Control" parent="UI/Intermission"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="1" type="Control" parent="UI/Intermission/Points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -174.0
+offset_top = 16.0
+offset_right = -174.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="2" type="Control" parent="UI/Intermission/Points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -332.0
+offset_top = -95.0
+offset_right = -332.0
+offset_bottom = -95.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dummy" type="AnimatedSprite2D" parent="UI/Intermission"]
+position = Vector2(-73, 612)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_hdf80")
+autoplay = "default"
+frame_progress = 0.774523
+
+[node name="Bat" type="AnimatedSprite2D" parent="UI/Intermission"]
+position = Vector2(145, 362)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_jwpg7")
+autoplay = "default"
+frame_progress = 0.836382
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/Intermission"]
+libraries = {
+&"": SubResource("AnimationLibrary_o1aky")
+}
+
+[node name="Debug" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 579.0
+offset_right = -1047.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("36_hdf80")
+
+[node name="Win" type="Button" parent="UI/Debug"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 29
+text = "Win Stage"
+
 [connection signal="pressed" from="UI/Menu/Go to Gameplay" to="UI/Menu" method="_on_go_to_gameplay_pressed"]
+[connection signal="pressed" from="UI/Debug/Win" to="UI/Debug" method="_on_win_pressed"]

@@ -7,8 +7,8 @@ extends Node
 var following_player : bool = true
 var can_follow_player : bool = false
 
-var level_path_list : Array[Path2D]
-var current_path_index : int = 0
+var level_path_list : Array[CameraPath]
+@export var current_path_index : int = 0
 var current_end_point : Vector2
 var current_camera_direction : CameraDirection = CameraDirection.None
 var current_path_vector : Vector2
@@ -22,7 +22,6 @@ var transitioning : bool = false
 func _ready() -> void:
 	SignalBus.on_level_generated.connect(get_paths)
 	
-	#SignalBus.on_door_transition_start.connect(disable_camera_follow)
 	SignalBus.on_door_transition_camera_transition_start.connect(transition_to_next_path)
 	
 	GStateManager.on_enter_gameplay.connect(func(): can_follow_player = true)
@@ -71,17 +70,39 @@ func _process(delta: float) -> void:
 			SignalBus.on_door_transition_finish.emit()
 			transitioning = false
 			next_path()
+			
+			if (current_path_index == level_path_list.size() - 1):
+				SignalBus.on_reach_last_camera_path.emit()
 	else:
 		match current_camera_direction:
-			CameraDirection.None: pass
+			CameraDirection.None: return
 			CameraDirection.Horizontal: camera.global_position.x = player.global_position.x
 			CameraDirection.Vertical: camera.global_position.y = player.global_position.y - 24
+		
+		check_for_path_connections()
+
+func check_for_path_connections() -> void:
+	# CHECKING FOR NEXT PATH IF IT CAN CONNECT
+	var new_vector : Vector2 = (transition_to_position - camera.global_position).normalized()
+	if (transition_direction_vector.dot(new_vector) < 0.99 && level_path_list[current_path_index].connects_to_next_path == true):
+		next_path()
+		return
+		
+	# CHECKING FOR PREVIOUS PATH IF IT CAN CONNECT
+	new_vector = (transition_from_position - camera.global_position).normalized()
+	if (-transition_direction_vector.dot(new_vector) < 0.99
+	&& level_path_list[current_path_index].connects_to_previous_path == true):
+		previous_path()
+		return
 
 func get_paths(resource : LevelResource, instance : Node2D):
 	get_new_path_list(instance.get_node("CameraPath"))
 	get_starting_path()
 
 func get_new_path_list(path_node : Node2D) -> void:
+	
+	level_path_list.clear()
+	
 	for child in path_node.get_children():
 		if (child is not Path2D): continue
 		
@@ -98,6 +119,13 @@ func next_path() -> void:
 	
 	constrict_camera(current_path_index)
 
+func previous_path() -> void:
+	var previous_path_index = clampi(current_path_index - 1, 0, level_path_list.size() - 1)
+	if (current_path_index == previous_path_index): return
+	current_path_index = previous_path_index
+	
+	constrict_camera(current_path_index)
+
 func constrict_camera(index : int) -> void:
 	var current_path : Path2D = level_path_list[index]
 	
@@ -108,6 +136,10 @@ func constrict_camera(index : int) -> void:
 	var end_point_distance : float = (end_point - player.global_position).length()
 	
 	current_end_point = end_point
+	
+	transition_from_position = start_point
+	transition_to_position = end_point
+	transition_direction_vector = (transition_to_position - transition_from_position).normalized()
 	
 	current_path_vector = (end_point - start_point).normalized()
 	if (current_path_vector.x != 0):
@@ -121,7 +153,7 @@ func constrict_camera(index : int) -> void:
 		camera.limit_top = end_point.y - 90
 		camera.limit_bottom = end_point.y + 90
 		current_camera_direction = CameraDirection.Horizontal
-	else:
+	elif (current_path_vector.y != 0):
 		if (current_path_vector.y < 0):
 			camera.limit_bottom = start_point.y + 90
 			camera.limit_top = end_point.y - 90
@@ -132,5 +164,11 @@ func constrict_camera(index : int) -> void:
 		camera.limit_left = end_point.x - 160
 		camera.limit_right = end_point.x + 160
 		current_camera_direction = CameraDirection.Vertical
+	else:
+		camera.limit_bottom = start_point.y + 90
+		camera.limit_top = end_point.y - 90
+		camera.limit_left = end_point.x - 160
+		camera.limit_right = end_point.x + 160
+		current_camera_direction = CameraDirection.None
 
 enum CameraDirection { None, Horizontal, Vertical }

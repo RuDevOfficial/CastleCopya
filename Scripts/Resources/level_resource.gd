@@ -10,6 +10,8 @@ var _getPlayerButton = set_player_location_to_current.bind()
 @export var PlayerSpawnPosition : Vector2;
 @export var LevelName : String
 @export var LookLeftOnLoad : bool
+@export var RequiresIntermission : bool
+@export var StageEndEvent : EndEvent = EndEvent.None
 
 @export_category("Audio")
 @export var LevelMusicID : String
@@ -17,3 +19,5 @@ var _getPlayerButton = set_player_location_to_current.bind()
 func set_player_location_to_current() -> void:
 	var playerNode : CharacterBody2D = (EditorInterface.get_edited_scene_root().get_node("Player"))
 	PlayerSpawnPosition = playerNode.global_position
+
+enum EndEvent { None, Boss }
