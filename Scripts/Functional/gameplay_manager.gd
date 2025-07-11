@@ -12,6 +12,10 @@ func _ready() -> void:
 	GStateManager.on_exit_gameplay.connect(func(): is_active = false)
 	
 	SignalBus.on_player_death.connect(try_start_transition)
+	
+	SignalBus.on_clear_level.connect(func():
+		SaveManager.get
+		)
 
 func try_start_transition() -> void:
 	if (can_start_transition()):

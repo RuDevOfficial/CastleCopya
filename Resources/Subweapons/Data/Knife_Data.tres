@@ -7,9 +7,11 @@
 [resource]
 script = ExtResource("3_5dljh")
 Icon = ExtResource("1_xxmx0")
-ThrowDelay = 0.0
-Cooldown = 1.0
+ThrowDelay = 0.1
+Cooldown = 0.5
 Cost = 2
-ThrowOffset = Vector2(0, -12)
+vertical_ground_throw_offset = -12.0
+vertical_air_throw_offset = -6.0
 Scene = ExtResource("2_4ytxo")
+animation_speed = 3.0
 metadata/_custom_type_script = "uid://c7vfc8i1k154f"

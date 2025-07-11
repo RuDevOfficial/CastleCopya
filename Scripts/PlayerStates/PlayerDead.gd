@@ -9,9 +9,9 @@ signal player_dead
 
 func _ready() -> void:
 	SignalBus.on_middle_transition.connect(revive)
+	state_machine = _animationTree.get("parameters/playback")
 
 func Enter() -> void:
-	state_machine = _animationTree.get("parameters/playback")
 	state_machine.travel("Dead")
 	
 	_deadTimer.start(_playerResource.DeadTime)

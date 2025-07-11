@@ -1,4 +1,4 @@
-[gd_scene load_steps=151 format=3 uid="uid://bt0m7fahlwwhn"]
+[gd_scene load_steps=164 format=3 uid="uid://bt0m7fahlwwhn"]
 
 [ext_resource type="Script" uid="uid://cs1yvbjtnvljp" path="res://Scripts/StateMachine/StateMachine.gd" id="1_tx1dd"]
 [ext_resource type="Script" uid="uid://cnyxd33tkv1p" path="res://Scripts/Player.gd" id="1_y6uwr"]
@@ -198,6 +198,40 @@ blend_point_5/node = SubResource("AnimationNodeAnimation_pukcj")
 blend_point_5/pos = Vector2(1, 0)
 blend_mode = 1
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dtg1u"]
+animation = &"subweapon_use_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nuaet"]
+animation = &"subweapon_use_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bqbau"]
+animation = &"subweapon_use_left_jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f5f5t"]
+animation = &"subweapon_use_right_jump"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_qvbpb"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_dtg1u")
+blend_point_0/pos = Vector2(-0.4, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_nuaet")
+blend_point_1/pos = Vector2(0.4, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_bqbau")
+blend_point_2/pos = Vector2(-0.4, 0.6)
+blend_point_3/node = SubResource("AnimationNodeAnimation_f5f5t")
+blend_point_3/pos = Vector2(0.4, 0.6)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_sscpr"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_by7i4"]
+graph_offset = Vector2(-233.236, 29.0862)
+nodes/Subweapon/node = SubResource("AnimationNodeBlendSpace2D_qvbpb")
+nodes/Subweapon/position = Vector2(40, 120)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_sscpr")
+nodes/TimeScale/position = Vector2(280, 120)
+nodes/output/position = Vector2(520, 140)
+node_connections = [&"TimeScale", 0, &"Subweapon", &"output", 0, &"TimeScale"]
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wpjfl"]
 advance_mode = 2
 advance_expression = "velocity"
@@ -302,9 +336,34 @@ advance_condition = &"attacking_stair"
 advance_mode = 2
 advance_condition = &"not_attacking_stair"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e6mvm"]
+advance_mode = 2
+advance_condition = &"not_use_subweapon"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vq3lt"]
+advance_mode = 2
+advance_condition = &"not_use_subweapon"
+advance_expression = "velocity"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pukcj"]
+advance_mode = 2
+advance_condition = &"use_subweapon"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1htnp"]
+advance_mode = 2
+advance_condition = &"use_subweapon"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lisdf"]
+advance_mode = 2
+advance_condition = &"use_subweapon"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n1x1j"]
+advance_mode = 2
+advance_condition = &"not_use_subweapon"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_vgqql"]
 states/AttackStair/node = SubResource("AnimationNodeBlendSpace2D_e6mvm")
-states/AttackStair/position = Vector2(48, 17)
+states/AttackStair/position = Vector2(-203, 8)
 states/Attacking/node = SubResource("AnimationNodeBlendSpace2D_yh6i2")
 states/Attacking/position = Vector2(573, 100)
 states/Crouching/node = SubResource("AnimationNodeBlendSpace1D_vfarp")
@@ -315,16 +374,18 @@ states/Dead/node = SubResource("AnimationNodeAnimation_vfarp")
 states/Dead/position = Vector2(678, 372)
 states/End/position = Vector2(1163, 100)
 states/Idling/node = SubResource("AnimationNodeBlendSpace1D_igrcy")
-states/Idling/position = Vector2(147, 372)
+states/Idling/position = Vector2(167, 426)
 states/Jumping/node = SubResource("AnimationNodeBlendSpace1D_7dp3o")
-states/Jumping/position = Vector2(933, -13)
+states/Jumping/position = Vector2(963, 8)
 states/Moving/node = SubResource("AnimationNodeBlendSpace1D_olqyp")
-states/Moving/position = Vector2(147, -192)
+states/Moving/position = Vector2(156, -268)
 states/Stairs/node = SubResource("AnimationNodeBlendSpace2D_1htnp")
-states/Stairs/position = Vector2(-128, 8)
-states/Start/position = Vector2(-269, -13)
-transitions = ["Start", "Moving", SubResource("AnimationNodeStateMachineTransition_wpjfl"), "Start", "Idling", SubResource("AnimationNodeStateMachineTransition_bi64h"), "Moving", "Idling", SubResource("AnimationNodeStateMachineTransition_2ijsl"), "Idling", "Moving", SubResource("AnimationNodeStateMachineTransition_p1odr"), "Moving", "Jumping", SubResource("AnimationNodeStateMachineTransition_h4iuc"), "Jumping", "Moving", SubResource("AnimationNodeStateMachineTransition_fd4e3"), "Jumping", "Idling", SubResource("AnimationNodeStateMachineTransition_qqcod"), "Idling", "Jumping", SubResource("AnimationNodeStateMachineTransition_igrcy"), "Moving", "Crouching", SubResource("AnimationNodeStateMachineTransition_xuaoq"), "Idling", "Crouching", SubResource("AnimationNodeStateMachineTransition_36dho"), "Crouching", "Idling", SubResource("AnimationNodeStateMachineTransition_wohnl"), "Crouching", "Moving", SubResource("AnimationNodeStateMachineTransition_yh6i2"), "Attacking", "Moving", SubResource("AnimationNodeStateMachineTransition_sweqm"), "Attacking", "Jumping", SubResource("AnimationNodeStateMachineTransition_ph33w"), "Jumping", "Attacking", SubResource("AnimationNodeStateMachineTransition_7ldla"), "Attacking", "Crouching", SubResource("AnimationNodeStateMachineTransition_r7t2e"), "Crouching", "Attacking", SubResource("AnimationNodeStateMachineTransition_nmr2m"), "Attacking", "Idling", SubResource("AnimationNodeStateMachineTransition_ax3m3"), "Idling", "Attacking", SubResource("AnimationNodeStateMachineTransition_3vlem"), "Moving", "Attacking", SubResource("AnimationNodeStateMachineTransition_xwi16"), "Idling", "Stairs", SubResource("AnimationNodeStateMachineTransition_m376e"), "Stairs", "Idling", SubResource("AnimationNodeStateMachineTransition_6b312"), "Moving", "Stairs", SubResource("AnimationNodeStateMachineTransition_8eeqe"), "Stairs", "Moving", SubResource("AnimationNodeStateMachineTransition_5x828"), "Stairs", "AttackStair", SubResource("AnimationNodeStateMachineTransition_57lvd"), "AttackStair", "Stairs", SubResource("AnimationNodeStateMachineTransition_ie7r7")]
-graph_offset = Vector2(-408, -130)
+states/Stairs/position = Vector2(-407, 8)
+states/Start/position = Vector2(-634, 8)
+states/UseSubweapon/node = SubResource("AnimationNodeBlendTree_by7i4")
+states/UseSubweapon/position = Vector2(-11, 8)
+transitions = ["Start", "Moving", SubResource("AnimationNodeStateMachineTransition_wpjfl"), "Start", "Idling", SubResource("AnimationNodeStateMachineTransition_bi64h"), "Moving", "Idling", SubResource("AnimationNodeStateMachineTransition_2ijsl"), "Idling", "Moving", SubResource("AnimationNodeStateMachineTransition_p1odr"), "Moving", "Jumping", SubResource("AnimationNodeStateMachineTransition_h4iuc"), "Jumping", "Moving", SubResource("AnimationNodeStateMachineTransition_fd4e3"), "Jumping", "Idling", SubResource("AnimationNodeStateMachineTransition_qqcod"), "Idling", "Jumping", SubResource("AnimationNodeStateMachineTransition_igrcy"), "Moving", "Crouching", SubResource("AnimationNodeStateMachineTransition_xuaoq"), "Idling", "Crouching", SubResource("AnimationNodeStateMachineTransition_36dho"), "Crouching", "Idling", SubResource("AnimationNodeStateMachineTransition_wohnl"), "Crouching", "Moving", SubResource("AnimationNodeStateMachineTransition_yh6i2"), "Attacking", "Moving", SubResource("AnimationNodeStateMachineTransition_sweqm"), "Attacking", "Jumping", SubResource("AnimationNodeStateMachineTransition_ph33w"), "Jumping", "Attacking", SubResource("AnimationNodeStateMachineTransition_7ldla"), "Attacking", "Crouching", SubResource("AnimationNodeStateMachineTransition_r7t2e"), "Crouching", "Attacking", SubResource("AnimationNodeStateMachineTransition_nmr2m"), "Attacking", "Idling", SubResource("AnimationNodeStateMachineTransition_ax3m3"), "Idling", "Attacking", SubResource("AnimationNodeStateMachineTransition_3vlem"), "Moving", "Attacking", SubResource("AnimationNodeStateMachineTransition_xwi16"), "Idling", "Stairs", SubResource("AnimationNodeStateMachineTransition_m376e"), "Stairs", "Idling", SubResource("AnimationNodeStateMachineTransition_6b312"), "Moving", "Stairs", SubResource("AnimationNodeStateMachineTransition_8eeqe"), "Stairs", "Moving", SubResource("AnimationNodeStateMachineTransition_5x828"), "Stairs", "AttackStair", SubResource("AnimationNodeStateMachineTransition_57lvd"), "AttackStair", "Stairs", SubResource("AnimationNodeStateMachineTransition_ie7r7"), "UseSubweapon", "Idling", SubResource("AnimationNodeStateMachineTransition_e6mvm"), "UseSubweapon", "Moving", SubResource("AnimationNodeStateMachineTransition_vq3lt"), "Moving", "UseSubweapon", SubResource("AnimationNodeStateMachineTransition_pukcj"), "Idling", "UseSubweapon", SubResource("AnimationNodeStateMachineTransition_1htnp"), "Jumping", "UseSubweapon", SubResource("AnimationNodeStateMachineTransition_lisdf"), "UseSubweapon", "Jumping", SubResource("AnimationNodeStateMachineTransition_n1x1j")]
+graph_offset = Vector2(-331, -122)
 
 [sub_resource type="Animation" id="Animation_0gysh"]
 length = 0.001
@@ -2684,7 +2745,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_ie7r7"]
 resource_name = "subweapon_use_left"
-length = 0.30001
+length = 0.6
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -2693,7 +2754,7 @@ tracks/0/path = NodePath("../Sprites/Upper:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [ExtResource("15_olqyp"), ExtResource("16_wpjfl"), ExtResource("17_bi64h"), ExtResource("18_2ijsl")]
@@ -2705,6 +2766,44 @@ tracks/1/path = NodePath("../Sprites/Upper:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Managers/Subweapon Manager")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop_subweapon_animation"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Sprites/Lower:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("19_p1odr"), ExtResource("20_0gysh"), ExtResource("21_vfarp"), ExtResource("19_p1odr")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Sprites/Lower:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -2713,7 +2812,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_lisdf"]
 resource_name = "subweapon_use_left_jump"
-length = 0.30001
+length = 0.6
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -2722,7 +2821,7 @@ tracks/0/path = NodePath("../Sprites/Upper:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [ExtResource("35_xwi16"), ExtResource("36_sweqm"), ExtResource("37_ph33w"), ExtResource("11_pu2lt")]
@@ -2739,10 +2838,48 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Sprites/Lower:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("38_7ldla"), ExtResource("39_r7t2e"), ExtResource("40_nmr2m"), ExtResource("12_ukyrk")]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Managers/Subweapon Manager")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop_subweapon_animation"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Sprites/Lower:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_57lvd"]
 resource_name = "subweapon_use_right"
-length = 0.30001
+length = 0.6
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -2751,15 +2888,65 @@ tracks/0/path = NodePath("../Sprites/Upper:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [ExtResource("15_olqyp"), ExtResource("16_wpjfl"), ExtResource("17_bi64h"), ExtResource("18_2ijsl")]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprites/Upper:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Managers/Subweapon Manager")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop_subweapon_animation"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Sprites/Lower:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("19_p1odr"), ExtResource("20_0gysh"), ExtResource("21_vfarp"), ExtResource("19_p1odr")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Sprites/Lower:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_n1x1j"]
 resource_name = "subweapon_use_right_jump"
-length = 0.30001
+length = 0.6
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -2768,10 +2955,60 @@ tracks/0/path = NodePath("../Sprites/Upper:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [ExtResource("35_xwi16"), ExtResource("36_sweqm"), ExtResource("37_ph33w"), ExtResource("11_pu2lt")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprites/Lower:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("38_7ldla"), ExtResource("39_r7t2e"), ExtResource("40_nmr2m"), ExtResource("12_ukyrk")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Sprites/Upper:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Sprites/Lower:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Managers/Subweapon Manager")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop_subweapon_animation"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x3wgy"]
@@ -2846,9 +3083,10 @@ metadata/_custom_type_script = "uid://coh7npk3nxwn6"
 
 [node name="Managers" type="Node" parent="."]
 
-[node name="Subweapon Manager" type="Node" parent="Managers"]
+[node name="Subweapon Manager" type="Node" parent="Managers" node_paths=PackedStringArray("animation_tree")]
 script = ExtResource("5_ph33w")
 starting_uses = 20
+animation_tree = NodePath("../../Animation/AnimationTree")
 
 [node name="DelayTimer" type="Timer" parent="Managers/Subweapon Manager"]
 one_shot = true
@@ -2967,7 +3205,9 @@ parameters/conditions/notAttack = false
 parameters/conditions/notCrouching = false
 parameters/conditions/not_attacking_stair = false
 parameters/conditions/not_on_stairs = false
+parameters/conditions/not_use_subweapon = false
 parameters/conditions/on_stairs = false
+parameters/conditions/use_subweapon = false
 parameters/AttackStair/blend_position = Vector2(0, 0)
 parameters/Attacking/blend_position = Vector2(-0.895853, -0.0329671)
 parameters/Crouching/blend_position = -0.996599
@@ -2975,6 +3215,8 @@ parameters/Idling/blend_position = -0.251701
 parameters/Jumping/blend_position = 0.0209012
 parameters/Moving/blend_position = 0.001
 parameters/Stairs/blend_position = Vector2(-0.994307, 0.990244)
+parameters/UseSubweapon/Subweapon/blend_position = Vector2(0, 0)
+parameters/UseSubweapon/TimeScale/scale = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Animation"]
 libraries = {

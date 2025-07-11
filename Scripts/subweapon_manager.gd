@@ -12,17 +12,23 @@ var cooldown_reached : bool = true
 @onready var delay_timer : Timer = $DelayTimer
 @onready var cooldown_timer : Timer = $CooldownTimer
 
+@export var animation_tree : AnimationTree
+var state_machine : AnimationNodeStateMachinePlayback
+
 signal on_weapon_refill
 signal on_weapon_use
 signal on_subweapon_swapped
 
 func _ready() -> void:
+	state_machine = animation_tree.get("parameters/playback")
 	SignalBus.on_heart_collected.connect(refill)
 	SignalBus.on_subweapon_collected.connect(change_subweapon)
 	
 	await get_tree().process_frame
 	
-	cooldown_timer.timeout.connect(func(): cooldown_reached = true)
+	cooldown_timer.timeout.connect(func(): 
+		animation_tree.set("parameters/UseSubweapon/TimeScale/scale", 1)
+		cooldown_reached = true)
 	change_subweapon(current_subweapon_data)
 	
 	refill_uses(current_uses, true)
@@ -63,6 +69,11 @@ func can_use_subweapon() -> bool:
 	return false
 
 func use_subweapon(direction : int, game_object : Node2D) -> void:
+	animation_tree.set("parameters/UseSubweapon/TimeScale/scale", current_subweapon_data.animation_speed)
+	animation_tree.set("parameters/conditions/use_subweapon", true)
+	animation_tree.set("parameters/conditions/not_use_subweapon", false)
+	#state_machine.travel("UseSubweapon")
+	
 	if (current_subweapon_data.ThrowDelay > 0):
 		delay_timer.start(current_subweapon_data.ThrowDelay)
 		await delay_timer.timeout
@@ -72,7 +83,14 @@ func use_subweapon(direction : int, game_object : Node2D) -> void:
 	#spawn subweapon here
 	var subweapon_instance = current_subweapon_data.Scene.instantiate()
 	get_tree().root.add_child(subweapon_instance)
-	subweapon_instance.global_position = game_object.global_position + current_subweapon_data.ThrowOffset
+	
+	if (owner.is_on_floor()): subweapon_instance.global_position = game_object.global_position + Vector2(0, current_subweapon_data.vertical_ground_throw_offset)
+	else: subweapon_instance.global_position = game_object.global_position + Vector2(0, current_subweapon_data.vertical_air_throw_offset)
+	
 	subweapon_instance.throw(Vector2(direction, -1))
 	
 	cooldown_timer.start(current_subweapon_data.Cooldown)
+
+func stop_subweapon_animation() -> void:
+	animation_tree.set("parameters/conditions/use_subweapon", false)
+	animation_tree.set("parameters/conditions/not_use_subweapon", true)

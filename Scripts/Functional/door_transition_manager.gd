@@ -39,7 +39,6 @@ func begin_door_transition(door : Door) -> void:
 		func():
 			door.open(false)
 			dummy_player_animator.play("idle"))
-
 	
 	await tween_player.finished
 	
@@ -47,10 +46,10 @@ func begin_door_transition(door : Door) -> void:
 	
 	SignalBus.on_door_transition_camera_transition_start.emit()
 	await SignalBus.on_door_transition_finish
-	#await get_tree().create_timer(3).timeout #CAMERA MOVES TO THE PIVOT
 	
 	player.global_position = dummy_player.global_position
 	player.visible = true
 	player.activate_player()
 	dummy_player.visible = false
+	is_transitioning = false
 	#SignalBus.on_door_transition_finish.emit()

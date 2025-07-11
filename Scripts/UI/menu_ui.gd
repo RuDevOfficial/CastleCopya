@@ -1,6 +1,6 @@
 extends Control
 
-@onready var play_button : Button = $"Play Button"
+@onready var play_button : Button = $"VBoxContainer/Play Button"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,3 +20,6 @@ func disable_menu() -> void:
 # THIS BUTTON SHOULD BE REMOVED! THIS IS FOR DEBUG PURPOSES!
 func _on_go_to_gameplay_pressed() -> void:
 	GStateManager.change_state(GStateManager.GameState.Gameplay)
+
+func _on_delete_save_pressed() -> void:
+	SaveManager.clear_save_data(SaveManager.current_save_file_index)

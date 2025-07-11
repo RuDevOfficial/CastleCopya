@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=4 uid="uid://cqscvl3qsinqc"]
+[gd_scene load_steps=78 format=4 uid="uid://cqscvl3qsinqc"]
 
 [ext_resource type="Texture2D" uid="uid://de12hl6rn1ppj" path="res://Sprites/UI/inbetween.png" id="1_hdf80"]
 [ext_resource type="PackedScene" uid="uid://bt0m7fahlwwhn" path="res://Scenes/player.tscn" id="2_8gbba"]
@@ -31,17 +31,11 @@
 [ext_resource type="Texture2D" uid="uid://0src6ru887bk" path="res://Sprites/UI/EnemyBarSlot.png" id="22_3pmx8"]
 [ext_resource type="Resource" uid="uid://d4jdenihj3l0q" path="res://Resources/player_resource.tres" id="26_e08e2"]
 [ext_resource type="Script" uid="uid://b3liisx2fnh7d" path="res://Scripts/UI/menu_ui.gd" id="28_6vcvc"]
-[ext_resource type="Texture2D" uid="uid://dq2ayh5wtrwwi" path="res://Sprites/yvan5es92g091.png" id="28_7k868"]
+[ext_resource type="Texture2D" uid="uid://dq2ayh5wtrwwi" path="res://Sprites/UI/yvan5es92g091.png" id="28_7k868"]
 [ext_resource type="Theme" uid="uid://c4y647t1lso3h" path="res://Themes/menu.tres" id="28_ueoa1"]
 [ext_resource type="Texture2D" uid="uid://c363padkm5d6o" path="res://Sprites/UI/bat2.png" id="35_hdf80"]
 [ext_resource type="Script" uid="uid://cxod5uquyq1tj" path="res://Scripts/UI/intermission_ui.gd" id="35_r33sp"]
 [ext_resource type="Script" uid="uid://0h6cqey43d7" path="res://Scenes/debug_ui.gd" id="36_hdf80"]
-
-[sub_resource type="Curve2D" id="Curve2D_k2e45"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -197, -12, 0, 0, 0, 0, -231, -34, 0, 0, 0, 0, -174, -46, 0, 0, 0, 0, -89, -23, 0, 0, 0, 0, -106, -57, 0, 0, 0, 0, -170, -74)
-}
-point_count = 6
 
 [sub_resource type="Animation" id="Animation_hpc6h"]
 length = 0.001
@@ -1176,6 +1170,21 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_8cuat"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dummy:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-73, 612)]
+}
+
 [sub_resource type="Animation" id="Animation_aqgau"]
 resource_name = "transition"
 length = 6.0
@@ -1207,21 +1216,6 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_8cuat"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Dummy:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-73, 612)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o1aky"]
 _data = {
 &"RESET": SubResource("Animation_8cuat"),
@@ -1232,28 +1226,6 @@ _data = {
 texture_filter = 1
 
 [node name="Level" type="Node2D" parent="."]
-
-[node name="Intermission" type="Node2D" parent="."]
-visible = false
-
-[node name="Sprite" type="Sprite2D" parent="Intermission"]
-position = Vector2(-160, -36)
-scale = Vector2(0.705, 0.705)
-texture = ExtResource("1_hdf80")
-
-[node name="Dummy" type="Sprite2D" parent="Intermission"]
-position = Vector2(-304, 48)
-texture = ExtResource("7_3pmx8")
-
-[node name="LevelPoints" type="Path2D" parent="Intermission"]
-curve = SubResource("Curve2D_k2e45")
-
-[node name="Follow" type="PathFollow2D" parent="Intermission/LevelPoints"]
-position = Vector2(-197, -12)
-rotates = false
-
-[node name="Sprite" type="Sprite2D" parent="Intermission/LevelPoints/Follow"]
-texture = ExtResource("3_jwpg7")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-160, 0)
@@ -1337,7 +1309,6 @@ _playerResource = SubResource("Resource_jkdf5")
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Menu" type="Control" parent="UI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1363,38 +1334,34 @@ position = Vector2(636, 386)
 scale = Vector2(0.762846, 0.762846)
 texture = ExtResource("28_7k868")
 
-[node name="Play Button" type="Button" parent="UI/Menu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Menu"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -262.5
-offset_top = 64.0
-offset_right = 262.5
-offset_bottom = 111.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 433.0
+offset_top = 407.0
+offset_right = -433.0
+offset_bottom = -110.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Play Button" type="Button" parent="UI/Menu/VBoxContainer"]
+layout_mode = 2
 theme = ExtResource("28_ueoa1")
 text = "PUSH START KEY"
 flat = true
 
-[node name="Go to Gameplay" type="Button" parent="UI/Menu"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -262.0
-offset_top = 144.0
-offset_right = 263.0
-offset_bottom = 191.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Go to Gameplay" type="Button" parent="UI/Menu/VBoxContainer"]
+layout_mode = 2
 theme = ExtResource("28_ueoa1")
-text = "INSTANT GAMEPLAY"
+text = "QUICK START"
+flat = true
+
+[node name="Delete Save" type="Button" parent="UI/Menu/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("28_ueoa1")
+text = "DELETE SAVE"
 flat = true
 
 [node name="Intro" type="Control" parent="UI"]
@@ -1434,6 +1401,7 @@ libraries = {
 }
 
 [node name="Gameplay" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1742,15 +1710,30 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("36_hdf80")
 
-[node name="Win" type="Button" parent="UI/Debug"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Debug"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Win" type="Button" parent="UI/Debug/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 29
 text = "Win Stage"
 
-[connection signal="pressed" from="UI/Menu/Go to Gameplay" to="UI/Menu" method="_on_go_to_gameplay_pressed"]
-[connection signal="pressed" from="UI/Debug/Win" to="UI/Debug" method="_on_win_pressed"]
+[node name="Save" type="Button" parent="UI/Debug/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 29
+text = "Save Data"
+
+[node name="Nothing" type="Button" parent="UI/Debug/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 29
+text = "Nothing"
+
+[connection signal="pressed" from="UI/Menu/VBoxContainer/Go to Gameplay" to="UI/Menu" method="_on_go_to_gameplay_pressed"]
+[connection signal="pressed" from="UI/Menu/VBoxContainer/Delete Save" to="UI/Menu" method="_on_delete_save_pressed"]
+[connection signal="pressed" from="UI/Debug/VBoxContainer/Win" to="UI/Debug" method="_on_win_pressed"]
+[connection signal="pressed" from="UI/Debug/VBoxContainer/Save" to="UI/Debug" method="_on_save_pressed"]

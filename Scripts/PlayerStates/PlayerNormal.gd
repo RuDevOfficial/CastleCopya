@@ -9,6 +9,11 @@ class_name PlayerNormal
 
 @export var stair_area : Area2D
 
+var state_machine 
+
+func _ready() -> void:
+	state_machine = _animationTree.get("parameters/playback")
+
 func Enter() -> void:
 	_animationTree.set("parameters/conditions/attack", false)
 	_animationTree.set("parameters/conditions/notAttack", true)
@@ -29,6 +34,10 @@ func Update(_delta : float) -> void:
 	
 	# ATTACK RELATED TRANSITIONS
 	if (Input.is_action_just_pressed("attack") and Input.is_action_pressed("ready_subweapon")):
+		var moveInt = 0
+		if (_body2D.is_on_floor()): moveInt = 0
+		else: moveInt = 1
+		_animationTree.set("parameters/UseSubweapon/Subweapon/blend_position", Vector2(_playerResource.LastDirection, moveInt))
 		subweapon_manager.try_use_subweapon(
 			_playerResource.LastDirection, 
 			_playerResource.Agent)

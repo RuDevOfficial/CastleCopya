@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LevelResource" load_steps=3 format=3 uid="uid://fejs1b3idipf"]
+
+[ext_resource type="PackedScene" uid="uid://b6753ah8pxkfj" path="res://Scenes/Levels/EntranceHall.tscn" id="1_voqtg"]
+[ext_resource type="Script" uid="uid://wvhb66ctf5ai" path="res://Scripts/Resources/level_resource.gd" id="2_mpti0"]
+
+[resource]
+script = ExtResource("2_mpti0")
+level_scene = ExtResource("1_voqtg")
+PlayerSpawnPosition = Vector2(-270, 40)
+LevelName = "Entrance Hall"
+LookLeftOnLoad = false
+RequiresIntermission = false
+StageEndEvent = 0
+LevelMusicID = "MUS_VampireKiller"
+metadata/_custom_type_script = "uid://wvhb66ctf5ai"

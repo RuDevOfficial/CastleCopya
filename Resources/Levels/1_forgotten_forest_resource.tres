@@ -6,10 +6,10 @@
 [resource]
 script = ExtResource("2_gw38q")
 level_scene = ExtResource("1_iciy7")
-PlayerSpawnPosition = Vector2(518.259, 23.925)
+PlayerSpawnPosition = Vector2(-270, 40)
 LevelName = "Forgotten Forest"
 LookLeftOnLoad = false
-RequiresIntermission = null
+RequiresIntermission = false
 StageEndEvent = 0
 LevelMusicID = "Forest"
 metadata/_custom_type_script = "uid://wvhb66ctf5ai"

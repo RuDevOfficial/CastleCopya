@@ -24,6 +24,9 @@ func _ready() -> void:
 	
 	SignalBus.on_door_transition_camera_transition_start.connect(transition_to_next_path)
 	
+	SignalBus.on_begin_transition.connect(func(respawning): change_smoothing(false))
+	SignalBus.on_end_transition.connect(func(respawning): change_smoothing(true))
+	
 	GStateManager.on_enter_gameplay.connect(func(): can_follow_player = true)
 	GStateManager.on_exit_gameplay.connect(func(): can_follow_player = false)
 
@@ -170,5 +173,8 @@ func constrict_camera(index : int) -> void:
 		camera.limit_left = end_point.x - 160
 		camera.limit_right = end_point.x + 160
 		current_camera_direction = CameraDirection.None
+
+func change_smoothing(result : bool) -> void:
+	camera.position_smoothing_enabled = result
 
 enum CameraDirection { None, Horizontal, Vertical }

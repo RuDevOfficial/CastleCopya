@@ -18,7 +18,6 @@ signal on_enter_intermission
 signal on_exit_intermission
 #endregion
 
-var current_game_data : GameDataResource
 var current_state : GameState = GameState.Ready # Needs to be Ready
 
 enum GameState { Ready, Menu, Options, Intro, Intermission, Gameplay }
@@ -31,7 +30,6 @@ func _ready() -> void:
 	get_references()
 	
 	SaveManager.check_for_existing_data()
-	current_game_data = SaveManager.load_data(0) # This should change
 	
 	await get_tree().process_frame
 	change_state(GameState.Menu)
@@ -67,7 +65,8 @@ func enter_intro() -> void: on_enter_intro.emit()
 func exit_intro() -> void: on_exit_intro.emit()
 
 func enter_gameplay() -> void:
-	StageManager.generate_new_level(current_game_data.CURRENT_LEVEL)
+	var current_gameplay_data : GameplayDataResource = SaveManager.get_current_gameplay_data()
+	StageManager.generate_new_level(current_gameplay_data.CURRENT_LEVEL)
 	on_enter_gameplay.emit()
 func exit_gameplay() -> void: on_exit_gameplay.emit()
 
@@ -77,12 +76,13 @@ func exit_intermission() -> void: on_exit_intermission.emit()
 #endregion
 
 func connect_signals() -> void:
-	var play_button : Button = get_tree().root.get_node("Main/UI/Menu/Play Button")
+	var play_button : Button = get_tree().root.get_node("Main/UI/Menu/VBoxContainer/Play Button")
 	play_button.pressed.connect(func():
-		if (current_game_data.INTRO_VIEWED == false):
-			current_game_data.INTRO_VIEWED = true
+		var game_data : GameplayDataResource = SaveManager.get_current_gameplay_data()
+		if (game_data.INTRO_VIEWED == false):
+			game_data.INTRO_VIEWED = true
 			transition_manager.try_transition(GameState.Intro)
-			SaveManager.save_data(current_game_data, 0) 
+			SaveManager.save_gameplay_data(SaveManager.current_save_file_index) 
 		else:
 			if (is_debug_mode): transition_manager.try_transition(GameState.Intro)
 			else: transition_manager.try_transition(GameState.Gameplay)
@@ -94,7 +94,6 @@ func connect_signals() -> void:
 		)
 	
 	SignalBus.on_clear_level.connect(func():
-		StageManager.increase_current_level()
 		await get_tree().create_timer(4).timeout #HARDCODED TIME TODO CHANGE
 		transition_manager.try_transition(GameState.Intermission)
 		)
