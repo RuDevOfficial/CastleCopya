@@ -1231,7 +1231,6 @@ texture_filter = 1
 position = Vector2(-160, 0)
 zoom = Vector2(4, 4)
 process_callback = 0
-limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
@@ -1303,6 +1302,7 @@ bank_paths = ["res://FmodBank/Desktop/Master.strings.bank", "res://FmodBank/Desk
 [node name="FmodListener2D" type="FmodListener2D" parent="Audio"]
 
 [node name="Player" parent="." instance=ExtResource("2_8gbba")]
+z_index = 2
 position = Vector2(-272, 40)
 _playerResource = SubResource("Resource_jkdf5")
 
@@ -1700,6 +1700,7 @@ libraries = {
 }
 
 [node name="Debug" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

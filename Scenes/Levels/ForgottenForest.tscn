@@ -248,19 +248,27 @@ position = Vector2(0, -8)
 tile_map_data = PackedByteArray("AAAMAAEAAAAEAAIAAAAOAAEAAAAEAAIAAAAXAAEAAAAEAAIAAAA=")
 tile_set = SubResource("TileSet_h2yge")
 
-[node name="CameraPath" type="Node2D" parent="."]
+[node name="Paths" type="Node2D" parent="."]
 
-[node name="1" type="Path2D" parent="CameraPath"]
+[node name="1" type="Path2D" parent="Paths"]
 curve = SubResource("Curve2D_n3wfp")
 script = ExtResource("10_n3wfp")
 
-[node name="2" type="Path2D" parent="CameraPath"]
+[node name="2" type="Path2D" parent="Paths"]
 position = Vector2(736, 0)
 curve = SubResource("Curve2D_p3cfc")
 script = ExtResource("10_n3wfp")
 
 [node name="OrbSpawnPosition" type="Node2D" parent="."]
 position = Vector2(725, -38)
+
+[node name="Marker2D" type="Marker2D" parent="OrbSpawnPosition"]
+
+[node name="PlayerSpawnPosition" type="Node2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(-288, 40)
+
+[node name="Marker2D" type="Marker2D" parent="PlayerSpawnPosition"]
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -2

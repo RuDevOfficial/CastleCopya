@@ -99,7 +99,7 @@ func check_for_path_connections() -> void:
 		return
 
 func get_paths(resource : LevelResource, instance : Node2D):
-	get_new_path_list(instance.get_node("CameraPath"))
+	get_new_path_list(instance.get_node("Paths"))
 	get_starting_path()
 
 func get_new_path_list(path_node : Node2D) -> void:
@@ -107,9 +107,9 @@ func get_new_path_list(path_node : Node2D) -> void:
 	level_path_list.clear()
 	
 	for child in path_node.get_children():
-		if (child is not Path2D): continue
-		
-		level_path_list.push_back(child)
+		if (child is not CameraPath): continue
+		var camera_path : CameraPath = child
+		level_path_list.append(camera_path)
 
 func get_starting_path() -> void:
 	current_path_index = 0

@@ -55,7 +55,7 @@ func get_state(new_name : String) -> Node:
 func connect_signals() -> void:
 	
 	SignalBus.on_level_generated.connect(func(level_resource, level_instance):
-		last_spawn_position = level_resource.PlayerSpawnPosition
+		last_spawn_position = level_instance.get_node("PlayerSpawnPosition").global_position # SHOULD BE MODIFIED
 		show_player()
 		reset_player()
 		activate_player())
