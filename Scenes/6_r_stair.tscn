@@ -1,20 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://d08ylbd2bolcm"]
+[gd_scene load_steps=7 format=3 uid="uid://cl2f4low7gcps"]
 
-[ext_resource type="Texture2D" uid="uid://d2v18g5cxpbcj" path="res://Sprites/Environment/StairComplete.png" id="1_n867e"]
-[ext_resource type="Texture2D" uid="uid://b85nyqj1626y4" path="res://Sprites/Environment/StairsDecorationMiddle.png" id="2_e7p2o"]
-[ext_resource type="Texture2D" uid="uid://cbc2kip13r0xn" path="res://Sprites/Environment/Stair.png" id="3_14882"]
-[ext_resource type="Texture2D" uid="uid://fw45t1s2gqfm" path="res://Sprites/Environment/StairsEnd.png" id="4_hci4d"]
+[ext_resource type="Texture2D" uid="uid://d2v18g5cxpbcj" path="res://Sprites/Environment/StairComplete.png" id="1_57ds3"]
+[ext_resource type="Texture2D" uid="uid://b85nyqj1626y4" path="res://Sprites/Environment/StairsDecorationMiddle.png" id="2_8rafe"]
+[ext_resource type="Texture2D" uid="uid://cbc2kip13r0xn" path="res://Sprites/Environment/Stair.png" id="3_fxs3k"]
+[ext_resource type="Texture2D" uid="uid://fw45t1s2gqfm" path="res://Sprites/Environment/StairsEnd.png" id="4_4ynpu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sqoif"]
 radius = 4.0
 
-[sub_resource type="Curve2D" id="Curve2D_id00x"]
+[sub_resource type="Curve2D" id="Curve2D_jd3ge"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 48, -48)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 96, -96)
 }
 point_count = 2
 
-[node name="Stair" type="Node2D"]
+[node name="6-R-Stair" type="Node2D"]
 
 [node name="Sprites" type="Node2D" parent="."]
 visible = false
@@ -22,32 +22,32 @@ visible = false
 [node name="InitialStep" type="Sprite2D" parent="Sprites"]
 visible = false
 position = Vector2(0, -8)
-texture = ExtResource("1_n867e")
+texture = ExtResource("1_57ds3")
 
 [node name="Rail" type="Sprite2D" parent="Sprites"]
 visible = false
 position = Vector2(8, -24)
-texture = ExtResource("2_e7p2o")
+texture = ExtResource("2_8rafe")
 
 [node name="Rail2" type="Sprite2D" parent="Sprites"]
 visible = false
 position = Vector2(24, -40)
-texture = ExtResource("2_e7p2o")
+texture = ExtResource("2_8rafe")
 
 [node name="Step2" type="Sprite2D" parent="Sprites"]
 visible = false
 position = Vector2(24, -24)
-texture = ExtResource("3_14882")
+texture = ExtResource("3_fxs3k")
 
 [node name="Step3" type="Sprite2D" parent="Sprites"]
 visible = false
 position = Vector2(40, -40)
-texture = ExtResource("3_14882")
+texture = ExtResource("3_fxs3k")
 
 [node name="End" type="Sprite2D" parent="Sprites"]
 visible = false
 position = Vector2(48, -56)
-texture = ExtResource("4_hci4d")
+texture = ExtResource("4_4ynpu")
 
 [node name="Triggers" type="Node2D" parent="."]
 
@@ -60,7 +60,7 @@ shape = SubResource("CircleShape2D_sqoif")
 debug_color = Color(0.767316, 0, 0.179415, 0.42)
 
 [node name="End" type="Area2D" parent="Triggers"]
-position = Vector2(48, -48)
+position = Vector2(96, -96)
 collision_layer = 2048
 collision_mask = 0
 
@@ -69,7 +69,7 @@ shape = SubResource("CircleShape2D_sqoif")
 debug_color = Color(0.767316, 0, 0.179415, 0.42)
 
 [node name="Path" type="Path2D" parent="."]
-curve = SubResource("Curve2D_id00x")
+curve = SubResource("Curve2D_jd3ge")
 
 [node name="Follow" type="PathFollow2D" parent="Path"]
 rotation = -0.785398

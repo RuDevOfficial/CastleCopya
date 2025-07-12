@@ -1228,9 +1228,10 @@ texture_filter = 1
 [node name="Level" type="Node2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-160, 0)
+position = Vector2(0, -2)
 zoom = Vector2(4, 4)
 process_callback = 0
+limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
@@ -1242,6 +1243,7 @@ camera = NodePath("../../Camera2D")
 player = NodePath("../../Player")
 
 [node name="DummyPlayer" type="Node2D" parent="Managers/DoorTransitionManager"]
+z_index = 2
 texture_filter = 1
 position = Vector2(544, 24)
 

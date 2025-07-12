@@ -102,6 +102,12 @@ func get_paths(resource : LevelResource, instance : Node2D):
 	get_new_path_list(instance.get_node("Paths"))
 	get_starting_path()
 
+func snap_position_to_player(instance : Node2D) -> void:
+	if (current_camera_direction == CameraDirection.Horizontal):
+		camera.global_position.x = instance.get_node("PlayerSpawnPosition").global_position.x
+	else: 
+		camera.global_position.y = instance.get_node("PlayerSpawnPosition").global_position.y
+
 func get_new_path_list(path_node : Node2D) -> void:
 	
 	level_path_list.clear()

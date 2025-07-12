@@ -168,9 +168,6 @@ shape = SubResource("RectangleShape2D_bdkck")
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_fahql")
 
-[node name="CameraPivot" type="Node2D" parent="."]
-position = Vector2(160, 0)
-
 [node name="Area" type="Area2D" parent="."]
 position = Vector2(-32, 0)
 collision_layer = 0
