@@ -17,6 +17,10 @@ var last_axis : Vector2
 
 var attacking_on_stairs : bool = false
 
+func _ready() -> void:
+	
+	SignalBus.on_warp_entered.connect(overwrite_path)
+
 func Enter():
 	_playerResource.IsOnStairs = true
 	
@@ -142,3 +146,63 @@ func Physics_Update(delta: float):
 		elif (PlayerInput.is_inputting_down_right_corner(false)): follow_path.progress_ratio -= downwards_delta / 2
 		
 	controller.global_position = follow_path.global_position
+
+func overwrite_path(position : Vector2, camera_path_index : int, 
+path : Path2D, path_progress : float, is_entrance : bool) -> void:
+	if (_playerResource.IsOnStairs == false): return
+	
+	var path_node : Path2D = path
+	follow_path = path_node.get_child(0)
+	
+	var axis : Vector2 = Vector2.DOWN * Input.get_axis("enter_stairs_up", "enter_stairs_down")
+	
+		# CHECK THE FIRST 2 POINTS
+	var point_0 : Vector2 = path_node.curve.get_point_position(0)
+	var point_1 : Vector2 = path_node.curve.get_point_position(1)
+		
+	# DOT PRODUCT POSITIVE MEANS IT IS GOING IN THE RIGHT DIRECTION
+	# IF NOT GO BACK TO THE NORMAL STATE
+	start_stair_vector = (point_1 - point_0).normalized()
+	
+	if (is_entrance):
+		# CHECK THE FIRST 2 POINTS
+		
+		# DOT PRODUCT POSITIVE MEANS IT IS GOING IN THE RIGHT DIRECTION
+		# IF NOT GO BACK TO THE NORMAL STATE
+		stair_vector = (point_1 - point_0).normalized()
+		stairs_go_up = start_stair_vector.y < 0
+		
+		if (stair_vector.dot(axis) < 0): 
+			Exiting.emit(self, "Normal")
+			return
+			
+		# CONTINUE IF DOT PRODUCT > 0
+		follow_path.progress_ratio = path_progress
+		controller.global_position = follow_path.global_position
+		
+		begin_at_start = true
+	else:
+		var total_points = path_node.curve.point_count
+		
+		# CHECK THE FIRST 2 POINTS
+		point_0 = path_node.curve.get_point_position(total_points - 1)
+		point_1 = path_node.curve.get_point_position(total_points - 2)
+		
+		# DOT PRODUCT POSITIVE MEANS IT IS GOING IN THE RIGHT DIRECTION
+		# IF NOT GO BACK TO THE NORMAL STATE
+		var vector = (point_1 - point_0).normalized()
+		stairs_go_up = vector.y < 0
+		if (vector.dot(axis) < 0): 
+			Exiting.emit(self, "Normal")
+			return
+		
+		# CONTINUE IF DOT PRODUCT > 0
+		follow_path.progress_ratio = path_progress
+		controller.global_position = follow_path.global_position
+		
+		begin_at_start = false
+		
+		
+	controller.motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
+	animation_tree.set("parameters/conditions/not_on_stairs", false)
+	animation_tree.set("parameters/conditions/on_stairs", true)

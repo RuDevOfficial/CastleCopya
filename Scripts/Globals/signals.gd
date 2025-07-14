@@ -21,6 +21,9 @@ signal on_door_transition_start
 signal on_door_transition_camera_transition_start
 signal on_door_transition_finish # UNUSED
 
+#WARP RELATED
+signal on_warp_entered(position : Vector2, camera_path_index : int, path : Path2D, path_progress : float, is_entrance : bool)
+
 #NEW TRANSITION SIGNALS
 signal on_begin_transition
 signal on_middle_transition

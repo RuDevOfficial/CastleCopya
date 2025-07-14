@@ -32,6 +32,9 @@ func stop_music(allow_fadeout : bool) -> void:
 	music_emitter.stop()
 	music_stopped = true
 
+func overwrite_volume(new_volume : float) -> void:
+	music_emitter.volume = clampf(new_volume, 0.00, 1.00)
+
 func generate_event_dictionary():
 	
 	music_dictionary.clear()

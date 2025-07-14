@@ -14,7 +14,7 @@ func _ready() -> void:
 	
 	SignalBus.on_door_transition_start.connect(begin_door_transition)
 
-func begin_door_transition(door : Door) -> void:
+func begin_door_transition(door : Door, target_camera_path_index : int) -> void:
 	if (is_transitioning): return
 	is_transitioning = true
 	
@@ -44,7 +44,7 @@ func begin_door_transition(door : Door) -> void:
 	
 	# ========= STEP 3 ============
 	
-	SignalBus.on_door_transition_camera_transition_start.emit()
+	SignalBus.on_door_transition_camera_transition_start.emit(target_camera_path_index)
 	await SignalBus.on_door_transition_finish
 	
 	player.global_position = dummy_player.global_position

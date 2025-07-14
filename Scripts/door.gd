@@ -4,11 +4,10 @@ class_name Door
 @onready var camera_end_pivot : Node2D = $CameraPivot
 @onready var animation_player = $AnimationPlayer
 
-@export var open_sprite : CompressedTexture2D
-@export var close_sprite : CompressedTexture2D
+@export var target_camera_path_index : int 
 
 func _on_area_entered(area: Area2D) -> void:
-	SignalBus.on_door_transition_start.emit(self)
+	SignalBus.on_door_transition_start.emit(self, target_camera_path_index)
 
 func open(opening : bool) -> void:
 	if (opening): animation_player.play("open")

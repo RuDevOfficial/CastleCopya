@@ -1702,7 +1702,6 @@ libraries = {
 }
 
 [node name="Debug" type="Control" parent="UI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1718,25 +1717,30 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -579.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Win" type="Button" parent="UI/Debug/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 29
 text = "Win Stage"
 
 [node name="Save" type="Button" parent="UI/Debug/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 29
 text = "Save Data"
 
-[node name="Nothing" type="Button" parent="UI/Debug/VBoxContainer"]
+[node name="Toggle Music" type="Button" parent="UI/Debug/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 29
-text = "Nothing"
+text = "Toggle Music"
 
 [connection signal="pressed" from="UI/Menu/VBoxContainer/Go to Gameplay" to="UI/Menu" method="_on_go_to_gameplay_pressed"]
 [connection signal="pressed" from="UI/Menu/VBoxContainer/Delete Save" to="UI/Menu" method="_on_delete_save_pressed"]
 [connection signal="pressed" from="UI/Debug/VBoxContainer/Win" to="UI/Debug" method="_on_win_pressed"]
 [connection signal="pressed" from="UI/Debug/VBoxContainer/Save" to="UI/Debug" method="_on_save_pressed"]
+[connection signal="pressed" from="UI/Debug/VBoxContainer/Toggle Music" to="UI/Debug" method="_on_toggle_music_pressed"]

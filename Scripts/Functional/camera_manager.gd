@@ -18,14 +18,20 @@ var transition_from_position : Vector2
 var transition_to_position : Vector2
 
 var transitioning : bool = false
+var transition_target_path_index : int
 
 func _ready() -> void:
+	connect_signals()
+
+func connect_signals() -> void:
 	SignalBus.on_level_generated.connect(get_paths)
 	
 	SignalBus.on_door_transition_camera_transition_start.connect(transition_to_next_path)
 	
 	SignalBus.on_begin_transition.connect(func(respawning): change_smoothing(false))
 	SignalBus.on_end_transition.connect(func(respawning): change_smoothing(true))
+	
+	SignalBus.on_warp_entered.connect(overwrite_current_path)
 	
 	GStateManager.on_enter_gameplay.connect(func(): can_follow_player = true)
 	GStateManager.on_exit_gameplay.connect(func(): can_follow_player = false)
@@ -34,14 +40,16 @@ func disable_camera_follow(door : Door) -> void:
 	following_player = false
 	if (current_path_index == level_path_list.size() - 1): return
 
-func transition_to_next_path() -> void:
+func transition_to_next_path(target_camera_path_index : int) -> void:
 	if (current_path_index + 1 > level_path_list.size() - 1): return
+	
+	transition_target_path_index = target_camera_path_index
 	
 	var current_path = level_path_list[current_path_index]
 	var path_position_start : Vector2 = current_path.to_global(current_path.curve.get_point_position(1))
 	transition_from_position = path_position_start
 	
-	var next_path = level_path_list[current_path_index + 1]
+	var next_path = level_path_list[target_camera_path_index]
 	var path_position_end : Vector2 = next_path.to_global(next_path.curve.get_point_position(0))
 	transition_to_position = path_position_end
 	
@@ -72,7 +80,9 @@ func _process(delta: float) -> void:
 		if (transition_direction_vector.dot(new_vector) != 1):
 			SignalBus.on_door_transition_finish.emit()
 			transitioning = false
-			next_path()
+			constrict_camera(transition_target_path_index)
+			current_path_index = transition_target_path_index
+			#next_path() # this is the problem
 			
 			if (current_path_index == level_path_list.size() - 1):
 				SignalBus.on_reach_last_camera_path.emit()
@@ -117,6 +127,16 @@ func get_new_path_list(path_node : Node2D) -> void:
 		var camera_path : CameraPath = child
 		level_path_list.append(camera_path)
 
+func overwrite_current_path(position : Vector2, camera_path_index : int, 
+path : Path2D, path_progress : float, is_entrance : bool) -> void:
+	change_smoothing(false)
+	current_path_index = camera_path_index
+	constrict_camera(camera_path_index)
+	
+	await get_tree().process_frame
+	
+	change_smoothing(true)
+
 func get_starting_path() -> void:
 	current_path_index = 0
 	constrict_camera(0)
@@ -126,14 +146,14 @@ func next_path() -> void:
 	if (current_path_index == next_path_index): return
 	current_path_index = next_path_index
 	
-	constrict_camera(current_path_index)
+	constrict_camera(next_path_index)
 
 func previous_path() -> void:
 	var previous_path_index = clampi(current_path_index - 1, 0, level_path_list.size() - 1)
 	if (current_path_index == previous_path_index): return
 	current_path_index = previous_path_index
 	
-	constrict_camera(current_path_index)
+	constrict_camera(previous_path_index)
 
 func constrict_camera(index : int) -> void:
 	var current_path : Path2D = level_path_list[index]

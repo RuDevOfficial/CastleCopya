@@ -73,3 +73,12 @@ func connect_signals() -> void:
 		if (is_player_respawning == true): activate_player())
 	
 	SignalBus.on_clear_level.connect(func(): freeze_player(null))
+	
+	SignalBus.on_warp_entered.connect(
+		func(position : Vector2, camera_path_index : int, 
+		stair_path : Path2D, path_progress : float, is_entrance : bool): 
+			if (_playerResource.IsOnStairs == true): return
+			
+			global_position = position
+			# DO SOMETHING
+			)
