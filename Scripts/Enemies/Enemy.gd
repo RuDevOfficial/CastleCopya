@@ -63,7 +63,7 @@ func get_disabled():
 	sprite.visible = true
 
 func _on_health_damaged(amount: float, knockback: Vector2) -> void:
-	SignalBus.on_enemy_hit.emit(self)
+	SignalBus.on_enemy_hit.emit(self, starting_health, health_component.get_current())
 
 func _on_health_death() -> void:
 	sprite.visible = false

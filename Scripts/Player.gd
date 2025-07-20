@@ -82,3 +82,15 @@ func connect_signals() -> void:
 			global_position = position
 			# DO SOMETHING
 			)
+	
+	# THIS IS ONLY FOR DEBUG PURPOSES
+	SignalBus.on_debug_teleport_to_boss.connect(func():
+		var paths_node_parent : Node2D = owner.get_node("Level").get_child(0).get_node("Paths")
+		for path in paths_node_parent.get_children():
+			if (path is not CameraPath): continue
+			if (path.is_last_path == false): continue
+			
+			var cam_path : CameraPath = path
+			global_position = cam_path.to_global(cam_path.curve.get_point_in(0))
+			break
+	)

@@ -3,6 +3,7 @@ extends Resource
 class_name LevelResource
 
 @export var level_scene : PackedScene
+@export var level_boss : PackedScene
 
 @export_category("Level Transition")
 @export_tool_button("Get Current Player Position", "Callable")
@@ -15,6 +16,7 @@ var _getPlayerButton = set_player_location_to_current.bind()
 
 @export_category("Audio")
 @export var LevelMusicID : String
+@export var boss_theme_name : String
 
 func set_player_location_to_current() -> void:
 	var playerNode : CharacterBody2D = (EditorInterface.get_edited_scene_root().get_node("Player"))

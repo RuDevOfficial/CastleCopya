@@ -46,7 +46,6 @@ func take_damage(amount: float, knockback: Vector2) -> void:
 	_current -= amount
 	_current = max(_current, 0.0)
 	is_damaged = true
-	
 	if _current <= 0.0:
 		death.emit()
 		

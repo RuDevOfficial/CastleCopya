@@ -1,5 +1,8 @@
 extends Control
 
+@onready var bounds_rect : Control = $ColorRect
+
+@export var target_control : Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -15,3 +18,15 @@ func enable_ui() -> void:
 
 func disable_ui() -> void:
 	visible = false
+
+func snap_to_location(index : int) -> void:
+	var child : Control = get_child(index)
+	target_control.position = child.position
+
+enum GameplayUILocation {Top, Bottom}
+
+func _on_camera_top_area_entered(area: Area2D) -> void:
+	snap_to_location(1)
+
+func _on_bottom_area_entered(area: Area2D) -> void:
+	snap_to_location(0)

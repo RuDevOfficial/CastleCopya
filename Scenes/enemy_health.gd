@@ -1,6 +1,6 @@
 extends PlayerHealthUIManager
 
-var previous_enemy : Enemy = null
+var previous_enemy = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -8,7 +8,7 @@ func _ready() -> void:
 	SignalBus.on_enemy_death.connect(death_override_all_bars)
 	SignalBus.on_level_fade_completed.connect(func(): previous_enemy = null)
 
-func update_bar_enemy_hit(enemy : Enemy) -> void:
+func update_bar_enemy_hit(enemy, max : int, current : int) -> void:
 	if (enemy != previous_enemy): 
 		previous_enemy = enemy
 		
@@ -18,7 +18,7 @@ func update_bar_enemy_hit(enemy : Enemy) -> void:
 		
 		bar_list.clear()
 			
-		add_max_bars(previous_enemy.starting_health)
-		update_bar_state(previous_enemy.starting_health, previous_enemy.health_component.get_current())
+		add_max_bars(max)
+		update_bar_state(max, current)
 	else:
-		update_bar_state(previous_enemy.starting_health, previous_enemy.health_component.get_current())
+		update_bar_state(max, current)

@@ -68,6 +68,7 @@ Subweapon_Resource = ExtResource("4_cjegy")
 shape = SubResource("CircleShape2D_0rfc5")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+z_index = 5
 texture = ExtResource("2_v382s")
 
 [node name="Hitbox" type="Area2D" parent="."]

@@ -16,6 +16,11 @@ atlas = ExtResource("1_4slyf")
 region = Rect2(0, 0, 16, 32)
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_fj6an"]
+var/speed/name = &"speed"
+var/speed/type = 3
+var/speed/value = 2.0
+var/speed/hint = 0
+var/speed/hint_string = ""
 
 [sub_resource type="Animation" id="Animation_qig7e"]
 length = 0.001

@@ -1,0 +1,107 @@
+[gd_resource type="BehaviorTree" load_steps=23 format=3 uid="uid://brenrddjvk5pa"]
+
+[ext_resource type="Script" uid="uid://bljncmkham5ok" path="res://ai/tasks/action_store_random_position_in_area.gd" id="2_cbhjt"]
+[ext_resource type="Script" uid="uid://bcokxsdc6c44x" path="res://ai/tasks/action_go_to_position.gd" id="2_kyadc"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_p1rwp"]
+var/starting_position/name = &"starting_position"
+var/starting_position/type = 5
+var/starting_position/value = Vector2(0, 0)
+var/starting_position/hint = 0
+var/starting_position/hint_string = "The starting position once the BT starts"
+var/speed/name = &"speed"
+var/speed/type = 3
+var/speed/value = 50.0
+var/speed/hint = 0
+var/speed/hint_string = ""
+var/damaged/name = &"damaged"
+var/damaged/type = 1
+var/damaged/value = false
+var/damaged/hint = 0
+var/damaged/hint_string = ""
+var/attacking/name = &"attacking"
+var/attacking/type = 1
+var/attacking/value = false
+var/attacking/hint = 0
+var/attacking/hint_string = ""
+
+[sub_resource type="BBNode" id="BBNode_cbhjt"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_lny7i"]
+animation_player = SubResource("BBNode_cbhjt")
+animation_name = &"relocating"
+
+[sub_resource type="BTAction" id="BTAction_lny7i"]
+script = ExtResource("2_cbhjt")
+original_position_key = "starting_position"
+stored_position_key = "go_to_position"
+x_range = Vector2(100, 100)
+y_range = Vector2(20, 30)
+min_distance_required = true
+min_distance_requirement = 5.0
+
+[sub_resource type="BTAction" id="BTAction_cbhjt"]
+script = ExtResource("2_kyadc")
+target_position_key = "go_to_position"
+speed_key = "speed"
+
+[sub_resource type="BTWait" id="BTWait_lny7i"]
+
+[sub_resource type="BTSequence" id="BTSequence_xfakq"]
+custom_name = "Go to a Random Position in an Area from Starting Position"
+children = [SubResource("BTPlayAnimation_lny7i"), SubResource("BTAction_lny7i"), SubResource("BTAction_cbhjt"), SubResource("BTWait_lny7i")]
+
+[sub_resource type="BBVariant" id="BBVariant_kyadc"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTSetVar" id="BTSetVar_cbhjt"]
+variable = &"attacking"
+value = SubResource("BBVariant_kyadc")
+
+[sub_resource type="BBNode" id="BBNode_kyadc"]
+saved_value = NodePath(".")
+resource_name = "."
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_cbhjt"]
+node = SubResource("BBNode_kyadc")
+method = &"attack"
+
+[sub_resource type="BBNode" id="BBNode_yecyg"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_1s7ac"]
+animation_player = SubResource("BBNode_yecyg")
+animation_name = &"attacking"
+
+[sub_resource type="BBVariant" id="BBVariant_lny7i"]
+type = 1
+saved_value = false
+resource_name = "<null>"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_yecyg"]
+variable = &"attacking"
+value = SubResource("BBVariant_lny7i")
+
+[sub_resource type="BTRepeatUntilSuccess" id="BTRepeatUntilSuccess_lny7i"]
+children = [SubResource("BTCheckVar_yecyg")]
+
+[sub_resource type="BTWait" id="BTWait_yecyg"]
+
+[sub_resource type="BTSequence" id="BTSequence_0pl7w"]
+custom_name = "Attack Player"
+children = [SubResource("BTSetVar_cbhjt"), SubResource("BTCallMethod_cbhjt"), SubResource("BTPlayAnimation_1s7ac"), SubResource("BTRepeatUntilSuccess_lny7i"), SubResource("BTWait_yecyg")]
+
+[sub_resource type="BTSequence" id="BTSequence_kyadc"]
+children = [SubResource("BTSequence_xfakq"), SubResource("BTSequence_0pl7w")]
+
+[sub_resource type="BTSelector" id="BTSelector_1s7ac"]
+children = [SubResource("BTSequence_kyadc")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_p1rwp")
+root_task = SubResource("BTSelector_1s7ac")
