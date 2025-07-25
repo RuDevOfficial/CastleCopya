@@ -25,7 +25,7 @@ func Enter() -> void:
 	
 	SfxManager.do_one_shot("Damage")
 	
-	SignalBus.on_player_take_damage.emit(health.max_health, health.get_current())
+	SignalBus.on_player_take_damage.emit(_playerResource.StartingHealth, health.get_current())
 
 func Exit() -> void:
 	_delay = 0.0

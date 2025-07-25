@@ -1,0 +1,221 @@
+[gd_resource type="BehaviorTree" load_steps=52 format=3 uid="uid://2bmagxtve4vf"]
+
+[ext_resource type="Script" uid="uid://beh4jmustm0j2" path="res://ai/tasks/condition_is_player_close.gd" id="1_apqyp"]
+[ext_resource type="Script" uid="uid://bwmnl2wkemyrt" path="res://ai/tasks/LinearMove2D.gd" id="1_vnm6m"]
+[ext_resource type="Script" uid="uid://djpsqf7qgo5q4" path="res://ai/tasks/condition_touching_ground.gd" id="2_mpgqb"]
+[ext_resource type="Script" uid="uid://0yj0yll681pj" path="res://ai/tasks/action_jump.gd" id="4_7b5yq"]
+[ext_resource type="Script" uid="uid://c51as8e0wodu1" path="res://ai/tasks/HasHitWall2D.gd" id="4_v51a1"]
+[ext_resource type="Script" uid="uid://ck04v6eqd6eb4" path="res://ai/tasks/ChangeDirectionToTarget.gd" id="5_775ox"]
+[ext_resource type="Script" uid="uid://jx36abkf7xdb" path="res://ai/tasks/FlipSpriteFromDirection.gd" id="6_x12t2"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_8f0s7"]
+var/speed/name = &"speed"
+var/speed/type = 3
+var/speed/value = 0.0
+var/speed/hint = 0
+var/speed/hint_string = ""
+var/direction/name = &"direction"
+var/direction/type = 2
+var/direction/value = 0
+var/direction/hint = 0
+var/direction/hint_string = ""
+var/awake/name = &"awake"
+var/awake/type = 1
+var/awake/value = false
+var/awake/hint = 0
+var/awake/hint_string = ""
+var/jumped/name = &"jumped"
+var/jumped/type = 1
+var/jumped/value = false
+var/jumped/hint = 0
+var/jumped/hint_string = ""
+
+[sub_resource type="BBVariant" id="BBVariant_mpgqb"]
+type = 1
+saved_value = false
+resource_name = "<null>"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_apqyp"]
+variable = &"awake"
+value = SubResource("BBVariant_mpgqb")
+
+[sub_resource type="BTCondition" id="BTCondition_7b5yq"]
+script = ExtResource("1_apqyp")
+distance = 64.0
+
+[sub_resource type="BBVariant" id="BBVariant_apqyp"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTSetVar" id="BTSetVar_7b5yq"]
+variable = &"awake"
+value = SubResource("BBVariant_apqyp")
+
+[sub_resource type="BTSequence" id="BTSequence_775ox"]
+custom_name = "Wakeup Sequence"
+children = [SubResource("BTCheckVar_apqyp"), SubResource("BTCondition_7b5yq"), SubResource("BTSetVar_7b5yq")]
+
+[sub_resource type="BBVariant" id="BBVariant_x12t2"]
+type = 1
+saved_value = false
+resource_name = "<null>"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_v51a1"]
+variable = &"jumped"
+value = SubResource("BBVariant_x12t2")
+
+[sub_resource type="BBVariant" id="BBVariant_7b5yq"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_775ox"]
+variable = &"awake"
+value = SubResource("BBVariant_7b5yq")
+
+[sub_resource type="BBNode" id="BBNode_apqyp"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_7b5yq"]
+animation_player = SubResource("BBNode_apqyp")
+animation_name = &"running"
+
+[sub_resource type="BTAction" id="BTAction_mpgqb"]
+script = ExtResource("1_vnm6m")
+speed_key = "speed"
+
+[sub_resource type="BTCondition" id="BTCondition_apqyp"]
+script = ExtResource("2_mpgqb")
+size = 24.0
+ray_length = 10.0
+collision_mask = 1
+
+[sub_resource type="BTParallel" id="BTParallel_apqyp"]
+num_successes_required = 2
+repeat = true
+children = [SubResource("BTAction_mpgqb"), SubResource("BTCondition_apqyp")]
+
+[sub_resource type="BBVariant" id="BBVariant_775ox"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTSetVar" id="BTSetVar_x12t2"]
+variable = &"jumped"
+value = SubResource("BBVariant_775ox")
+
+[sub_resource type="BTSelector" id="BTSelector_7b5yq"]
+children = [SubResource("BTParallel_apqyp"), SubResource("BTSetVar_x12t2")]
+
+[sub_resource type="BTSequence" id="BTSequence_7b5yq"]
+custom_name = "Awake Sequence"
+children = [SubResource("BTCheckVar_v51a1"), SubResource("BTCheckVar_775ox"), SubResource("BTPlayAnimation_7b5yq"), SubResource("BTSelector_7b5yq")]
+
+[sub_resource type="BTCondition" id="BTCondition_s3d2s"]
+script = ExtResource("4_v51a1")
+ray_length = 16.0
+collision_mask = 1
+
+[sub_resource type="BBVariant" id="BBVariant_yqqfw"]
+type = 2
+saved_value = -1
+resource_name = "-1"
+
+[sub_resource type="BTSetVar" id="BTSetVar_vsb0f"]
+variable = &"direction"
+value = SubResource("BBVariant_yqqfw")
+operation = 3
+
+[sub_resource type="BTAction" id="BTAction_yqof5"]
+script = ExtResource("6_x12t2")
+spriteLooksRight = false
+
+[sub_resource type="BTSequence" id="BTSequence_x8xo0"]
+custom_name = "Wall Sequence"
+children = [SubResource("BTCondition_s3d2s"), SubResource("BTSetVar_vsb0f"), SubResource("BTAction_yqof5")]
+
+[sub_resource type="BTParallel" id="BTParallel_23bcl"]
+custom_name = "Awake & Wall"
+children = [SubResource("BTSequence_7b5yq"), SubResource("BTSequence_x8xo0")]
+
+[sub_resource type="BBVariant" id="BBVariant_v51a1"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_s3d2s"]
+variable = &"jumped"
+value = SubResource("BBVariant_v51a1")
+
+[sub_resource type="BBNode" id="BBNode_x12t2"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_v51a1"]
+animation_player = SubResource("BBNode_x12t2")
+animation_name = &"idle"
+
+[sub_resource type="BTWait" id="BTWait_x12t2"]
+duration = 0.1
+
+[sub_resource type="BBNode" id="BBNode_v51a1"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_s3d2s"]
+animation_player = SubResource("BBNode_v51a1")
+animation_name = &"jump"
+
+[sub_resource type="BBVariant" id="BBVariant_hcxoy"]
+type = 1
+saved_value = false
+resource_name = "false"
+
+[sub_resource type="BTSetVar" id="BTSetVar_0wyvn"]
+variable = &"jumped"
+value = SubResource("BBVariant_hcxoy")
+
+[sub_resource type="BBVariant" id="BBVariant_s3d2s"]
+type = 3
+saved_value = 1.5
+resource_name = "1.5"
+
+[sub_resource type="BTSetVar" id="BTSetVar_hcxoy"]
+variable = &"speed"
+value = SubResource("BBVariant_s3d2s")
+operation = 3
+
+[sub_resource type="BTAction" id="BTAction_775ox"]
+script = ExtResource("4_7b5yq")
+jump_force = 200.0
+speed_key = "speed"
+
+[sub_resource type="BTAction" id="BTAction_x12t2"]
+script = ExtResource("5_775ox")
+
+[sub_resource type="BTAction" id="BTAction_v51a1"]
+script = ExtResource("6_x12t2")
+spriteLooksRight = false
+
+[sub_resource type="BBVariant" id="BBVariant_0wyvn"]
+type = 3
+saved_value = 2.0
+resource_name = "2.0"
+
+[sub_resource type="BTSetVar" id="BTSetVar_yqqfw"]
+variable = &"speed"
+value = SubResource("BBVariant_0wyvn")
+operation = 4
+
+[sub_resource type="BTSequence" id="BTSequence_yqqfw"]
+custom_name = "Jump Sequence"
+children = [SubResource("BTCheckVar_s3d2s"), SubResource("BTPlayAnimation_v51a1"), SubResource("BTWait_x12t2"), SubResource("BTPlayAnimation_s3d2s"), SubResource("BTSetVar_0wyvn"), SubResource("BTSetVar_hcxoy"), SubResource("BTAction_775ox"), SubResource("BTAction_x12t2"), SubResource("BTAction_v51a1"), SubResource("BTSetVar_yqqfw")]
+
+[sub_resource type="BTSelector" id="BTSelector_x12t2"]
+children = [SubResource("BTSequence_775ox"), SubResource("BTParallel_23bcl"), SubResource("BTSequence_yqqfw")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_8f0s7")
+root_task = SubResource("BTSelector_x12t2")

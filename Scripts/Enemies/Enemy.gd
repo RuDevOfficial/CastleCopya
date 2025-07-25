@@ -32,6 +32,9 @@ func _ready() -> void:
 	set_default_values()
 	
 	EnemyManager.add_enemy_to_list(self)
+	
+	behavior_player.active = true
+	behavior_player.restart()
 
 func set_default_values() -> void:
 	
@@ -64,11 +67,6 @@ func _on_health_death() -> void:
 	SignalBus.on_enemy_death.emit()
 	
 	on_death() # Overwriteable method
-
-func _on_screen_visible() -> void:
-	if (respawn_on_view == false): return
-	
-	enable_entity(true)
 
 func enable_entity(do_enable : bool) -> void:
 	hitbox.monitoring = do_enable

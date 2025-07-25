@@ -4,9 +4,13 @@ extends Control
 @export var mute_music : bool = true
 
 @export_category("Player")
+@export var player_character : PlayerCharacter
+
 @export var speed_up_character : bool = false
 @export var player_speed_multiplier : float = 1.0
-@export var player_character : PlayerCharacter
+
+@export var increase_jump_character : bool = false
+@export var increase_jump_multiplier : float = 3.0
 
 @export_category("Camera")
 @export var camera : Camera2D
@@ -51,3 +55,11 @@ func _on_toggle_camera_zoom_pressed() -> void:
 
 func _on_go_to_boss_pressed() -> void:
 	SignalBus.on_debug_teleport_to_boss.emit()
+
+func _on_super_jump_pressed() -> void:
+	if (increase_jump_character == false): 
+		player_character._playerResource.JumpForce *= increase_jump_multiplier
+	else:
+		player_character._playerResource.JumpForce /= increase_jump_multiplier
+	
+	increase_jump_character = !increase_jump_character

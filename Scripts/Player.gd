@@ -13,7 +13,11 @@ func _ready() -> void:
 	
 	connect_signals()
 	freeze_player(null)
+	set_default_values()
 	hide_player()
+
+func set_default_values():
+	_health.set_health(_playerResource.StartingHealth)
 
 func freeze_player(levelResource : LevelResource) -> void:
 	if (levelResource != null):

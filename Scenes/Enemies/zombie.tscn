@@ -1,17 +1,17 @@
 [gd_scene load_steps=19 format=3 uid="uid://d3i4xr5h8wps8"]
 
-[ext_resource type="Texture2D" uid="uid://cwi1upkh2wykn" path="res://Sprites/Enemies/Zombie.png" id="1_4slyf"]
-[ext_resource type="Script" uid="uid://bx4talr3iqmhp" path="res://Scripts/Enemies/enemy_zombie.gd" id="1_5ia6i"]
-[ext_resource type="Script" uid="uid://cgoj8pm2ucf5r" path="res://Scripts/Resources/enemy_data_resource.gd" id="2_5ia6i"]
-[ext_resource type="Script" uid="uid://5byn62y1oa76" path="res://demo/agents/scripts/health.gd" id="3_xx3wb"]
-[ext_resource type="BehaviorTree" uid="uid://1ljs6o2v5nn0" path="res://ai/trees/zombie_bt.tres" id="4_hslf5"]
-[ext_resource type="Script" uid="uid://coh7npk3nxwn6" path="res://Scripts/HealthComponents/flicker.gd" id="4_j0wq0"]
-[ext_resource type="Script" uid="uid://dq5h6yydckjc1" path="res://demo/agents/scripts/hurtbox.gd" id="5_hslf5"]
-[ext_resource type="Script" uid="uid://dntc3c582m5w8" path="res://demo/agents/scripts/hitbox.gd" id="6_u2tw5"]
-[ext_resource type="Texture2D" uid="uid://c0hprndi04kro" path="res://Sprites/Particles/fire_2.png" id="8_xx3wb"]
+[ext_resource type="Script" uid="uid://bx4talr3iqmhp" path="res://Scripts/Enemies/enemy_zombie.gd" id="1_usnig"]
+[ext_resource type="Script" uid="uid://cgoj8pm2ucf5r" path="res://Scripts/Resources/enemy_data_resource.gd" id="2_7yiho"]
+[ext_resource type="Texture2D" uid="uid://cwi1upkh2wykn" path="res://Sprites/Enemies/Zombie.png" id="3_ixhgi"]
+[ext_resource type="BehaviorTree" uid="uid://1ljs6o2v5nn0" path="res://ai/trees/zombie_bt.tres" id="4_pj4k2"]
+[ext_resource type="Script" uid="uid://5byn62y1oa76" path="res://demo/agents/scripts/health.gd" id="5_aca1y"]
+[ext_resource type="Script" uid="uid://coh7npk3nxwn6" path="res://Scripts/HealthComponents/flicker.gd" id="6_f2rhu"]
+[ext_resource type="Script" uid="uid://dq5h6yydckjc1" path="res://demo/agents/scripts/hurtbox.gd" id="7_h2uvf"]
+[ext_resource type="Script" uid="uid://dntc3c582m5w8" path="res://demo/agents/scripts/hitbox.gd" id="8_asyrq"]
+[ext_resource type="Texture2D" uid="uid://c0hprndi04kro" path="res://Sprites/Particles/fire_2.png" id="9_gljhs"]
 
 [sub_resource type="Resource" id="Resource_xx3wb"]
-script = ExtResource("2_5ia6i")
+script = ExtResource("2_7yiho")
 starting_health = 3
 stun_time = 0.4
 initial_speed = 24.0
@@ -29,7 +29,7 @@ radius = 7.0
 height = 32.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qig7e"]
-atlas = ExtResource("1_4slyf")
+atlas = ExtResource("3_ixhgi")
 region = Rect2(0, 0, 16, 32)
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_fj6an"]
@@ -85,7 +85,7 @@ z_index = -1
 collision_layer = 8
 collision_mask = 65
 lock_rotation = true
-script = ExtResource("1_5ia6i")
+script = ExtResource("1_usnig")
 data = SubResource("Resource_xx3wb")
 
 [node name="RigidbodyCollision" type="CollisionShape2D" parent="."]
@@ -97,7 +97,7 @@ texture_filter = 1
 texture = SubResource("AtlasTexture_qig7e")
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
-behavior_tree = ExtResource("4_hslf5")
+behavior_tree = ExtResource("4_pj4k2")
 blackboard_plan = SubResource("BlackboardPlan_fj6an")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -114,13 +114,13 @@ rect = Rect2(1, 0, 12, 20)
 [node name="Components" type="Node" parent="."]
 
 [node name="Health" type="Node" parent="Components" node_paths=PackedStringArray("hurtbox")]
-script = ExtResource("3_xx3wb")
+script = ExtResource("5_aca1y")
 max_health = 3.0
 hurtbox = NodePath("../../Contact/Hurtbox")
 metadata/_custom_type_script = "uid://5byn62y1oa76"
 
 [node name="Flicker" type="Node" parent="Components" node_paths=PackedStringArray("_targetSprite")]
-script = ExtResource("4_j0wq0")
+script = ExtResource("6_f2rhu")
 _targetSprite = NodePath("../../Sprite")
 _originalColor = Color(1, 1, 1, 1)
 _flickerColor = Color(1, 1, 0.270588, 1)
@@ -132,7 +132,7 @@ _flickerTimeIndividual = 0.1
 [node name="Hurtbox" type="Area2D" parent="Contact" node_paths=PackedStringArray("health")]
 collision_layer = 8
 collision_mask = 32
-script = ExtResource("5_hslf5")
+script = ExtResource("7_h2uvf")
 health = NodePath("../../Components/Health")
 metadata/_custom_type_script = "uid://dq5h6yydckjc1"
 
@@ -143,7 +143,7 @@ debug_color = Color(0.662745, 0.360784, 0.462745, 0.419608)
 [node name="Hitbox" type="Area2D" parent="Contact"]
 collision_layer = 8
 collision_mask = 4
-script = ExtResource("6_u2tw5")
+script = ExtResource("8_asyrq")
 metadata/_custom_type_script = "uid://dntc3c582m5w8"
 
 [node name="HitboxArea" type="CollisionShape2D" parent="Contact/Hitbox"]
@@ -157,7 +157,7 @@ z_index = 3
 texture_filter = 1
 emitting = false
 amount = 1
-texture = ExtResource("8_xx3wb")
+texture = ExtResource("9_gljhs")
 lifetime = 0.2
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_j0wq0")
@@ -167,7 +167,7 @@ z_index = 3
 texture_filter = 1
 emitting = false
 amount = 1
-texture = ExtResource("8_xx3wb")
+texture = ExtResource("9_gljhs")
 lifetime = 0.2
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_j0wq0")
