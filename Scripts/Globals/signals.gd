@@ -13,7 +13,7 @@ signal on_player_take_damage
 signal on_player_death
 
 #ENEMY RELATED
-signal on_enemy_hit
+signal on_enemy_hit(enemy_reference, max_health : int, current_health : int)
 signal on_enemy_death
 signal on_boss_death
 

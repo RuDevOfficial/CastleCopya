@@ -1,7 +1,11 @@
 @tool
 extends BTCondition
 
+var space_state : PhysicsDirectSpaceState2D
 var rigidBody2D : RigidBody2D
+var direction : int
+@export var ray_length : float
+@export_flags_2d_physics var collision_mask
 
 # Called to generate a display name for the task (requires @tool).
 func _generate_name() -> String:
@@ -10,21 +14,20 @@ func _generate_name() -> String:
 # Called to initialize the task.
 func _setup() -> void:
 	rigidBody2D = agent
+	space_state = agent.get_world_2d().direct_space_state
 
-# Called when the task is entered.
 func _enter() -> void:
-	pass
-
-# Called when the task is exited.
-func _exit() -> void:
-	pass
+	direction = blackboard.get_var("direction")
 
 # Called each time this task is ticked (aka executed).
 func _tick(delta: float) -> Status:
-	var collision : KinematicCollision2D = blackboard.get_var("collision")
-	if (collision):
-		if (collision.get_normal().x != 0):
-			return SUCCESS
+	var query : PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(
+		agent.global_position, 
+		agent.global_position + Vector2.RIGHT * (direction * ray_length),
+		collision_mask,
+		[self])
+	var result = space_state.intersect_ray(query)
+	if (result.size() != 0): return SUCCESS
 	
 	return FAILURE
 

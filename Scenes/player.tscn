@@ -1,4 +1,4 @@
-[gd_scene load_steps=164 format=3 uid="uid://bt0m7fahlwwhn"]
+[gd_scene load_steps=165 format=3 uid="uid://bt0m7fahlwwhn"]
 
 [ext_resource type="Script" uid="uid://cs1yvbjtnvljp" path="res://Scripts/StateMachine/StateMachine.gd" id="1_tx1dd"]
 [ext_resource type="Script" uid="uid://cnyxd33tkv1p" path="res://Scripts/Player.gd" id="1_y6uwr"]
@@ -52,11 +52,15 @@
 [ext_resource type="Texture2D" uid="uid://deo5j5tbfk8hi" path="res://Sprites/Player/frames/char41.png" id="50_ie7r7"]
 [ext_resource type="Texture2D" uid="uid://dcljuguqu8olf" path="res://Sprites/Player/frames/char44.png" id="51_vq3lt"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
-size = Vector2(14, 27)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e6mvm"]
+radius = 8.0
+height = 27.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xuaoq"]
 size = Vector2(24.5, 4.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
+size = Vector2(14, 27)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ldla"]
 size = Vector2(14, 27)
@@ -3061,7 +3065,7 @@ _animationTree = NodePath("Animation/AnimationTree")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, -13.5)
-shape = SubResource("RectangleShape2D_1bvp3")
+shape = SubResource("CapsuleShape2D_e6mvm")
 
 [node name="Components" type="Node" parent="."]
 

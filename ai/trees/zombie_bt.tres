@@ -1,120 +1,55 @@
-[gd_resource type="BehaviorTree" load_steps=33 format=3 uid="uid://1ljs6o2v5nn0"]
+[gd_resource type="BehaviorTree" load_steps=13 format=3 uid="uid://1ljs6o2v5nn0"]
 
 [ext_resource type="Script" uid="uid://bwmnl2wkemyrt" path="res://ai/tasks/LinearMove2D.gd" id="1_gaio8"]
-[ext_resource type="Script" uid="uid://c51as8e0wodu1" path="res://ai/tasks/HasHitWall2D.gd" id="2_cilis"]
-[ext_resource type="Script" uid="uid://b1qj8fvfbqbfv" path="res://ai/tasks/InvertNumericalValue.gd" id="3_glfdt"]
-[ext_resource type="Script" uid="uid://jx36abkf7xdb" path="res://ai/tasks/FlipSpriteFromDirection.gd" id="4_dlt0a"]
-[ext_resource type="Script" uid="uid://clrvjugmx0drv" path="res://ai/tasks/IsHealthZero.gd" id="5_r5vdh"]
-[ext_resource type="Script" uid="uid://c5h88jymr0enr" path="res://ai/tasks/SpawnScene.gd" id="7_qpw4x"]
-[ext_resource type="Script" uid="uid://88bfg2dcjojd" path="res://ai/tasks/IsFlickering.gd" id="7_svoa4"]
-[ext_resource type="PackedScene" uid="uid://cpva4bjwun4ms" path="res://Scenes/oneshots/DeathParticle.tscn" id="7_vtrff"]
+[ext_resource type="Script" uid="uid://c51as8e0wodu1" path="res://ai/tasks/HasHitWall2D.gd" id="2_glfdt"]
+[ext_resource type="Script" uid="uid://jx36abkf7xdb" path="res://ai/tasks/FlipSpriteFromDirection.gd" id="3_dlt0a"]
 
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_qig7e"]
-var/speed/name = &"speed"
-var/speed/type = 3
-var/speed/value = 20.0
-var/speed/hint = 0
-var/speed/hint_string = ""
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_xx3wb"]
 var/direction/name = &"direction"
 var/direction/type = 2
-var/direction/value = -1
+var/direction/value = 0
 var/direction/hint = 0
 var/direction/hint_string = ""
-var/collision/name = &"collision"
-var/collision/type = 24
-var/collision/hint = 0
-var/collision/hint_string = ""
+var/speed/name = &"speed"
+var/speed/type = 3
+var/speed/value = 0.0
+var/speed/hint = 0
+var/speed/hint_string = ""
 
-[sub_resource type="BTCondition" id="BTCondition_glfdt"]
-script = ExtResource("2_cilis")
+[sub_resource type="BTAction" id="BTAction_cilis"]
+script = ExtResource("1_gaio8")
+speed_key = "speed"
 
-[sub_resource type="BTAction" id="BTAction_dlt0a"]
-script = ExtResource("3_glfdt")
-_valueName = "direction"
+[sub_resource type="BTCondition" id="BTCondition_r5vdh"]
+script = ExtResource("2_glfdt")
+ray_length = 8.0
+collision_mask = 1
 
-[sub_resource type="BTAction" id="BTAction_r5vdh"]
-script = ExtResource("4_dlt0a")
+[sub_resource type="BBVariant" id="BBVariant_v4jox"]
+type = 2
+saved_value = -1
+resource_name = "-1"
+
+[sub_resource type="BTSetVar" id="BTSetVar_svoa4"]
+variable = &"direction"
+value = SubResource("BBVariant_v4jox")
+operation = 3
+
+[sub_resource type="BTAction" id="BTAction_qpw4x"]
+script = ExtResource("3_dlt0a")
 spriteLooksRight = false
 
-[sub_resource type="BTWaitTicks" id="BTWaitTicks_vtrff"]
-num_ticks = 3
-
-[sub_resource type="BTSequence" id="BTSequence_dlt0a"]
-custom_name = "Swap Direction on Wall Sequence"
-children = [SubResource("BTCondition_glfdt"), SubResource("BTAction_dlt0a"), SubResource("BTAction_r5vdh"), SubResource("BTWaitTicks_vtrff")]
-
-[sub_resource type="BTCondition" id="BTCondition_vtrff"]
-script = ExtResource("7_svoa4")
-
-[sub_resource type="BBVariant" id="BBVariant_qpw4x"]
-type = 3
-saved_value = 0.0
-resource_name = "<null>"
-
-[sub_resource type="BTSetVar" id="BTSetVar_vtrff"]
-variable = &"speed"
-value = SubResource("BBVariant_qpw4x")
-
 [sub_resource type="BTSequence" id="BTSequence_vtrff"]
-children = [SubResource("BTCondition_vtrff"), SubResource("BTSetVar_vtrff")]
-
-[sub_resource type="BBVariant" id="BBVariant_vtrff"]
-type = 3
-saved_value = 20.0
-resource_name = "20.0"
-
-[sub_resource type="BTCheckVar" id="BTCheckVar_u01i7"]
-variable = &"speed"
-check_type = 5
-value = SubResource("BBVariant_vtrff")
-
-[sub_resource type="BBVariant" id="BBVariant_u01i7"]
-type = 3
-saved_value = 20.0
-resource_name = "20.0"
-
-[sub_resource type="BTSetVar" id="BTSetVar_ny1xx"]
-variable = &"speed"
-value = SubResource("BBVariant_u01i7")
-
-[sub_resource type="BTSequence" id="BTSequence_ny1xx"]
-children = [SubResource("BTCheckVar_u01i7"), SubResource("BTSetVar_ny1xx")]
-
-[sub_resource type="BTSelector" id="BTSelector_45rqx"]
-custom_name = "Flicker Stop Speed Sequence"
-children = [SubResource("BTSequence_vtrff"), SubResource("BTSequence_ny1xx")]
-
-[sub_resource type="BTCondition" id="BTCondition_qpw4x"]
-script = ExtResource("5_r5vdh")
-
-[sub_resource type="BTAction" id="BTAction_u01i7"]
-custom_name = "Spawn Particle"
-script = ExtResource("7_qpw4x")
-_packedScene = ExtResource("7_vtrff")
-_samePosition = true
-_positionKey = ""
-
-[sub_resource type="BBNode" id="BBNode_qpw4x"]
-saved_value = NodePath(".")
-resource_name = "."
-
-[sub_resource type="BTCallMethod" id="BTCallMethod_vtrff"]
-node = SubResource("BBNode_qpw4x")
-method = &"get_killed"
-
-[sub_resource type="BTSequence" id="BTSequence_u01i7"]
-custom_name = "Is Dead Sequence"
-children = [SubResource("BTCondition_qpw4x"), SubResource("BTAction_u01i7"), SubResource("BTCallMethod_vtrff")]
-
-[sub_resource type="BTRandomSelector" id="BTRandomSelector_vtrff"]
-children = [SubResource("BTSequence_dlt0a"), SubResource("BTSelector_45rqx"), SubResource("BTSequence_u01i7")]
-
-[sub_resource type="BTAction" id="BTAction_x0sr7"]
-script = ExtResource("1_gaio8")
+children = [SubResource("BTCondition_r5vdh"), SubResource("BTSetVar_svoa4"), SubResource("BTAction_qpw4x")]
 
 [sub_resource type="BTParallel" id="BTParallel_u01i7"]
-children = [SubResource("BTRandomSelector_vtrff"), SubResource("BTAction_x0sr7")]
+num_failures_required = 2
+repeat = true
+children = [SubResource("BTAction_cilis"), SubResource("BTSequence_vtrff")]
+
+[sub_resource type="BTSequence" id="BTSequence_glfdt"]
+children = [SubResource("BTParallel_u01i7")]
 
 [resource]
-blackboard_plan = SubResource("BlackboardPlan_qig7e")
-root_task = SubResource("BTParallel_u01i7")
+blackboard_plan = SubResource("BlackboardPlan_xx3wb")
+root_task = SubResource("BTSequence_glfdt")

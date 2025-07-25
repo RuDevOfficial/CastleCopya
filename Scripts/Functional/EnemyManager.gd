@@ -11,7 +11,11 @@ func add_enemy_to_list(enemy : Enemy): enemy_list.push_back(enemy)
 func remove_enemy_from_list(enemy : Enemy): enemy_list.erase(enemy)
 
 func disable_all_entities(is_player_respawning): 
-	for enemy in enemy_list: enemy.get_disabled()
+	if (is_player_respawning == false): return
+	
+	for enemy in enemy_list: enemy.enable_entity(false)
 
 func reset_all_entities(is_player_respawning): 
-	for enemy in enemy_list: enemy.reset_values()
+	if (is_player_respawning == false): return
+	
+	for enemy in enemy_list: enemy.enable_entity(true)

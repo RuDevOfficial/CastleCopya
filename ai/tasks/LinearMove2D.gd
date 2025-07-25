@@ -5,6 +5,8 @@ extends BTAction
 ## At minimum, you only need to define the "_tick" method.
 
 var rigidBody2D : RigidBody2D
+var direction : float
+@export var speed_key : String
 
 # Called to generate a display name for the task (requires @tool).
 func _generate_name() -> String:
@@ -16,7 +18,7 @@ func _setup() -> void:
 
 # Called when the task is entered.
 func _enter() -> void:
-	pass
+	direction = blackboard.get_var("direction")
 
 # Called when the task is exited.
 func _exit() -> void:
@@ -24,12 +26,11 @@ func _exit() -> void:
 
 # Called each time this task is ticked (aka executed).
 func _tick(delta: float) -> Status:
-	var direction = blackboard.get_var("direction")
-	var speed = blackboard.get_var("speed")
+	var speed = blackboard.get_var(speed_key)
+	var xVelocity : float = (direction * (speed * delta))
 	
-	var xVelocity : float = (direction * speed * delta)
-	var collision : KinematicCollision2D = rigidBody2D.move_and_collide(Vector2(xVelocity, 0))
-	blackboard.set_var("collision", collision)
+	rigidBody2D.move_and_collide(Vector2(xVelocity, 0))
+	
 	return RUNNING
 
 # Strings returned from this method are displayed as warnings in the editor.
