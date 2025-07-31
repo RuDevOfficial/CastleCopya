@@ -3,6 +3,7 @@ extends BTCondition
 
 var space_state : PhysicsDirectSpaceState2D
 var direction : int
+@export var offset: float = 0.0
 @export var size : float
 @export var ray_length : float
 @export_flags_2d_physics var collision_mask
@@ -20,15 +21,17 @@ func _setup() -> void:
 # Called each time this task is ticked (aka executed).
 func _tick(delta: float) -> Status:
 	
+	var agent_position : Vector2 = agent.global_position + Vector2.DOWN * offset
+	
 	var query_left : PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(
-		agent.global_position + Vector2.LEFT * size/2.0, 
-		agent.global_position + (Vector2.DOWN * ray_length),
+		agent_position + Vector2.LEFT * size/2.0, 
+		agent_position + (Vector2.DOWN * ray_length),
 		collision_mask,
 		[self])
 		
 	var query_right : PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(
-		agent.global_position + Vector2.RIGHT * size/2.0, 
-		agent.global_position + (Vector2.DOWN * ray_length),
+		agent_position + Vector2.RIGHT * size/2.0, 
+		agent_position + (Vector2.DOWN * ray_length),
 		collision_mask,
 		[self])
 	

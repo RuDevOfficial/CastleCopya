@@ -23,8 +23,6 @@ initial_direction = -1
 initial_flicker_amount = 4
 hit_sound_name = "EnemyDamage"
 death_sound_name = "EnemyDamage"
-can_be_stunned = true
-disable_contact_on_stun = false
 metadata/_custom_type_script = "uid://cgoj8pm2ucf5r"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ifo6v"]
@@ -155,7 +153,7 @@ metadata/_custom_type_script = "uid://5byn62y1oa76"
 script = ExtResource("6_5ljrh")
 _targetSprite = NodePath("../../Sprite")
 _originalColor = Color(1, 1, 1, 1)
-_flickerColor = Color(1, 1, 0.270588, 1)
+_flickerColor = Color(0.16035, 0.159641, 0, 1)
 _flickerTimes = 3
 _flickerTimeIndividual = 0.1
 

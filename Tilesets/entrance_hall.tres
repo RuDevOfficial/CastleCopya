@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=14 format=3 uid="uid://di8sh37mranj8"]
+[gd_resource type="TileSet" load_steps=16 format=3 uid="uid://di8sh37mranj8"]
 
 [ext_resource type="Texture2D" uid="uid://dpessbuxfis7m" path="res://Tilesets/hall_index_1.png" id="1_q4o4x"]
 [ext_resource type="Texture2D" uid="uid://bx3um6rjrde8b" path="res://Tilesets/hall_index_2.png" id="2_xc0x8"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bub72iawi6mx2" path="res://Tilesets/hall_index_4.png" id="4_7e5wo"]
 [ext_resource type="Texture2D" uid="uid://cpg4mie07y2ea" path="res://Tilesets/courtains_tileset.png" id="5_xc0x8"]
 [ext_resource type="Texture2D" uid="uid://ds08rf1uoadwh" path="res://Tilesets/bricks.png" id="6_tv67p"]
+[ext_resource type="Texture2D" uid="uid://cd3gx7ahh2ju5" path="res://Tilesets/tileset.png" id="7_7e5wo"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tv67p"]
 
@@ -241,10 +242,22 @@ texture_region_size = Vector2i(8, 8)
 6:3/0 = 0
 7:3/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7n8hj"]
+texture = ExtResource("7_7e5wo")
+texture_region_size = Vector2i(8, 8)
+18:4/0 = 0
+18:5/0 = 0
+18:5/0/physics_layer_1/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+19:5/0 = 0
+19:5/0/physics_layer_1/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+19:4/0 = 0
+
 [resource]
 tile_size = Vector2i(8, 8)
 physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_tv67p")
+physics_layer_1/collision_layer = 2
+physics_layer_1/collision_mask = 0
 terrain_set_0/mode = 2
 terrain_set_0/terrain_0/name = "Block"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
@@ -258,3 +271,4 @@ sources/2 = SubResource("TileSetAtlasSource_iy1hd")
 sources/3 = SubResource("TileSetAtlasSource_a1mca")
 sources/4 = SubResource("TileSetAtlasSource_tv67p")
 sources/5 = SubResource("TileSetAtlasSource_7e5wo")
+sources/6 = SubResource("TileSetAtlasSource_7n8hj")

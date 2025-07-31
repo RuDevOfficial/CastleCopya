@@ -12,4 +12,5 @@ LookLeftOnLoad = false
 RequiresIntermission = false
 StageEndEvent = 0
 LevelMusicID = "Forest"
+boss_theme_name = ""
 metadata/_custom_type_script = "uid://wvhb66ctf5ai"

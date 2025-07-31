@@ -1,0 +1,316 @@
+[gd_resource type="BehaviorTree" load_steps=77 format=3 uid="uid://dmegg6io2g0ef"]
+
+[ext_resource type="Script" uid="uid://bxvhydxhawgh8" path="res://ai/tasks/action_play_sound.gd" id="1_8fewt"]
+[ext_resource type="PackedScene" uid="uid://b4ln2drx4wgo0" path="res://Scenes/oneshots/SplashParticle.tscn" id="1_kuxiy"]
+[ext_resource type="Script" uid="uid://d1eefeiqf2s4e" path="res://ai/tasks/action_change_linear_velocity.gd" id="1_vebr7"]
+[ext_resource type="Script" uid="uid://c5h88jymr0enr" path="res://ai/tasks/SpawnScene.gd" id="2_8fewt"]
+[ext_resource type="Script" uid="uid://c3vedtlytwv33" path="res://ai/tasks/condition_is_falling.gd" id="2_gumku"]
+[ext_resource type="Script" uid="uid://cxspgvun05u12" path="res://ai/tasks/action_change_collision_mask.gd" id="3_0yir3"]
+[ext_resource type="Script" uid="uid://djpsqf7qgo5q4" path="res://ai/tasks/condition_touching_ground.gd" id="4_rtisl"]
+[ext_resource type="Script" uid="uid://ck04v6eqd6eb4" path="res://ai/tasks/ChangeDirectionToTarget.gd" id="5_8ad6k"]
+[ext_resource type="Script" uid="uid://683g8f8e4s60" path="res://ai/tasks/action_stop_linear_velocity.gd" id="5_qgavh"]
+[ext_resource type="Script" uid="uid://bwmnl2wkemyrt" path="res://ai/tasks/LinearMove2D.gd" id="6_qgavh"]
+[ext_resource type="Script" uid="uid://c51as8e0wodu1" path="res://ai/tasks/HasHitWall2D.gd" id="8_nib1n"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_5xt0h"]
+var/speed/name = &"speed"
+var/speed/type = 3
+var/speed/value = 0.0
+var/speed/hint = 0
+var/speed/hint_string = ""
+var/direction/name = &"direction"
+var/direction/type = 2
+var/direction/value = 0
+var/direction/hint = 0
+var/direction/hint_string = ""
+var/out_of_water/name = &"out_of_water"
+var/out_of_water/type = 1
+var/out_of_water/value = false
+var/out_of_water/hint = 0
+var/out_of_water/hint_string = ""
+var/water_exit_vector/name = &"water_exit_vector"
+var/water_exit_vector/type = 5
+var/water_exit_vector/value = Vector2(0, 0)
+var/water_exit_vector/hint = 0
+var/water_exit_vector/hint_string = ""
+var/falling/name = &"falling"
+var/falling/type = 1
+var/falling/value = false
+var/falling/hint = 0
+var/falling/hint_string = ""
+var/touched_ground/name = &"touched_ground"
+var/touched_ground/type = 1
+var/touched_ground/value = false
+var/touched_ground/hint = 0
+var/touched_ground/hint_string = ""
+var/original_speed/name = &"original_speed"
+var/original_speed/type = 3
+var/original_speed/value = 0.0
+var/original_speed/hint = 0
+var/original_speed/hint_string = ""
+
+[sub_resource type="BBVariant" id="BBVariant_gumku"]
+type = 1
+saved_value = false
+resource_name = "false"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_0yir3"]
+variable = &"out_of_water"
+value = SubResource("BBVariant_gumku")
+
+[sub_resource type="BTAction" id="BTAction_fvng7"]
+script = ExtResource("1_8fewt")
+sound_key = "WaterSplash"
+
+[sub_resource type="BBVariant" id="BBVariant_rtisl"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTSetVar" id="BTSetVar_6c254"]
+variable = &"out_of_water"
+value = SubResource("BBVariant_rtisl")
+
+[sub_resource type="BBVariant" id="BBVariant_kuxiy"]
+value_source = 1
+variable = &"speed"
+resource_name = "$speed"
+
+[sub_resource type="BTSetVar" id="BTSetVar_8fewt"]
+variable = &"original_speed"
+value = SubResource("BBVariant_kuxiy")
+
+[sub_resource type="BTAction" id="BTAction_7atki"]
+script = ExtResource("2_8fewt")
+_packedScene = ExtResource("1_kuxiy")
+_samePosition = true
+_positionKey = ""
+
+[sub_resource type="BTAction" id="BTAction_gumku"]
+script = ExtResource("1_vebr7")
+vector_key = "water_exit_vector"
+
+[sub_resource type="BTSequence" id="BTSequence_0yir3"]
+children = [SubResource("BTCheckVar_0yir3"), SubResource("BTAction_fvng7"), SubResource("BTSetVar_6c254"), SubResource("BTSetVar_8fewt"), SubResource("BTAction_7atki"), SubResource("BTAction_gumku")]
+
+[sub_resource type="BTRunLimit" id="BTRunLimit_rtisl"]
+custom_name = "Jump out of Water"
+children = [SubResource("BTSequence_0yir3")]
+
+[sub_resource type="BBVariant" id="BBVariant_8ad6k"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_qgavh"]
+variable = &"out_of_water"
+value = SubResource("BBVariant_8ad6k")
+
+[sub_resource type="BTCondition" id="BTCondition_0yir3"]
+script = ExtResource("2_gumku")
+
+[sub_resource type="BTAction" id="BTAction_rtisl"]
+script = ExtResource("3_0yir3")
+node_path = NodePath(".")
+collision_mask = 65
+
+[sub_resource type="BBVariant" id="BBVariant_6c254"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTSetVar" id="BTSetVar_8ad6k"]
+variable = &"falling"
+value = SubResource("BBVariant_6c254")
+
+[sub_resource type="BTSequence" id="BTSequence_6c254"]
+children = [SubResource("BTCheckVar_qgavh"), SubResource("BTCondition_0yir3"), SubResource("BTAction_rtisl"), SubResource("BTSetVar_8ad6k")]
+
+[sub_resource type="BTRunLimit" id="BTRunLimit_vebr7"]
+custom_name = "Falling"
+children = [SubResource("BTSequence_6c254")]
+
+[sub_resource type="BBVariant" id="BBVariant_qgavh"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_23v4l"]
+variable = &"falling"
+value = SubResource("BBVariant_qgavh")
+
+[sub_resource type="BTCondition" id="BTCondition_6c254"]
+script = ExtResource("4_rtisl")
+offset = 16.0
+size = 16.0
+ray_length = 1.0
+collision_mask = 1
+
+[sub_resource type="BTAction" id="BTAction_6p6au"]
+script = ExtResource("5_qgavh")
+
+[sub_resource type="BBVariant" id="BBVariant_23v4l"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTSetVar" id="BTSetVar_nib1n"]
+variable = &"touched_ground"
+value = SubResource("BBVariant_23v4l")
+
+[sub_resource type="BTSequence" id="BTSequence_qgavh"]
+children = [SubResource("BTCheckVar_23v4l"), SubResource("BTCondition_6c254"), SubResource("BTAction_6p6au"), SubResource("BTSetVar_nib1n")]
+
+[sub_resource type="BTRunLimit" id="BTRunLimit_6c254"]
+custom_name = "Wait to Touch Ground"
+children = [SubResource("BTSequence_qgavh")]
+
+[sub_resource type="BBVariant" id="BBVariant_nib1n"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_6p6au"]
+variable = &"touched_ground"
+value = SubResource("BBVariant_nib1n")
+
+[sub_resource type="BBNode" id="BBNode_nib1n"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_6p6au"]
+animation_player = SubResource("BBNode_nib1n")
+animation_name = &"walk"
+speed = 2.0
+
+[sub_resource type="BTAction" id="BTAction_kuxiy"]
+script = ExtResource("5_8ad6k")
+
+[sub_resource type="BTSequence" id="BTSequence_8fewt"]
+children = [SubResource("BTCheckVar_6p6au"), SubResource("BTPlayAnimation_6p6au"), SubResource("BTAction_kuxiy")]
+
+[sub_resource type="BTRunLimit" id="BTRunLimit_7atki"]
+custom_name = "Touched Ground"
+children = [SubResource("BTSequence_8fewt")]
+
+[sub_resource type="BTSelector" id="BTSelector_qgavh"]
+custom_name = "Spawning"
+children = [SubResource("BTRunLimit_rtisl"), SubResource("BTRunLimit_vebr7"), SubResource("BTRunLimit_6c254"), SubResource("BTRunLimit_7atki")]
+
+[sub_resource type="BBVariant" id="BBVariant_6p6au"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_kuxiy"]
+variable = &"touched_ground"
+value = SubResource("BBVariant_6p6au")
+
+[sub_resource type="BTAction" id="BTAction_nib1n"]
+script = ExtResource("6_qgavh")
+speed_key = "speed"
+
+[sub_resource type="BTCondition" id="BTCondition_kuxiy"]
+script = ExtResource("8_nib1n")
+ray_length = 9.0
+collision_mask = 1
+
+[sub_resource type="BBVariant" id="BBVariant_8fewt"]
+type = 2
+saved_value = -1
+resource_name = "-1"
+
+[sub_resource type="BTSetVar" id="BTSetVar_7atki"]
+variable = &"direction"
+value = SubResource("BBVariant_8fewt")
+operation = 3
+
+[sub_resource type="BTSequence" id="BTSequence_fvng7"]
+custom_name = "Wall Sequence"
+children = [SubResource("BTCondition_kuxiy"), SubResource("BTSetVar_7atki")]
+
+[sub_resource type="BBVariant" id="BBVariant_7atki"]
+type = 3
+saved_value = 0.0
+resource_name = "<null>"
+
+[sub_resource type="BTSetVar" id="BTSetVar_bn04f"]
+variable = &"speed"
+value = SubResource("BBVariant_7atki")
+
+[sub_resource type="BTAction" id="BTAction_8fewt"]
+script = ExtResource("5_qgavh")
+
+[sub_resource type="BBNode" id="BBNode_8fewt"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_7atki"]
+animation_player = SubResource("BBNode_8fewt")
+animation_name = &"attack"
+
+[sub_resource type="BTSequence" id="BTSequence_kuxiy"]
+children = [SubResource("BTSetVar_bn04f"), SubResource("BTAction_8fewt"), SubResource("BTPlayAnimation_7atki")]
+
+[sub_resource type="BTWait" id="BTWait_7atki"]
+duration = 0.2
+
+[sub_resource type="BBNode" id="BBNode_kuxiy"]
+saved_value = NodePath(".")
+resource_name = "."
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_8fewt"]
+node = SubResource("BBNode_kuxiy")
+method = &"try_shoot"
+
+[sub_resource type="BTSequence" id="BTSequence_4seag"]
+children = [SubResource("BTCallMethod_8fewt")]
+
+[sub_resource type="BTWait" id="BTWait_kuxiy"]
+duration = 0.2
+
+[sub_resource type="BBVariant" id="BBVariant_fvng7"]
+type = 3
+value_source = 1
+variable = &"original_speed"
+resource_name = "$original_speed"
+
+[sub_resource type="BTSetVar" id="BTSetVar_4seag"]
+variable = &"speed"
+value = SubResource("BBVariant_fvng7")
+
+[sub_resource type="BBNode" id="BBNode_7atki"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_bn04f"]
+animation_player = SubResource("BBNode_7atki")
+animation_name = &"walk"
+
+[sub_resource type="BTSequence" id="BTSequence_782sp"]
+children = [SubResource("BTSetVar_4seag"), SubResource("BTPlayAnimation_bn04f")]
+
+[sub_resource type="BTWait" id="BTWait_8fewt"]
+duration = 4.0
+
+[sub_resource type="BTFail" id="BTFail_8fewt"]
+
+[sub_resource type="BTSequence" id="BTSequence_bn04f"]
+custom_name = "Attack Sequence"
+children = [SubResource("BTSequence_kuxiy"), SubResource("BTWait_7atki"), SubResource("BTSequence_4seag"), SubResource("BTWait_kuxiy"), SubResource("BTSequence_782sp"), SubResource("BTWait_8fewt"), SubResource("BTFail_8fewt")]
+
+[sub_resource type="BTParallel" id="BTParallel_4seag"]
+num_failures_required = 3
+repeat = true
+children = [SubResource("BTAction_nib1n"), SubResource("BTSequence_fvng7"), SubResource("BTSequence_bn04f")]
+
+[sub_resource type="BTSequence" id="BTSequence_7atki"]
+children = [SubResource("BTCheckVar_kuxiy"), SubResource("BTParallel_4seag")]
+
+[sub_resource type="BTSelector" id="BTSelector_8ad6k"]
+custom_name = "Root"
+children = [SubResource("BTSelector_qgavh"), SubResource("BTSequence_7atki")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_5xt0h")
+root_task = SubResource("BTSelector_8ad6k")

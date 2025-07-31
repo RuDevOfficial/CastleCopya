@@ -7,7 +7,10 @@ class_name Enemy
 # meant to be READ ONLY
 @export var data : EnemyDataResource
 @export var respawn_on_view : bool
+@export var can_be_stunned : bool
+@export var disable_contact_on_stun : bool
 
+# COMPONENTS
 @onready var health_component : Health = $Components/Health
 @onready var flicker_component : Flicker = $Components/Flicker
 
@@ -35,6 +38,8 @@ func _ready() -> void:
 	
 	behavior_player.active = true
 	behavior_player.restart()
+	
+	on_ready() # Overwriteable method
 
 func set_default_values() -> void:
 	
@@ -56,7 +61,7 @@ func _on_health_damaged(amount: float, knockback: Vector2) -> void:
 	
 	on_recieve_damage() # Overwriteable method
 	
-	if (data.can_be_stunned == true): stun()
+	if (can_be_stunned == true): stun()
 
 func _on_health_death() -> void:
 	SfxManager.do_one_shot(data.death_sound_name)
@@ -80,14 +85,16 @@ func enable_entity(do_enable : bool) -> void:
 func stun() -> void:
 	original_speed = blackboard.get_var("speed")
 	blackboard.set_var("speed", 0)
-	if (data.disable_contact_on_stun == true): hitbox.monitoring = false
+	if (disable_contact_on_stun == true): hitbox.monitoring = false
 	
 	await get_tree().create_timer(data.stun_time).timeout
 	
 	blackboard.set_var("speed", original_speed)
-	if (data.disable_contact_on_stun == true): hitbox.monitoring = true
+	if (disable_contact_on_stun == true): hitbox.monitoring = true
 
 # "VIRTUAL" METHODS to OVERRIDE
+func initialize() -> void: pass
+func on_ready() -> void: pass
 func on_recieve_damage() -> void: pass
 func on_death() -> void: pass
 func on_connect_signals() -> void: pass

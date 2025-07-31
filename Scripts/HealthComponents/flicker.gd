@@ -12,11 +12,7 @@ class_name Flicker
 
 var Flickering : bool = false
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-func _on_health_damaged(amount: float, knockback: Vector2) -> void:
+func _on_health_damaged(_amount: float, _knockback: Vector2) -> void:
 	Flickering = true
 	if (_targetSprite != null): flicker_one()
 	else: flicker_multiple()

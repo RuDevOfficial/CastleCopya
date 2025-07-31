@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=52 format=3 uid="uid://2bmagxtve4vf"]
+[gd_resource type="BehaviorTree" load_steps=53 format=3 uid="uid://2bmagxtve4vf"]
 
 [ext_resource type="Script" uid="uid://beh4jmustm0j2" path="res://ai/tasks/condition_is_player_close.gd" id="1_apqyp"]
 [ext_resource type="Script" uid="uid://bwmnl2wkemyrt" path="res://ai/tasks/LinearMove2D.gd" id="1_vnm6m"]
@@ -88,6 +88,7 @@ speed_key = "speed"
 
 [sub_resource type="BTCondition" id="BTCondition_apqyp"]
 script = ExtResource("2_mpgqb")
+offset = 0.0
 size = 24.0
 ray_length = 10.0
 collision_mask = 1
@@ -96,6 +97,16 @@ collision_mask = 1
 num_successes_required = 2
 repeat = true
 children = [SubResource("BTAction_mpgqb"), SubResource("BTCondition_apqyp")]
+
+[sub_resource type="BBVariant" id="BBVariant_s3d2s"]
+type = 3
+saved_value = 1.5
+resource_name = "1.5"
+
+[sub_resource type="BTSetVar" id="BTSetVar_hcxoy"]
+variable = &"speed"
+value = SubResource("BBVariant_s3d2s")
+operation = 3
 
 [sub_resource type="BBVariant" id="BBVariant_775ox"]
 type = 1
@@ -106,8 +117,11 @@ resource_name = "true"
 variable = &"jumped"
 value = SubResource("BBVariant_775ox")
 
+[sub_resource type="BTSequence" id="BTSequence_v51a1"]
+children = [SubResource("BTSetVar_hcxoy"), SubResource("BTSetVar_x12t2")]
+
 [sub_resource type="BTSelector" id="BTSelector_7b5yq"]
-children = [SubResource("BTParallel_apqyp"), SubResource("BTSetVar_x12t2")]
+children = [SubResource("BTParallel_apqyp"), SubResource("BTSequence_v51a1")]
 
 [sub_resource type="BTSequence" id="BTSequence_7b5yq"]
 custom_name = "Awake Sequence"
@@ -177,16 +191,6 @@ resource_name = "false"
 variable = &"jumped"
 value = SubResource("BBVariant_hcxoy")
 
-[sub_resource type="BBVariant" id="BBVariant_s3d2s"]
-type = 3
-saved_value = 1.5
-resource_name = "1.5"
-
-[sub_resource type="BTSetVar" id="BTSetVar_hcxoy"]
-variable = &"speed"
-value = SubResource("BBVariant_s3d2s")
-operation = 3
-
 [sub_resource type="BTAction" id="BTAction_775ox"]
 script = ExtResource("4_7b5yq")
 jump_force = 200.0
@@ -201,8 +205,8 @@ spriteLooksRight = false
 
 [sub_resource type="BBVariant" id="BBVariant_0wyvn"]
 type = 3
-saved_value = 2.0
-resource_name = "2.0"
+saved_value = 1.5
+resource_name = "1.5"
 
 [sub_resource type="BTSetVar" id="BTSetVar_yqqfw"]
 variable = &"speed"
@@ -211,7 +215,7 @@ operation = 4
 
 [sub_resource type="BTSequence" id="BTSequence_yqqfw"]
 custom_name = "Jump Sequence"
-children = [SubResource("BTCheckVar_s3d2s"), SubResource("BTPlayAnimation_v51a1"), SubResource("BTWait_x12t2"), SubResource("BTPlayAnimation_s3d2s"), SubResource("BTSetVar_0wyvn"), SubResource("BTSetVar_hcxoy"), SubResource("BTAction_775ox"), SubResource("BTAction_x12t2"), SubResource("BTAction_v51a1"), SubResource("BTSetVar_yqqfw")]
+children = [SubResource("BTCheckVar_s3d2s"), SubResource("BTPlayAnimation_v51a1"), SubResource("BTWait_x12t2"), SubResource("BTPlayAnimation_s3d2s"), SubResource("BTSetVar_0wyvn"), SubResource("BTAction_775ox"), SubResource("BTAction_x12t2"), SubResource("BTAction_v51a1"), SubResource("BTSetVar_yqqfw")]
 
 [sub_resource type="BTSelector" id="BTSelector_x12t2"]
 children = [SubResource("BTSequence_775ox"), SubResource("BTParallel_23bcl"), SubResource("BTSequence_yqqfw")]

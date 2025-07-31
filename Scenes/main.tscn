@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=4 uid="uid://cqscvl3qsinqc"]
+[gd_scene load_steps=79 format=4 uid="uid://cqscvl3qsinqc"]
 
 [ext_resource type="Texture2D" uid="uid://de12hl6rn1ppj" path="res://Sprites/UI/inbetween.png" id="1_hdf80"]
 [ext_resource type="PackedScene" uid="uid://bt0m7fahlwwhn" path="res://Scenes/player.tscn" id="2_8gbba"]
@@ -9,8 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://0yb5oojirqb8" path="res://Sprites/UI/sub-weapon border.png" id="8_344ge"]
 [ext_resource type="Script" uid="uid://b6g1rf8olebxg" path="res://Scripts/UI/subweapon_ui.gd" id="8_hptm8"]
 [ext_resource type="Texture2D" uid="uid://cvfw1s415q2iq" path="res://Sprites/Subweapons/Placeholder_Subweapon.png" id="8_ynf5e"]
+[ext_resource type="Resource" uid="uid://dir5gqc6p8et0" path="res://Resources/Subweapons/Data/Knife_Data.tres" id="9_hdf80"]
 [ext_resource type="Texture2D" uid="uid://b5gd580ul1xbt" path="res://Sprites/Player/run_1.png" id="9_ueoa1"]
 [ext_resource type="Texture2D" uid="uid://dny2pv3h5k1en" path="res://Sprites/Player/run_2.png" id="10_6vcvc"]
+[ext_resource type="Script" uid="uid://bs8y3t0lfpxkk" path="res://Scripts/Resources/player_resource.gd" id="10_jwpg7"]
 [ext_resource type="Script" uid="uid://blsahv2cipsds" path="res://Scripts/Functional/transition_manager.gd" id="10_kltya"]
 [ext_resource type="Script" uid="uid://b23qyew1k8tgn" path="res://Scripts/Functional/camera_manager.gd" id="10_neg2b"]
 [ext_resource type="Texture2D" uid="uid://dinxm4by2wync" path="res://Sprites/UI/heart.png" id="13_jkdf5"]
@@ -181,6 +183,24 @@ _data = {
 &"idle": SubResource("Animation_hdf80"),
 &"start": SubResource("Animation_jwpg7")
 }
+
+[sub_resource type="Resource" id="Resource_k2e45"]
+resource_local_to_scene = true
+script = ExtResource("10_jwpg7")
+Speed = 80.0
+LastDirection = 1.0
+stair_movement_multiplier = 2.2
+Gravity = 459.0
+FallingCap = 9108.0
+FallingMultiplier = 2.0
+JumpForce = 200.0
+StartingHealth = 10
+DeadTime = 3.0
+KnockbackVector = Vector2(0.5, -0.5)
+KnockbackForce = 100.0
+AttackTime = 0.5
+CurrentSubweapon = ExtResource("9_hdf80")
+metadata/_custom_type_script = "uid://bs8y3t0lfpxkk"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kltya"]
 texture = ExtResource("16_7k868")
@@ -1305,6 +1325,7 @@ bank_paths = ["res://FmodBank/Desktop/Master.strings.bank", "res://FmodBank/Desk
 [node name="Player" parent="." instance=ExtResource("2_8gbba")]
 z_index = 5
 position = Vector2(-272, 40)
+_playerResource = SubResource("Resource_k2e45")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -1735,12 +1756,11 @@ offset_right = -1047.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("36_hdf80")
-mute_music = false
 player_character = NodePath("../../Player")
 player_speed_multiplier = 6.0
 increase_jump_multiplier = 1.6
 camera = NodePath("../../Camera2D")
-zoom_factor = 0.2
+zoom_factor = 1.0
 camera_manager = NodePath("../../Managers/CameraManager")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Debug"]
