@@ -64,7 +64,7 @@ func spawn_particle() -> void:
 	get_tree().root.add_child(particle)
 
 func generate_sound() -> void:
-	SfxManager.do_one_shot(sound_key)
+	AudioManager.do_one_shot(sound_key)
 
 func show_object() -> void:
 	object_hidden = false

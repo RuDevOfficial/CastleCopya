@@ -15,8 +15,8 @@ func Enter() -> void:
 	state_machine.travel("Dead")
 	
 	_deadTimer.start(_playerResource.DeadTime)
-	SfxManager.do_one_shot("Death")
-	MusManager.stop_music(true)
+	AudioManager.do_one_shot("Death")
+	AudioManager.stop_music(true)
 
 func _on_dead_timer_timeout() -> void:
 	SignalBus.on_player_death.emit()

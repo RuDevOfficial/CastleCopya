@@ -18,7 +18,7 @@ General/is_memory_tracking_enabled=false
 "Software Format/speaker_mode"=3
 "Software Format/raw_speaker_count"=0
 General/default_listener_count=1
-General/banks_path="res://FmodBank/Desktop"
+General/banks_path="res://Banks/Desktop"
 General/should_load_by_name=false
 DSP/dsp_buffer_size=512
 DSP/dsp_buffer_count=4
@@ -38,13 +38,12 @@ config/icon="res://icon.svg"
 FmodManager="*res://addons/fmod/FmodManager.gd"
 EnemyManager="*res://Scripts/Functional/EnemyManager.gd"
 SignalBus="*res://Scripts/Globals/signals.gd"
-MusManager="*res://Scripts/Globals/mus_manager.gd"
-SfxManager="*res://Scripts/Globals/sfx_manager.gd"
 PlayerInput="*res://Scripts/Globals/help_input.gd"
 GStateManager="*res://Scripts/Functional/game_state_manager.gd"
 SaveManager="*res://Scripts/Globals/save_game_manager.gd"
 GameplayManager="*res://Scripts/Functional/gameplay_manager.gd"
 StageManager="*res://Scripts/Functional/stage_manager.gd"
+AudioManager="*res://Scripts/Globals/audio_manager.gd"
 
 [display]
 

@@ -34,10 +34,16 @@ func generate_event_dictionary():
 	
 	sound_dictionary.clear()
 	
-	var bank : FmodBank = FmodServer.load_bank("res://FmodBank/Desktop/SFX.bank", FmodServer.FMOD_STUDIO_LOAD_BANK_NORMAL)
+	FmodServer.load_bank("res://Banks/Desktop/Master.strings.bank", FmodServer.FMOD_STUDIO_LOAD_BANK_NORMAL)
+	var bank : FmodBank = FmodServer.load_bank("res://Banks/Desktop/SFX.bank", FmodServer.FMOD_STUDIO_LOAD_BANK_NORMAL)
+	
 	for item : FmodEventDescription in bank.get_description_list():
+		print(item)
 		var eventPath : String = FmodServer.get_event_path(item.get_guid())
+		print(eventPath)
 		var string : PackedStringArray = eventPath.split("/")
-		sound_dictionary.get_or_add(string[1], item.get_guid())
+		#print(eventPath)
+		#print(string)
+		#sound_dictionary.get_or_add(string[1], item.get_guid())
 	
 	sound_dictionary.sort()

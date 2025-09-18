@@ -14,4 +14,4 @@ func consume_item() -> void:
 func generate_sound_effect() -> void:
 	if (sound_key == null): return
 	
-	SfxManager.do_one_shot(sound_key)
+	AudioManager.do_one_shot(sound_key)

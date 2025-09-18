@@ -40,7 +40,7 @@ func generate_new_level(new_index : int) -> void:
 	orb_spawn_position = current_level_instance.get_node("OrbSpawnPosition").global_position
 	
 	current_level_index = new_index
-	MusManager.play_music(get_current_level_resource().LevelMusicID)
+	AudioManager.play_music(get_current_level_resource().LevelMusicID)
 	SignalBus.on_level_generated.emit(level_resource, current_level_instance)
 
 func increase_current_level() -> void:
@@ -62,7 +62,7 @@ func spawn_boss() -> void:
 	
 	current_level_instance.get_node("Entities/Enemies").add_child(boss_instance)
 	
-	MusManager.play_music(get_current_level_resource().boss_theme_name)
+	AudioManager.play_music(get_current_level_resource().boss_theme_name)
 
 func create_orb() -> void:
 	var new_orb : OrbConsumable = orb_scene.instantiate()
@@ -78,4 +78,4 @@ func get_current_level_resource() -> LevelResource:
 
 func play_level_music(is_player_respawning : bool) -> void:
 	if (is_player_respawning == true):
-		MusManager.play_music(get_current_level_resource().LevelMusicID)
+		AudioManager.play_music(get_current_level_resource().LevelMusicID)

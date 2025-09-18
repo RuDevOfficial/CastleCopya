@@ -13,9 +13,7 @@ func _ready() -> void:
 	
 	SignalBus.on_player_death.connect(try_start_transition)
 	
-	SignalBus.on_clear_level.connect(func():
-		SaveManager.get
-		)
+	#SignalBus.on_clear_level.connect(func(): )
 
 func try_start_transition() -> void:
 	if (can_start_transition()):

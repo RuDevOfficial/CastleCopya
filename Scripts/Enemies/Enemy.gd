@@ -54,7 +54,7 @@ func set_default_values() -> void:
 
 func _on_health_damaged(amount: float, knockback: Vector2) -> void:
 	
-	SfxManager.do_one_shot(data.hit_sound_name)
+	AudioManager.do_one_shot(data.hit_sound_name)
 	
 	damage_particle.restart()
 	SignalBus.on_enemy_hit.emit(self, data.starting_health, health_component.get_current())
@@ -64,7 +64,7 @@ func _on_health_damaged(amount: float, knockback: Vector2) -> void:
 	if (can_be_stunned == true): stun()
 
 func _on_health_death() -> void:
-	SfxManager.do_one_shot(data.death_sound_name)
+	AudioManager.do_one_shot(data.death_sound_name)
 	
 	enable_entity(false)
 	

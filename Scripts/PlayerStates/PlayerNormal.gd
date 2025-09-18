@@ -70,12 +70,12 @@ func Physics_Update(_delta : float) -> void:
 	
 	if (isJumping):
 		_playerResource.Velocity.y = -_playerResource.JumpForce
-		SfxManager.do_one_shot("Jump")
+		AudioManager.do_one_shot("Jump")
 	elif (reachedMaxHeight or isJumpCancelled):
 		_playerResource.Gravity = _playerResource.StartingGravity * _playerResource.FallingMultiplier
 	elif (_body2D.is_on_floor()):
 		if (_playerResource.Velocity.y != 0):
-			SfxManager.do_one_shot("HitGround")
+			AudioManager.do_one_shot("HitGround")
 		
 		_playerResource.Gravity = _playerResource.StartingGravity
 		_playerResource.Velocity.y = 0

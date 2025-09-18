@@ -39,10 +39,11 @@ func generate_event_dictionary():
 	
 	music_dictionary.clear()
 	
-	var bank : FmodBank = FmodServer.load_bank("res://FmodBank/Desktop/MUSIC.bank", FmodServer.FMOD_STUDIO_LOAD_BANK_NORMAL)
+	var bank : FmodBank = FmodServer.load_bank("res://Banks/Desktop/MUSIC.bank", FmodServer.FMOD_STUDIO_LOAD_BANK_NORMAL)
 	for item : FmodEventDescription in bank.get_description_list():
 		var eventPath : String = FmodServer.get_event_path(item.get_guid())
 		var string : PackedStringArray = eventPath.split("/")
-		music_dictionary.get_or_add(string[1], item.get_guid())
+		#print(string)
+		#music_dictionary.get_or_add(string[1], item.get_guid())
 	
 	music_dictionary.sort()

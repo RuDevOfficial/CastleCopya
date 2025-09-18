@@ -40,7 +40,7 @@ func begin_load_timer(firstTime : bool = true) -> void:
 	on_level_begin_loading.emit(_lastLevelResource)
 	if (_isFirstTransition): _loadTimer.start(_waitTime)
 	else:
-		MusManager.play_music(_lastLevelResource.LevelMusicID)
+		AudioManager.play_music(_lastLevelResource.LevelMusicID)
 		on_level_fading_completed.emit()
 		SignalBus.on_level_fade_completed.emit()
 		_animationPlayer.play("fade_out")
@@ -53,7 +53,7 @@ func begin_load_timer(firstTime : bool = true) -> void:
 # This gets triggered once the loading timer ends
 func _on_load_timer_timeout() -> void:
 	#call level loader to change level and resource and stuff
-	MusManager.play_music(_lastLevelResource.LevelMusicID)
+	AudioManager.play_music(_lastLevelResource.LevelMusicID)
 	SignalBus.on_level_fade_completed.emit()
 	on_level_fading_completed.emit()
 	_animationPlayer.play("fade_out")

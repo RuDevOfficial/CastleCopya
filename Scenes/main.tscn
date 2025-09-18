@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=4 uid="uid://cqscvl3qsinqc"]
+[gd_scene load_steps=82 format=4 uid="uid://cqscvl3qsinqc"]
 
 [ext_resource type="Texture2D" uid="uid://de12hl6rn1ppj" path="res://Sprites/UI/inbetween.png" id="1_hdf80"]
 [ext_resource type="PackedScene" uid="uid://bt0m7fahlwwhn" path="res://Scenes/player.tscn" id="2_8gbba"]
@@ -19,9 +19,12 @@
 [ext_resource type="Script" uid="uid://ccdpmgf0myc5u" path="res://Scripts/UI/ammo_ui.gd" id="13_wsu2k"]
 [ext_resource type="FontFile" uid="uid://4ya1hpanvmia" path="res://Fonts/Qapixa-5y9Pa.ttf" id="14_wsu2k"]
 [ext_resource type="Script" uid="uid://ccbs3viy4b7up" path="res://Scripts/UI/player_health.gd" id="15_h1bgf"]
-[ext_resource type="Texture2D" uid="uid://cd3gx7ahh2ju5" path="res://Tilesets/tileset.png" id="16_7k868"]
+[ext_resource type="Texture2D" uid="uid://0y1u20bwoahh" path="res://Sprites/Other/background_intro.png" id="15_hdf80"]
+[ext_resource type="Texture2D" uid="uid://cvdmsr55qpof1" path="res://Sprites/Other/mist.png" id="15_k2e45"]
+[ext_resource type="Texture2D" uid="uid://cd80uqbnj86wb" path="res://Sprites/Other/moon.png" id="16_536cc"]
 [ext_resource type="Script" uid="uid://dueddiht74nx5" path="res://Scripts/UI/intro_ui.gd" id="16_hpc6h"]
 [ext_resource type="PackedScene" uid="uid://dvny2qjcq2m18" path="res://Scenes/UI/player_bar_slot.tscn" id="16_k12tt"]
+[ext_resource type="Texture2D" uid="uid://bay0i7w5bq1to" path="res://Sprites/Player/char_face_back.png" id="17_536cc"]
 [ext_resource type="Texture2D" uid="uid://b12n3cuk5bvqu" path="res://Sprites/UI/PlayerBarSlotEmpty.png" id="17_b3802"]
 [ext_resource type="Texture2D" uid="uid://du4k6gyxjp5os" path="res://Sprites/UI/PlayerBarSlot.png" id="18_fevyy"]
 [ext_resource type="Script" uid="uid://dbb6e5tffbn2q" path="res://Scripts/UI/gameplay_ui.gd" id="18_kltya"]
@@ -202,44 +205,13 @@ AttackTime = 0.5
 CurrentSubweapon = ExtResource("9_hdf80")
 metadata/_custom_type_script = "uid://bs8y3t0lfpxkk"
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kltya"]
-texture = ExtResource("16_7k868")
-0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-3:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
-2:1/0 = 0
-3:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-0:4/0 = 0
-1:4/0 = 0
-2:4/0 = 0
-0:5/0 = 0
-1:5/0 = 0
-2:5/0 = 0
-0:6/0 = 0
-1:6/0 = 0
-2:6/0 = 0
-0:7/0 = 0
-1:7/0 = 0
-2:7/0 = 0
-0:8/0 = 0
-1:8/0 = 0
-2:8/0 = 0
-0:9/0 = 0
-1:9/0 = 0
-2:9/0 = 0
-0:3/0 = 0
-1:3/0 = 0
-2:3/0 = 0
+[sub_resource type="Gradient" id="Gradient_aqgau"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.0941176, 0.235294, 0.360784, 1)
 
-[sub_resource type="TileSet" id="TileSet_e08e2"]
-sources/0 = SubResource("TileSetAtlasSource_kltya")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8cuat"]
+gradient = SubResource("Gradient_aqgau")
+width = 396
 
 [sub_resource type="Animation" id="Animation_r33sp"]
 length = 0.001
@@ -255,14 +227,50 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(83, 144)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Player:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_3pmx8")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mist:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(196, 44)]
+}
 
 [sub_resource type="Animation" id="Animation_e08e2"]
 resource_name = "idle"
 
 [sub_resource type="Animation" id="Animation_neg2b"]
 resource_name = "running"
-length = 3.0
-step = 1.0
+length = 8.00002
+step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -273,7 +281,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(83, 144), Vector2(116, 144)]
+"values": [Vector2(336, 158), Vector2(160, 158)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -282,12 +290,48 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(3),
+"times": PackedFloat32Array(6),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"cutscene_finished"
 }]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Player:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Player:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("8_1w6v2"), ExtResource("9_ueoa1"), ExtResource("10_6vcvc"), ExtResource("9_ueoa1"), ExtResource("8_1w6v2"), ExtResource("9_ueoa1"), ExtResource("10_6vcvc"), ExtResource("9_ueoa1"), ExtResource("8_1w6v2"), ExtResource("9_ueoa1"), ExtResource("10_6vcvc"), ExtResource("9_ueoa1"), ExtResource("8_1w6v2"), ExtResource("9_ueoa1"), ExtResource("10_6vcvc"), ExtResource("17_536cc")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Mist:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(196, 44), Vector2(185, 44)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hdf80"]
@@ -1318,7 +1362,7 @@ player = NodePath("../../Player")
 [node name="Audio" type="Node2D" parent="."]
 
 [node name="FmodBankLoader" type="FmodBankLoader" parent="Audio"]
-bank_paths = ["res://FmodBank/Desktop/Master.strings.bank", "res://FmodBank/Desktop/Master.bank", "res://FmodBank/Desktop/MUSIC.bank", "res://FmodBank/Desktop/SFX.bank"]
+bank_paths = ["res://Banks/Desktop/Master.strings.bank", "res://Banks/Desktop/Master.bank", "res://Banks/Desktop/MUSIC.bank", "res://Banks/Desktop/SFX.bank"]
 
 [node name="FmodListener2D" type="FmodListener2D" parent="Audio"]
 
@@ -1387,7 +1431,6 @@ text = "DELETE SAVE"
 flat = true
 
 [node name="Intro" type="Control" parent="UI"]
-visible = false
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 8
@@ -1407,15 +1450,27 @@ size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("16_hpc6h")
 
+[node name="Background" type="Sprite2D" parent="UI/Intro"]
+position = Vector2(160, 71)
+scale = Vector2(1, 160)
+texture = SubResource("GradientTexture1D_8cuat")
+
+[node name="Mist" type="Sprite2D" parent="UI/Intro"]
+position = Vector2(196, 44)
+texture = ExtResource("15_k2e45")
+
+[node name="Moon" type="Sprite2D" parent="UI/Intro"]
+position = Vector2(256, 22)
+texture = ExtResource("16_536cc")
+
+[node name="Castle" type="Sprite2D" parent="UI/Intro"]
+position = Vector2(160, 86)
+texture = ExtResource("15_hdf80")
+
 [node name="Player" type="Sprite2D" parent="UI/Intro"]
 position = Vector2(83, 144)
 texture = ExtResource("7_3pmx8")
-
-[node name="Graphics" type="TileMapLayer" parent="UI/Intro"]
-z_index = -1
-texture_filter = 1
-tile_map_data = PackedByteArray("AAAEAAsAAAABAAEAAAAFAAsAAAABAAEAAAAGAAsAAAACAAEAAAAHAAsAAAACAAEAAAABAAsAAAABAAEAAAACAAsAAAACAAEAAAADAAsAAAABAAEAAAAIAAsAAAACAAEAAAAJAAsAAAABAAEAAAAKAAsAAAACAAEAAAALAAsAAAABAAEAAAAMAAsAAAABAAEAAAANAAsAAAACAAEAAAAOAAsAAAABAAEAAAAPAAsAAAABAAEAAAAQAAsAAAABAAEAAAARAAsAAAACAAEAAAASAAsAAAABAAEAAAATAAsAAAABAAEAAAAAAAsAAAADAAEAAAABAAoAAAACAAAAAAACAAoAAAABAAAAAAADAAoAAAABAAAAAAAEAAoAAAACAAAAAAAFAAoAAAABAAAAAAAGAAoAAAABAAAAAAAHAAoAAAACAAAAAAAIAAoAAAABAAAAAAAJAAoAAAACAAAAAAAKAAoAAAABAAAAAAALAAoAAAACAAAAAAAMAAoAAAACAAAAAAANAAoAAAABAAAAAAAOAAoAAAABAAAAAAAPAAoAAAACAAAAAAAQAAoAAAACAAAAAAARAAoAAAABAAAAAAASAAoAAAACAAAAAAAAAAoAAAACAAAAAAATAAoAAAABAAAAAAAAAAMAAAAAAAMAAAAAAAQAAAAAAAQAAAAAAAUAAAAAAAUAAAAAAAYAAAAAAAYAAAAAAAcAAAAAAAcAAAAAAAgAAAAAAAgAAAAAAAkAAAAAAAkAAAABAAMAAAABAAMAAAABAAQAAAABAAQAAAABAAUAAAABAAUAAAABAAYAAAABAAYAAAABAAcAAAABAAcAAAABAAgAAAABAAgAAAABAAkAAAABAAkAAAACAAMAAAACAAMAAAACAAQAAAACAAQAAAACAAUAAAACAAUAAAACAAYAAAACAAYAAAACAAcAAAACAAcAAAACAAgAAAACAAgAAAACAAkAAAACAAkAAAADAAMAAAAAAAMAAAADAAQAAAAAAAQAAAADAAUAAAAAAAUAAAADAAYAAAAAAAYAAAADAAcAAAAAAAcAAAADAAgAAAAAAAgAAAADAAkAAAAAAAkAAAAEAAMAAAABAAMAAAAEAAQAAAABAAQAAAAEAAUAAAABAAUAAAAEAAYAAAABAAYAAAAEAAcAAAABAAcAAAAEAAgAAAABAAgAAAAEAAkAAAABAAkAAAAFAAMAAAACAAMAAAAFAAQAAAACAAQAAAAFAAUAAAACAAUAAAAFAAYAAAACAAYAAAAFAAcAAAACAAcAAAAFAAgAAAACAAgAAAAFAAkAAAACAAkAAAAGAAMAAAAAAAMAAAAGAAQAAAAAAAQAAAAGAAUAAAAAAAUAAAAGAAYAAAAAAAYAAAAGAAcAAAAAAAcAAAAGAAgAAAAAAAgAAAAGAAkAAAAAAAkAAAAHAAMAAAABAAMAAAAHAAQAAAABAAQAAAAHAAUAAAABAAUAAAAHAAYAAAABAAYAAAAHAAcAAAABAAcAAAAHAAgAAAABAAgAAAAHAAkAAAABAAkAAAAIAAMAAAACAAMAAAAIAAQAAAACAAQAAAAIAAUAAAACAAUAAAAIAAYAAAACAAYAAAAIAAcAAAACAAcAAAAIAAgAAAACAAgAAAAIAAkAAAACAAkAAAAJAAMAAAAAAAMAAAAJAAQAAAAAAAQAAAAJAAUAAAAAAAUAAAAJAAYAAAAAAAYAAAAJAAcAAAAAAAcAAAAJAAgAAAAAAAgAAAAJAAkAAAAAAAkAAAAKAAMAAAABAAMAAAAKAAQAAAABAAQAAAAKAAUAAAABAAUAAAAKAAYAAAABAAYAAAAKAAcAAAABAAcAAAAKAAgAAAABAAgAAAAKAAkAAAABAAkAAAALAAMAAAACAAMAAAALAAQAAAACAAQAAAALAAUAAAACAAUAAAALAAYAAAACAAYAAAALAAcAAAACAAcAAAALAAgAAAACAAgAAAALAAkAAAACAAkAAAAMAAMAAAAAAAMAAAAMAAQAAAAAAAQAAAAMAAUAAAAAAAUAAAAMAAYAAAAAAAYAAAAMAAcAAAAAAAcAAAAMAAgAAAAAAAgAAAAMAAkAAAAAAAkAAAANAAMAAAABAAMAAAANAAQAAAABAAQAAAANAAUAAAABAAUAAAANAAYAAAABAAYAAAANAAcAAAABAAcAAAANAAgAAAABAAgAAAANAAkAAAABAAkAAAAOAAMAAAACAAMAAAAOAAQAAAACAAQAAAAOAAUAAAACAAUAAAAOAAYAAAACAAYAAAAOAAcAAAACAAcAAAAOAAgAAAACAAgAAAAOAAkAAAACAAkAAAAPAAMAAAAAAAMAAAAPAAQAAAAAAAQAAAAPAAUAAAAAAAUAAAAPAAYAAAAAAAYAAAAPAAcAAAAAAAcAAAAPAAgAAAAAAAgAAAAPAAkAAAAAAAkAAAAQAAMAAAABAAMAAAAQAAQAAAABAAQAAAAQAAUAAAABAAUAAAAQAAYAAAABAAYAAAAQAAcAAAABAAcAAAAQAAgAAAABAAgAAAAQAAkAAAABAAkAAAARAAMAAAACAAMAAAARAAQAAAACAAQAAAARAAUAAAACAAUAAAARAAYAAAACAAYAAAARAAcAAAACAAcAAAARAAgAAAACAAgAAAARAAkAAAACAAkAAAASAAMAAAAAAAMAAAASAAQAAAAAAAQAAAASAAUAAAAAAAUAAAASAAYAAAAAAAYAAAASAAcAAAAAAAcAAAASAAgAAAAAAAgAAAASAAkAAAAAAAkAAAATAAMAAAABAAMAAAATAAQAAAABAAQAAAATAAUAAAABAAUAAAATAAYAAAABAAYAAAATAAcAAAABAAcAAAATAAgAAAABAAgAAAATAAkAAAABAAkAAAAAAAAAAAABAAMAAAABAAAAAAABAAMAAAACAAAAAAABAAMAAAADAAAAAAABAAMAAAAEAAAAAAABAAMAAAAFAAAAAAABAAMAAAAGAAAAAAABAAMAAAAHAAAAAAABAAMAAAAIAAAAAAABAAMAAAAJAAAAAAABAAMAAAAKAAAAAAABAAMAAAALAAAAAAABAAMAAAAMAAAAAAABAAMAAAANAAAAAAABAAMAAAAOAAAAAAABAAMAAAAPAAAAAAABAAMAAAAQAAAAAAABAAMAAAARAAAAAAABAAMAAAARAAEAAAABAAMAAAASAAEAAAABAAMAAAATAAEAAAABAAMAAAATAAAAAAABAAMAAAASAAAAAAABAAMAAAAQAAEAAAABAAMAAAAPAAEAAAABAAMAAAAOAAEAAAABAAMAAAANAAEAAAABAAMAAAAMAAEAAAABAAMAAAALAAEAAAABAAMAAAAKAAEAAAABAAMAAAAJAAEAAAABAAMAAAAIAAEAAAABAAMAAAAHAAEAAAABAAMAAAAGAAEAAAABAAMAAAAFAAEAAAABAAMAAAAEAAEAAAABAAMAAAADAAEAAAABAAMAAAACAAEAAAABAAMAAAABAAEAAAABAAMAAAAAAAEAAAABAAMAAAAAAAIAAAABAAMAAAABAAIAAAABAAMAAAACAAIAAAABAAMAAAADAAIAAAABAAMAAAAEAAIAAAABAAMAAAAFAAIAAAABAAMAAAAGAAIAAAABAAMAAAAHAAIAAAABAAMAAAAIAAIAAAABAAMAAAAJAAIAAAABAAMAAAAKAAIAAAABAAMAAAALAAIAAAABAAMAAAAMAAIAAAABAAMAAAANAAIAAAABAAMAAAAOAAIAAAABAAMAAAAPAAIAAAABAAMAAAAQAAIAAAABAAMAAAARAAIAAAABAAMAAAASAAIAAAABAAMAAAATAAIAAAABAAMAAAD//wMAAAACAAMAAAD//wQAAAACAAQAAAD//wUAAAACAAUAAAD//wYAAAACAAYAAAD//wcAAAACAAcAAAD//wgAAAACAAgAAAD//wkAAAACAAkAAAD+/wMAAAABAAMAAAD+/wQAAAABAAQAAAD+/wUAAAABAAUAAAD+/wYAAAABAAYAAAD+/wcAAAABAAcAAAD+/wgAAAABAAgAAAD+/wkAAAABAAkAAAD9/wMAAAAAAAMAAAD9/wQAAAAAAAQAAAD9/wUAAAAAAAUAAAD9/wYAAAAAAAYAAAD9/wcAAAAAAAcAAAD9/wgAAAAAAAgAAAD9/wkAAAAAAAkAAAAUAAMAAAAAAAMAAAAUAAQAAAAAAAQAAAAUAAUAAAAAAAUAAAAUAAYAAAAAAAYAAAAUAAcAAAAAAAcAAAAUAAgAAAAAAAgAAAAUAAkAAAAAAAkAAAAVAAMAAAABAAMAAAAVAAQAAAABAAQAAAAVAAUAAAABAAUAAAAVAAYAAAABAAYAAAAVAAcAAAABAAcAAAAVAAgAAAABAAgAAAAVAAkAAAABAAkAAAAWAAMAAAACAAMAAAAWAAQAAAACAAQAAAAWAAUAAAACAAUAAAAWAAYAAAACAAYAAAAWAAcAAAACAAcAAAAWAAgAAAACAAgAAAAWAAkAAAACAAkAAAAUAAIAAAAAAAMAAAAVAAIAAAABAAMAAAAWAAIAAAACAAMAAAAUAAEAAAAAAAMAAAAVAAEAAAABAAMAAAAWAAEAAAACAAMAAAAUAAAAAAAAAAMAAAAVAAAAAAABAAMAAAAWAAAAAAACAAMAAAD9/wAAAAAAAAMAAAD+/wAAAAABAAMAAAD//wAAAAACAAMAAAD9/wEAAAAAAAMAAAD+/wEAAAABAAMAAAD//wEAAAACAAMAAAD9/wIAAAAAAAMAAAD+/wIAAAABAAMAAAD//wIAAAACAAMAAAD9////AAAAAAMAAAD+////AAABAAMAAAD/////AAACAAMAAAAAAP//AAAAAAMAAAABAP//AAABAAMAAAACAP//AAACAAMAAAADAP//AAAAAAMAAAAEAP//AAABAAMAAAAFAP//AAACAAMAAAAGAP//AAAAAAMAAAAHAP//AAABAAMAAAAIAP//AAACAAMAAAAJAP//AAAAAAMAAAAKAP//AAABAAMAAAALAP//AAACAAMAAAAMAP//AAAAAAMAAAANAP//AAABAAMAAAAOAP//AAACAAMAAAAPAP//AAAAAAMAAAAQAP//AAABAAMAAAARAP//AAACAAMAAAASAP//AAAAAAMAAAATAP//AAABAAMAAAAUAP//AAAAAAMAAAAVAP//AAABAAMAAAAWAP//AAACAAMAAAD9/woAAAABAAAAAAD+/woAAAACAAAAAAD//woAAAABAAAAAAAVAAoAAAABAAAAAAAWAAoAAAACAAAAAAAUAAoAAAACAAAAAAD+/wsAAAACAAEAAAD//wsAAAADAAEAAAD9/wsAAAABAAEAAAAUAAsAAAABAAEAAAAVAAsAAAACAAEAAAAWAAsAAAADAAEAAAA=")
-tile_set = SubResource("TileSet_e08e2")
+flip_h = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI/Intro"]
 libraries = {
@@ -1748,6 +1803,7 @@ libraries = {
 }
 
 [node name="Debug" type="Control" parent="UI" node_paths=PackedStringArray("player_character", "camera", "camera_manager")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

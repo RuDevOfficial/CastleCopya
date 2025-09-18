@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{4fbb1e2c-d323-4555-a83c-47b24c1d8189}">
+		<property name="assetPath">
+			<value>whip.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.26122448979591839</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{30f42277-75c8-4312-b22d-5c89045eb8dd}</destination>
+		</relationship>
+	</object>
+</objects>

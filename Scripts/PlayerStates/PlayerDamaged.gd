@@ -23,7 +23,7 @@ func Enter() -> void:
 	var state_machine = _playerResource.AnimTree.get("parameters/playback")
 	state_machine.travel("Damaged")
 	
-	SfxManager.do_one_shot("Damage")
+	AudioManager.do_one_shot("Damage")
 	
 	SignalBus.on_player_take_damage.emit(_playerResource.StartingHealth, health.get_current())
 

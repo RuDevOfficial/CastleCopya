@@ -16,6 +16,7 @@ func connect_signals() -> void:
 
 func initialize_intro() -> void:
 	visible = true
+	AudioManager.do_one_shot("Intro")
 	animation_player.play("running")
 
 func disable_intro() -> void:

@@ -97,6 +97,7 @@ _data = {
 
 [node name="Boss_Bat" type="AnimatableBody2D" node_paths=PackedStringArray("health", "behavior_reference")]
 z_index = 2
+collision_layer = 0
 sync_to_physics = false
 script = ExtResource("1_lvlhb")
 horizontal_attack_distance = 100.0
@@ -165,7 +166,6 @@ _flickerTimeIndividual = 0.2
 metadata/_custom_type_script = "uid://coh7npk3nxwn6"
 
 [node name="DamageEmitter" type="FmodEventEmitter2D" parent="Collision Components"]
-event_name = "event:/EnemyDamage"
 event_guid = "{e122641b-c20b-4c14-8aa6-de4b8c5e3c2f}"
 
 [connection signal="damaged" from="Collision Components/Health" to="." method="_on_health_damaged"]
