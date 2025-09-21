@@ -1804,6 +1804,7 @@ libraries = {
 }
 
 [node name="Debug" type="Control" parent="UI" node_paths=PackedStringArray("player_character", "camera", "camera_manager")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
