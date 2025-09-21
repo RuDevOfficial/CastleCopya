@@ -40,6 +40,8 @@ func dir_contents(path):
 		print("An error occurred when trying to access the path.")
 
 func activate_spawner(time : float) -> void:
+	if (timer.is_stopped() == false): return
+	
 	timer.start(time)
 	spawn_current_enemy_at_edge_screen()
 
