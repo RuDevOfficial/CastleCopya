@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://cau13j7i6ul64"]
 
 [ext_resource type="Texture2D" uid="uid://b0ldoc2jy5fmh" path="res://Sprites/Enemies/boss_bat_0.png" id="1_53chg"]
-[ext_resource type="Script" uid="uid://vy7q1pasj84i" path="res://Scenes/Enemies/boss_bat.gd" id="1_lvlhb"]
+[ext_resource type="Script" uid="uid://vy7q1pasj84i" path="res://Scripts/Enemies/boss_bat.gd" id="1_lvlhb"]
 [ext_resource type="Texture2D" uid="uid://bx6buryn8kxcs" path="res://Sprites/Enemies/boss_bat_1.png" id="2_e1hph"]
 [ext_resource type="BehaviorTree" uid="uid://brenrddjvk5pa" path="res://ai/trees/bat_boss.tres" id="2_ga3je"]
 [ext_resource type="Script" uid="uid://dq5h6yydckjc1" path="res://demo/agents/scripts/hurtbox.gd" id="3_e1hph"]

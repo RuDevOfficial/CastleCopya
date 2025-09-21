@@ -44,6 +44,7 @@ SaveManager="*res://Scripts/Globals/save_game_manager.gd"
 GameplayManager="*res://Scripts/Functional/gameplay_manager.gd"
 StageManager="*res://Scripts/Functional/stage_manager.gd"
 AudioManager="*res://Scripts/Globals/audio_manager.gd"
+SpawnerManager="*res://Scripts/Globals/spawner_manager.gd"
 
 [display]
 
@@ -71,6 +72,7 @@ folder_colors={
 [global_group]
 
 player=""
+level=""
 
 [input]
 

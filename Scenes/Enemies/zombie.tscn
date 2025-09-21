@@ -15,13 +15,12 @@ script = ExtResource("2_7yiho")
 starting_health = 3
 stun_time = 0.4
 initial_speed = 24.0
-initial_contact_damage = 1
 initial_direction = -1
+initial_contact_damage = 1
+initial_bullet_damage = 1
 initial_flicker_amount = 2
 hit_sound_name = "EnemyDamage"
 death_sound_name = "EnemyDamage"
-can_be_stunned = true
-disable_contact_on_stun = false
 metadata/_custom_type_script = "uid://cgoj8pm2ucf5r"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j0wq0"]

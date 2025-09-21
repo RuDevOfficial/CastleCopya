@@ -11,6 +11,7 @@ gravity = Vector3(0, 0, 0)
 script = ExtResource("1_m1ver")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = 4
 texture_filter = 1
 emitting = false
 amount = 1

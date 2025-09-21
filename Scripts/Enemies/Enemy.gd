@@ -27,7 +27,11 @@ var blackboard : Blackboard
 # Dynamic variables
 var original_speed : float
 
+var original_node_path : NodePath
+
 func _ready() -> void:
+	original_node_path = $VisibleOnScreenEnabler2D.enable_node_path
+	
 	health_component.set_health(data.starting_health)
 	blackboard = behavior_player.blackboard
 	
@@ -91,6 +95,10 @@ func stun() -> void:
 	
 	blackboard.set_var("speed", original_speed)
 	if (disable_contact_on_stun == true): hitbox.monitoring = true
+
+func remain_active(active : bool) -> void:
+	if (active): $VisibleOnScreenEnabler2D.enable_node_path = original_node_path
+	else: $VisibleOnScreenEnabler2D.enable_node_path = ""
 
 # "VIRTUAL" METHODS to OVERRIDE
 func initialize() -> void: pass

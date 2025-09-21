@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dv4cwvgcs0t5u"
+path="res://.godot/imported/05 Stage Clear.mp3-c6509752f0ab1bdc13b8504870a4dd78.mp3str"
+
+[deps]
+
+source_file="res://FMOD/FmodProject/project/Assets/05 Stage Clear.mp3"
+dest_files=["res://.godot/imported/05 Stage Clear.mp3-c6509752f0ab1bdc13b8504870a4dd78.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

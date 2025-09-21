@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyDataResource" load_steps=2 format=3 uid="uid://bpv1wtayatep"]
+
+[ext_resource type="Script" uid="uid://cgoj8pm2ucf5r" path="res://Scripts/Resources/enemy_data_resource.gd" id="1_mj6pc"]
+
+[resource]
+script = ExtResource("1_mj6pc")
+starting_health = 1
+stun_time = 1.0
+initial_speed = 30.0
+initial_direction = -1
+initial_contact_damage = 1
+initial_bullet_damage = 1
+initial_flicker_amount = 4
+hit_sound_name = "EnemyDamage"
+death_sound_name = "EnemyDamage"
+metadata/_custom_type_script = "uid://cgoj8pm2ucf5r"

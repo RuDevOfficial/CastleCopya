@@ -1431,6 +1431,7 @@ text = "DELETE SAVE"
 flat = true
 
 [node name="Intro" type="Control" parent="UI"]
+visible = false
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 8
@@ -1803,7 +1804,6 @@ libraries = {
 }
 
 [node name="Debug" type="Control" parent="UI" node_paths=PackedStringArray("player_character", "camera", "camera_manager")]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1812,6 +1812,7 @@ offset_right = -1047.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("36_hdf80")
+mute_music = false
 player_character = NodePath("../../Player")
 player_speed_multiplier = 6.0
 increase_jump_multiplier = 1.6

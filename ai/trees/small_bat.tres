@@ -1,0 +1,43 @@
+[gd_resource type="BehaviorTree" load_steps=10 format=3 uid="uid://b6hr34p6u5qn0"]
+
+[ext_resource type="Script" uid="uid://jx36abkf7xdb" path="res://ai/tasks/FlipSpriteFromDirection.gd" id="1_7yoih"]
+[ext_resource type="Script" uid="uid://bwmnl2wkemyrt" path="res://ai/tasks/LinearMove2D.gd" id="1_h2uwi"]
+[ext_resource type="Script" uid="uid://cik71gapel2ho" path="res://ai/tasks/action_vertical_linear_move_2d.gd" id="2_jvla6"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_vnhnt"]
+var/direction/name = &"direction"
+var/direction/type = 2
+var/direction/value = -1
+var/direction/hint = 0
+var/direction/hint_string = ""
+var/speed/name = &"speed"
+var/speed/type = 3
+var/speed/value = 50.0
+var/speed/hint = 0
+var/speed/hint_string = ""
+
+[sub_resource type="BTAction" id="BTAction_1570e"]
+script = ExtResource("1_7yoih")
+spriteLooksRight = false
+
+[sub_resource type="BTAction" id="BTAction_jvla6"]
+script = ExtResource("1_h2uwi")
+speed_key = "speed"
+
+[sub_resource type="BTAction" id="BTAction_7yoih"]
+script = ExtResource("2_jvla6")
+trans_type = 1
+ease_type = 2
+starts_up = true
+distance = 30.0
+tween_time = 1.0
+
+[sub_resource type="BTParallel" id="BTParallel_7yoih"]
+children = [SubResource("BTAction_jvla6"), SubResource("BTAction_7yoih")]
+
+[sub_resource type="BTSequence" id="BTSequence_x5u8g"]
+children = [SubResource("BTAction_1570e"), SubResource("BTParallel_7yoih")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_vnhnt")
+root_task = SubResource("BTSequence_x5u8g")
