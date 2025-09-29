@@ -1,11 +1,12 @@
 extends RigidBody2D
 
-var start_direction : float
 @export var speed : float
 @export var lifetime : float
-var disabled : bool
 
 @onready var sprite_component : Sprite2D = $Sprite2D
+
+var start_direction : float
+var disabled : bool
 
 func _ready() -> void:
 	do_enable(false)

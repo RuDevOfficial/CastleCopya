@@ -3098,9 +3098,9 @@ one_shot = true
 [node name="CooldownTimer" type="Timer" parent="Managers/Subweapon Manager"]
 one_shot = true
 
-[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("_initialState")]
+[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("1_tx1dd")
-_initialState = NodePath("Normal")
+initial_state = NodePath("Normal")
 player_resource = ExtResource("4_7dp3o")
 
 [node name="Normal" type="Node" parent="FSM" node_paths=PackedStringArray("_body2D", "_animationTree", "subweapon_manager", "stair_area")]

@@ -2,11 +2,10 @@ extends Boss
 
 @export var horizontal_attack_distance : float
 @export var attack_duration : float
+@export var attack_y_offset : float
 
 var start_attack_position :  Vector2
-
 var player_reference : Node2D
-@export var attack_y_offset : float
 
 func set_ready_values() -> void:
 	player_reference = get_tree().get_first_node_in_group("player")
@@ -31,7 +30,6 @@ func attack() -> void:
 		second_vertical_tween.set_trans(Tween.TRANS_QUAD)
 		second_vertical_tween.tween_property(self, "global_position:y", start_attack_position.y, attack_duration / 2.0)
 		)
-	
 	
 	await horizontal_tween.finished
 	behavior_reference.blackboard.set_var("attacking", false)

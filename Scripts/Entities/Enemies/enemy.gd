@@ -1,6 +1,8 @@
 extends RigidBody2D
 class_name Enemy
 
+var blackboard : Blackboard
+
 @export_category("Base Parameters")
 
 # This holds are initial values for the enemy
@@ -15,7 +17,6 @@ class_name Enemy
 @onready var flicker_component : Flicker = $Components/Flicker
 
 @onready var behavior_player : BTPlayer = $BTPlayer
-var blackboard : Blackboard
 
 @onready var damage_particle : GPUParticles2D = $Particles/Damage
 @onready var death_particle : GPUParticles2D = $Particles/Death
@@ -26,7 +27,6 @@ var blackboard : Blackboard
 
 # Dynamic variables
 var original_speed : float
-
 var original_node_path : NodePath
 
 func _ready() -> void:
