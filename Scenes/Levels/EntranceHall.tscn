@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=4 uid="uid://b6753ah8pxkfj"]
 
-[ext_resource type="TileSet" uid="uid://di8sh37mranj8" path="res://Tilesets/entrance_hall.tres" id="1_yih0l"]
+[ext_resource type="TileSet" uid="uid://di8sh37mranj8" path="res://Sprites/Tilesets/entrance_hall.tres" id="1_yih0l"]
 [ext_resource type="Script" uid="uid://plo3dhuwq6cp" path="res://Scripts/camera_path.gd" id="2_7dpq4"]
 [ext_resource type="PackedScene" uid="uid://cl2f4low7gcps" path="res://Scenes/6_r_stair.tscn" id="2_8ojd1"]
 [ext_resource type="PackedScene" uid="uid://7686kwe7c603" path="res://Scenes/Whipables/blue_candle.tscn" id="3_6c8jj"]

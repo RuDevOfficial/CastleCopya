@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cldhscb4jfiex"]
 
 [ext_resource type="Script" uid="uid://d2jpo3nwihwjd" path="res://Scripts/Consumables/Consumable_Heart.gd" id="1_vsgpy"]
-[ext_resource type="Texture2D" uid="uid://ds0xv83rmrccq" path="res://Sprites/Environment/heart.png" id="2_58qaa"]
+[ext_resource type="Texture2D" uid="uid://ds0xv83rmrccq" path="res://Sprites/Consumables/heart.png" id="2_58qaa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w5a3r"]
 size = Vector2(8, 8)

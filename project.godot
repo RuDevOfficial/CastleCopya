@@ -31,7 +31,6 @@ DSP/dsp_buffer_count=4
 config/name="CastleCopya"
 run/main_scene="uid://cqscvl3qsinqc"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
 
 [autoload]
 
@@ -65,8 +64,7 @@ enabled=PackedStringArray("res://addons/fmod/plugin.cfg")
 folder_colors={
 "res://Scenes/": "red",
 "res://Scripts/": "purple",
-"res://Sprites/": "green",
-"res://Streams/": "pink"
+"res://Sprites/": "green"
 }
 
 [global_group]

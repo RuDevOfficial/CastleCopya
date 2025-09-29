@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cemqy7lqkgss6"]
 
 [ext_resource type="Script" uid="uid://d2jpo3nwihwjd" path="res://Scripts/Consumables/Consumable_Heart.gd" id="1_6x0u3"]
-[ext_resource type="Texture2D" uid="uid://cc5nvucre8f17" path="res://Sprites/Environment/big_heart.png" id="2_6x0u3"]
+[ext_resource type="Texture2D" uid="uid://cc5nvucre8f17" path="res://Sprites/Consumables/big_heart.png" id="2_6x0u3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w5a3r"]
 size = Vector2(12, 10)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ddneme0pecniw" path="res://Scenes/Consumables/consumable_axe.gd" id="1_oikrl"]
 [ext_resource type="Resource" uid="uid://dir5gqc6p8et0" path="res://Resources/Subweapons/Data/Knife_Data.tres" id="2_oikrl"]
-[ext_resource type="Texture2D" uid="uid://bdvjqv1n45gc1" path="res://Sprites/UI/knife_icon.png" id="3_oikrl"]
+[ext_resource type="Texture2D" uid="uid://bdvjqv1n45gc1" path="res://Sprites/Subweapons/knife_icon.png" id="3_oikrl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w5a3r"]
 size = Vector2(16, 8)

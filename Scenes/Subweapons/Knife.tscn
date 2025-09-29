@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://mhf346yeofqv" path="res://Scripts/SubweaponModifiers/SM_Throw_FlipDirection.gd" id="4_mh4l0"]
 [ext_resource type="Resource" uid="uid://e0ja16n1bgmj" path="res://Resources/Subweapons/Scenes/Knife.tres" id="4_scxiy"]
 [ext_resource type="Script" uid="uid://cmji2kwnkw2us" path="res://Scripts/SubweaponModifiers/SM_Throw_AddOffset.gd" id="5_ijgsj"]
-[ext_resource type="Texture2D" uid="uid://bdvjqv1n45gc1" path="res://Sprites/UI/knife_icon.png" id="5_scxiy"]
+[ext_resource type="Texture2D" uid="uid://bdvjqv1n45gc1" path="res://Sprites/Subweapons/knife_icon.png" id="5_scxiy"]
 [ext_resource type="Script" uid="uid://dntc3c582m5w8" path="res://demo/agents/scripts/hitbox.gd" id="6_58ioa"]
 
 [sub_resource type="Resource" id="Resource_scxiy"]
