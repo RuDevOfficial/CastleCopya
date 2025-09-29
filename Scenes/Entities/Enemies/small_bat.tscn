@@ -1,0 +1,173 @@
+[gd_scene load_steps=20 format=3 uid="uid://cgqb01h4dyfpl"]
+
+[ext_resource type="Script" uid="uid://bcopiho0w7ugy" path="res://Scripts/Entities/Enemies/enemy.gd" id="1_otswh"]
+[ext_resource type="Resource" uid="uid://bpv1wtayatep" path="res://Resources/EnemyData/bat_data.tres" id="2_frfkg"]
+[ext_resource type="Texture2D" uid="uid://bqkb7tmjd81kx" path="res://Sprites/Enemies/small_bat_0.png" id="3_lsobp"]
+[ext_resource type="BehaviorTree" uid="uid://b6hr34p6u5qn0" path="res://ai/trees/small_bat.tres" id="4_qf2bd"]
+[ext_resource type="Script" uid="uid://5byn62y1oa76" path="res://Scripts/Components/health.gd" id="5_7m860"]
+[ext_resource type="Texture2D" uid="uid://co587605jc4pq" path="res://Sprites/Enemies/small_bat_1.png" id="5_otswh"]
+[ext_resource type="Script" uid="uid://coh7npk3nxwn6" path="res://Scripts/Components/flicker.gd" id="6_fctnx"]
+[ext_resource type="Texture2D" uid="uid://ifsf0rmn7taj" path="res://Sprites/Enemies/small_bat_2.png" id="6_frfkg"]
+[ext_resource type="Script" uid="uid://dq5h6yydckjc1" path="res://Scripts/Components/hurtbox.gd" id="7_bpbht"]
+[ext_resource type="Script" uid="uid://dntc3c582m5w8" path="res://Scripts/Components/hitbox.gd" id="8_ranut"]
+[ext_resource type="Texture2D" uid="uid://c0hprndi04kro" path="res://Sprites/Particles/fire_2.png" id="9_52y05"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qf2bd"]
+radius = 9.0
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_fj6an"]
+var/speed/name = &"speed"
+var/speed/type = 3
+var/speed/value = 200.0
+var/speed/hint = 0
+var/speed/hint_string = ""
+
+[sub_resource type="Animation" id="Animation_fctnx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_lsobp")]
+}
+
+[sub_resource type="Animation" id="Animation_7m860"]
+resource_name = "active"
+length = 0.80001
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_lsobp"), ExtResource("5_otswh"), ExtResource("6_frfkg"), ExtResource("5_otswh"), ExtResource("3_lsobp")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bpbht"]
+_data = {
+&"RESET": SubResource("Animation_fctnx"),
+&"active": SubResource("Animation_7m860")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_frfkg"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7m860"]
+radius = 9.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j0wq0"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+
+[node name="SmallBat" type="RigidBody2D"]
+z_index = -1
+collision_layer = 0
+collision_mask = 0
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+freeze_mode = 1
+script = ExtResource("1_otswh")
+data = ExtResource("2_frfkg")
+
+[node name="RigidbodyCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qf2bd")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+z_index = 4
+texture_filter = 1
+texture = ExtResource("3_lsobp")
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("4_qf2bd")
+blackboard_plan = SubResource("BlackboardPlan_fj6an")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_bpbht")
+}
+autoplay = "active"
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(-10.5, -9)
+scale = Vector2(1.5, 0.9)
+rect = Rect2(1, 0, 12, 20)
+
+[node name="Components" type="Node" parent="."]
+
+[node name="Health" type="Node" parent="Components" node_paths=PackedStringArray("hurtbox")]
+script = ExtResource("5_7m860")
+max_health = 3.0
+hurtbox = NodePath("../../Contact/Hurtbox")
+metadata/_custom_type_script = "uid://5byn62y1oa76"
+
+[node name="Flicker" type="Node" parent="Components" node_paths=PackedStringArray("_targetSprite")]
+script = ExtResource("6_fctnx")
+_targetSprite = NodePath("../../Sprite")
+_originalColor = Color(1, 1, 1, 1)
+_flickerColor = Color(1, 1, 0.270588, 1)
+_flickerTimes = 3
+_flickerTimeIndividual = 0.1
+
+[node name="Contact" type="Node2D" parent="."]
+
+[node name="Hurtbox" type="Area2D" parent="Contact" node_paths=PackedStringArray("health")]
+collision_layer = 8
+collision_mask = 32
+script = ExtResource("7_bpbht")
+health = NodePath("../../Components/Health")
+metadata/_custom_type_script = "uid://dq5h6yydckjc1"
+
+[node name="HurtboxArea" type="CollisionShape2D" parent="Contact/Hurtbox"]
+shape = SubResource("CircleShape2D_frfkg")
+debug_color = Color(0.662745, 0.360784, 0.462745, 0.419608)
+
+[node name="Hitbox" type="Area2D" parent="Contact"]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("8_ranut")
+metadata/_custom_type_script = "uid://dntc3c582m5w8"
+
+[node name="HitboxArea" type="CollisionShape2D" parent="Contact/Hitbox"]
+shape = SubResource("CircleShape2D_7m860")
+debug_color = Color(0.662745, 0.360784, 0.462745, 0.419608)
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="Damage" type="GPUParticles2D" parent="Particles"]
+z_index = 3
+texture_filter = 1
+emitting = false
+amount = 1
+texture = ExtResource("9_52y05")
+lifetime = 0.2
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_j0wq0")
+
+[node name="Death" type="GPUParticles2D" parent="Particles"]
+z_index = 3
+texture_filter = 1
+emitting = false
+amount = 1
+texture = ExtResource("9_52y05")
+lifetime = 0.2
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_j0wq0")
+
+[connection signal="screen_entered" from="VisibleOnScreenEnabler2D" to="." method="_on_screen_visible"]
+[connection signal="damaged" from="Components/Health" to="." method="_on_health_damaged"]
+[connection signal="damaged" from="Components/Health" to="Components/Flicker" method="_on_health_damaged"]
+[connection signal="death" from="Components/Health" to="." method="_on_health_death"]
+[connection signal="area_entered" from="Contact/Hurtbox" to="." method="send_info_to_ui_on_contact"]

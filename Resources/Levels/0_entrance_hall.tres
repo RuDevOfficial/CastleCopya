@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="LevelResource" load_steps=4 format=3 uid="uid://fejs1b3idipf"]
 
-[ext_resource type="PackedScene" uid="uid://cau13j7i6ul64" path="res://Scenes/Enemies/boss_bat.tscn" id="1_ce0h4"]
-[ext_resource type="PackedScene" uid="uid://b6753ah8pxkfj" path="res://Scenes/Levels/EntranceHall.tscn" id="1_voqtg"]
-[ext_resource type="Script" uid="uid://wvhb66ctf5ai" path="res://Scripts/Resources/level_resource.gd" id="2_mpti0"]
+[ext_resource type="PackedScene" uid="uid://cau13j7i6ul64" path="res://Scenes/Entities/Enemies/boss_bat.tscn" id="1_ce0h4"]
+[ext_resource type="PackedScene" uid="uid://b6753ah8pxkfj" path="res://Scenes/Levels/0_entrance_hall.tscn" id="1_voqtg"]
+[ext_resource type="Script" uid="uid://wvhb66ctf5ai" path="res://Scripts/Resources/level_data_resource.gd" id="2_mpti0"]
 
 [resource]
 script = ExtResource("2_mpti0")

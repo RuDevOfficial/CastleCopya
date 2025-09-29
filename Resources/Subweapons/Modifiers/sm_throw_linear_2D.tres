@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SM_Throw_2DLinearX" load_steps=2 format=3 uid="uid://dprlyudhq4n52"]
+
+[ext_resource type="Script" uid="uid://cbxuk1l3io7ka" path="res://Scripts/Objects/Subweapons/Modifiers/SM_Throw_2DVector.gd" id="1_5cq70"]
+
+[resource]
+script = ExtResource("1_5cq70")
+force = 0.0
+metadata/_custom_type_script = "uid://cbxuk1l3io7ka"

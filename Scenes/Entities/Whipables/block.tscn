@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=3 uid="uid://c05q0mgjbibm3"]
+
+[ext_resource type="Texture2D" uid="uid://mbfcgymfisg1" path="res://Sprites/Environment/block.png" id="1_bwop6"]
+[ext_resource type="Script" uid="uid://u550ks4uyuah" path="res://Scripts/Objects/Whippables/block_whippable.gd" id="1_pai6q"]
+[ext_resource type="Script" uid="uid://cehvau528ctb2" path="res://Scripts/Objects/object_drop.gd" id="2_15e8x"]
+[ext_resource type="PackedScene" uid="uid://cldhscb4jfiex" path="res://Scenes/Entities/Consumables/consumable_heart.tscn" id="3_r2y0d"]
+[ext_resource type="PackedScene" uid="uid://cpva4bjwun4ms" path="res://Scenes/Entities/Particles/death_particle.tscn" id="5_rqnu8"]
+
+[sub_resource type="Resource" id="Resource_vva3i"]
+script = ExtResource("2_15e8x")
+object = ExtResource("3_r2y0d")
+weight = 100.0
+metadata/_custom_type_script = "uid://cehvau528ctb2"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2842"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uh3ks"]
+size = Vector2(16, 16)
+
+[node name="Block" type="StaticBody2D" node_paths=PackedStringArray("static_body")]
+script = ExtResource("1_pai6q")
+static_body = NodePath(".")
+consumable_list = Array[ExtResource("2_15e8x")]([SubResource("Resource_vva3i")])
+particle_scene = ExtResource("5_rqnu8")
+sound_key = "Block_Break"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_i2842")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_bwop6")
+
+[node name="ParticleSpawnPivot" type="Node2D" parent="."]
+position = Vector2(0, -4)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 160
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_uh3ks")
+debug_color = Color(0.846487, 0.172702, 0.81666, 0.42)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]

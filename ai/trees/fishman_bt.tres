@@ -1,7 +1,7 @@
 [gd_resource type="BehaviorTree" load_steps=77 format=3 uid="uid://dmegg6io2g0ef"]
 
 [ext_resource type="Script" uid="uid://bxvhydxhawgh8" path="res://ai/tasks/action_play_sound.gd" id="1_8fewt"]
-[ext_resource type="PackedScene" uid="uid://b4ln2drx4wgo0" path="res://Scenes/oneshots/SplashParticle.tscn" id="1_kuxiy"]
+[ext_resource type="PackedScene" uid="uid://b4ln2drx4wgo0" path="res://Scenes/Entities/Particles/splash_particle.tscn" id="1_kuxiy"]
 [ext_resource type="Script" uid="uid://d1eefeiqf2s4e" path="res://ai/tasks/action_change_linear_velocity.gd" id="1_vebr7"]
 [ext_resource type="Script" uid="uid://c5h88jymr0enr" path="res://ai/tasks/SpawnScene.gd" id="2_8fewt"]
 [ext_resource type="Script" uid="uid://c3vedtlytwv33" path="res://ai/tasks/condition_is_falling.gd" id="2_gumku"]

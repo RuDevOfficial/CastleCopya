@@ -1,0 +1,57 @@
+[gd_scene load_steps=14 format=3 uid="uid://477dynencd7w"]
+
+[ext_resource type="Script" uid="uid://wekg70uebo2j" path="res://Scripts/Objects/Subweapons/subweapon.gd" id="1_scxiy"]
+[ext_resource type="Script" uid="uid://crim1wgeqdu30" path="res://Scripts/Resources/subweapon_modifier_resource.gd" id="2_mh4l0"]
+[ext_resource type="Script" uid="uid://cbxuk1l3io7ka" path="res://Scripts/Objects/Subweapons/Modifiers/SM_Throw_2DVector.gd" id="3_ijgsj"]
+[ext_resource type="Script" uid="uid://mhf346yeofqv" path="res://Scripts/Objects/Subweapons/Modifiers/SM_Throw_FlipDirection.gd" id="4_mh4l0"]
+[ext_resource type="Resource" uid="uid://e0ja16n1bgmj" path="res://Resources/Subweapons/Instanced/knife_scene_subweapon_resource.tres" id="4_scxiy"]
+[ext_resource type="Script" uid="uid://cmji2kwnkw2us" path="res://Scripts/Objects/Subweapons/Modifiers/SM_Throw_AddOffset.gd" id="5_ijgsj"]
+[ext_resource type="Texture2D" uid="uid://bdvjqv1n45gc1" path="res://Sprites/Subweapons/knife_icon.png" id="5_scxiy"]
+[ext_resource type="Script" uid="uid://dntc3c582m5w8" path="res://Scripts/Components/hitbox.gd" id="6_58ioa"]
+
+[sub_resource type="Resource" id="Resource_scxiy"]
+script = ExtResource("3_ijgsj")
+metadata/_custom_type_script = "uid://cbxuk1l3io7ka"
+
+[sub_resource type="Resource" id="Resource_ijgsj"]
+script = ExtResource("4_mh4l0")
+metadata/_custom_type_script = "uid://mhf346yeofqv"
+
+[sub_resource type="Resource" id="Resource_xd5cl"]
+script = ExtResource("5_ijgsj")
+offset = Vector2(12, -8)
+metadata/_custom_type_script = "uid://cmji2kwnkw2us"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_scxiy"]
+size = Vector2(16, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mh4l0"]
+size = Vector2(16, 8)
+
+[node name="Knife" type="RigidBody2D"]
+texture_filter = 1
+collision_layer = 0
+collision_mask = 0
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_scxiy")
+Modifiers = Array[ExtResource("2_mh4l0")]([SubResource("Resource_scxiy"), SubResource("Resource_ijgsj"), SubResource("Resource_xd5cl")])
+Subweapon_Resource = ExtResource("4_scxiy")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_scxiy")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("5_scxiy")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 8
+script = ExtResource("6_58ioa")
+metadata/_custom_type_script = "uid://dntc3c582m5w8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_mh4l0")
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_area_entered"]

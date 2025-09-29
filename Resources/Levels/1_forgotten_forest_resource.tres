@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="LevelResource" load_steps=3 format=3 uid="uid://db5lubmtte4hk"]
 
-[ext_resource type="PackedScene" uid="uid://c3yj0obrh22re" path="res://Scenes/Levels/ForgottenForest.tscn" id="1_iciy7"]
-[ext_resource type="Script" uid="uid://wvhb66ctf5ai" path="res://Scripts/Resources/level_resource.gd" id="2_gw38q"]
+[ext_resource type="PackedScene" uid="uid://c3yj0obrh22re" path="res://Scenes/Levels/1_forgotten_forest.tscn" id="1_iciy7"]
+[ext_resource type="Script" uid="uid://wvhb66ctf5ai" path="res://Scripts/Resources/level_data_resource.gd" id="2_gw38q"]
 
 [resource]
 script = ExtResource("2_gw38q")

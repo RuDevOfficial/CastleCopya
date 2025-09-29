@@ -1,0 +1,213 @@
+[gd_scene load_steps=24 format=3 uid="uid://c8vruwrcheskn"]
+
+[ext_resource type="Script" uid="uid://clng5y8w3bly8" path="res://Scripts/Entities/Enemies/enemy_fishman.gd" id="1_ab8wu"]
+[ext_resource type="PackedScene" uid="uid://nd4s3gq1agpe" path="res://Scenes/Entities/Enemies/Bullets/fireball.tscn" id="2_rusam"]
+[ext_resource type="Resource" uid="uid://dnkjvff7ebuxk" path="res://Resources/EnemyData/fishman_data.tres" id="2_swt04"]
+[ext_resource type="PackedScene" uid="uid://b4ln2drx4wgo0" path="res://Scenes/Entities/Particles/splash_particle.tscn" id="3_jb47p"]
+[ext_resource type="Texture2D" uid="uid://dxx1fsv20dclw" path="res://Sprites/Enemies/fishman1.png" id="3_ryp7x"]
+[ext_resource type="Texture2D" uid="uid://bynf8xaaqcuol" path="res://Sprites/Enemies/fishman2.png" id="4_ab8wu"]
+[ext_resource type="BehaviorTree" uid="uid://dmegg6io2g0ef" path="res://ai/trees/fishman_bt.tres" id="4_swt04"]
+[ext_resource type="Texture2D" uid="uid://c5dpcyb04ce7i" path="res://Sprites/Enemies/fishman3.png" id="5_swt04"]
+[ext_resource type="Script" uid="uid://5byn62y1oa76" path="res://Scripts/Components/health.gd" id="8_bts8i"]
+[ext_resource type="Script" uid="uid://coh7npk3nxwn6" path="res://Scripts/Components/flicker.gd" id="9_7wpyb"]
+[ext_resource type="Script" uid="uid://dq5h6yydckjc1" path="res://Scripts/Components/hurtbox.gd" id="10_u4vl0"]
+[ext_resource type="Script" uid="uid://dntc3c582m5w8" path="res://Scripts/Components/hitbox.gd" id="11_tckv4"]
+[ext_resource type="Texture2D" uid="uid://c0hprndi04kro" path="res://Sprites/Particles/fire_2.png" id="12_tit6s"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rusam"]
+radius = 8.0
+height = 32.0
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_jk0vb"]
+var/water_exit_vector/name = &"water_exit_vector"
+var/water_exit_vector/type = 5
+var/water_exit_vector/value = Vector2(0, -500)
+var/water_exit_vector/hint = 0
+var/water_exit_vector/hint_string = ""
+
+[sub_resource type="Animation" id="Animation_ab8wu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_ryp7x")]
+}
+
+[sub_resource type="Animation" id="Animation_fyape"]
+resource_name = "attack"
+length = 0.001
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_swt04")]
+}
+
+[sub_resource type="Animation" id="Animation_ryp7x"]
+resource_name = "idle"
+length = 0.001
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_ryp7x")]
+}
+
+[sub_resource type="Animation" id="Animation_xlptk"]
+resource_name = "walk"
+length = 0.80002
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.780825),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_ryp7x"), ExtResource("4_ab8wu"), ExtResource("3_ryp7x")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_swt04"]
+_data = {
+&"RESET": SubResource("Animation_ab8wu"),
+&"attack": SubResource("Animation_fyape"),
+&"idle": SubResource("Animation_ryp7x"),
+&"walk": SubResource("Animation_xlptk")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rusam"]
+size = Vector2(14, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3j4ne"]
+size = Vector2(16, 30)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j0wq0"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+
+[node name="Fishman" type="RigidBody2D"]
+z_index = 2
+collision_layer = 8
+collision_mask = 64
+gravity_scale = 0.8
+lock_rotation = true
+continuous_cd = 1
+script = ExtResource("1_ab8wu")
+packed_bullet_scene = ExtResource("2_rusam")
+vector_offset = Vector2(0, -8)
+splash_particle_scene = ExtResource("3_jb47p")
+data = ExtResource("2_swt04")
+can_be_stunned = true
+
+[node name="RigidbodyCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_rusam")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+z_index = 3
+texture_filter = 1
+texture = ExtResource("3_ryp7x")
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("4_swt04")
+active = false
+blackboard_plan = SubResource("BlackboardPlan_jk0vb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../BTPlayer")
+libraries = {
+&"": SubResource("AnimationLibrary_swt04")
+}
+autoplay = "idle"
+
+[node name="Components" type="Node" parent="."]
+
+[node name="Health" type="Node" parent="Components" node_paths=PackedStringArray("hurtbox")]
+script = ExtResource("8_bts8i")
+max_health = 3.0
+hurtbox = NodePath("../../Contact/Hurtbox")
+metadata/_custom_type_script = "uid://5byn62y1oa76"
+
+[node name="Flicker" type="Node" parent="Components" node_paths=PackedStringArray("_targetSprite")]
+script = ExtResource("9_7wpyb")
+_targetSprite = NodePath("../../Sprite")
+_originalColor = Color(1, 1, 1, 1)
+_flickerColor = Color(0, 0.85, 1, 1)
+_flickerTimes = 3
+_flickerTimeIndividual = 0.1
+
+[node name="Contact" type="Node2D" parent="."]
+
+[node name="Hurtbox" type="Area2D" parent="Contact" node_paths=PackedStringArray("health")]
+collision_layer = 8
+collision_mask = 32
+script = ExtResource("10_u4vl0")
+health = NodePath("../../Components/Health")
+metadata/_custom_type_script = "uid://dq5h6yydckjc1"
+
+[node name="HurtboxArea" type="CollisionShape2D" parent="Contact/Hurtbox"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_rusam")
+debug_color = Color(0.662745, 0.360784, 0.462745, 0.419608)
+
+[node name="Hitbox" type="Area2D" parent="Contact"]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("11_tckv4")
+metadata/_custom_type_script = "uid://dntc3c582m5w8"
+
+[node name="HitboxArea" type="CollisionShape2D" parent="Contact/Hitbox"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_3j4ne")
+debug_color = Color(0.662745, 0.360784, 0.462745, 0.419608)
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="Damage" type="GPUParticles2D" parent="Particles"]
+z_index = 3
+texture_filter = 1
+emitting = false
+amount = 1
+texture = ExtResource("12_tit6s")
+lifetime = 0.2
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_j0wq0")
+
+[node name="Death" type="GPUParticles2D" parent="Particles"]
+z_index = 3
+texture_filter = 1
+emitting = false
+amount = 1
+texture = ExtResource("12_tit6s")
+lifetime = 0.2
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_j0wq0")
+
+[connection signal="damaged" from="Components/Health" to="." method="_on_health_damaged"]
+[connection signal="damaged" from="Components/Health" to="Components/Flicker" method="_on_health_damaged"]
+[connection signal="death" from="Components/Health" to="." method="_on_health_death"]
+[connection signal="area_entered" from="Contact/Hurtbox" to="." method="send_info_to_ui_on_contact"]

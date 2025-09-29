@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4ln2drx4wgo0"]
+
+[ext_resource type="Script" uid="uid://cpb4gh1h6qlc7" path="res://Scripts/Entities/Particles/single_instance_particle.gd" id="1_hvwr8"]
+[ext_resource type="Texture2D" uid="uid://dkxj27c17g6q0" path="res://Sprites/Particles/bubble.png" id="2_hvwr8"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nrdb1"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 24.116
+initial_velocity_min = 81.9
+initial_velocity_max = 136.1
+gravity = Vector3(0, 220, 0)
+
+[node name="SplashParticle" type="Node2D"]
+z_index = 2
+script = ExtResource("1_hvwr8")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(0.277807, 0.522613, 1, 1)
+texture_filter = 1
+emitting = false
+amount = 3
+texture = ExtResource("2_hvwr8")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_nrdb1")
+
+[connection signal="finished" from="GPUParticles2D" to="." method="_on_event_finished"]

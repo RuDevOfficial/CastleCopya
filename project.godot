@@ -35,15 +35,15 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 [autoload]
 
 FmodManager="*res://addons/fmod/FmodManager.gd"
-EnemyManager="*res://Scripts/Functional/EnemyManager.gd"
-SignalBus="*res://Scripts/Globals/signals.gd"
-PlayerInput="*res://Scripts/Globals/help_input.gd"
-GStateManager="*res://Scripts/Functional/game_state_manager.gd"
-SaveManager="*res://Scripts/Globals/save_game_manager.gd"
-GameplayManager="*res://Scripts/Functional/gameplay_manager.gd"
-StageManager="*res://Scripts/Functional/stage_manager.gd"
-AudioManager="*res://Scripts/Globals/audio_manager.gd"
-SpawnerManager="*res://Scripts/Globals/spawner_manager.gd"
+EnemyManager="*res://Scripts/Globals/enemy_manager_global.gd"
+SignalBus="*res://Scripts/Globals/signal_bus_global.gd"
+PlayerInput="*res://Scripts/Globals/player_input_global.gd"
+GStateManager="*res://Scripts/Gameloop/game_state_manager.gd"
+SaveManager="*res://Scripts/Globals/save_game_manager_global.gd"
+GameplayManager="*res://Scripts/Globals/gameplay_manager_global.gd"
+StageManager="*res://Scripts/Globals/stage_manager_global.gd"
+AudioManager="*res://Scripts/Globals/audio_manager_global.gd"
+SpawnerManager="*res://Scripts/Globals/spawner_manager_global.gd"
 
 [display]
 
@@ -62,9 +62,12 @@ enabled=PackedStringArray("res://addons/fmod/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://Fonts/": "gray",
+"res://Resources/": "orange",
 "res://Scenes/": "red",
 "res://Scripts/": "purple",
-"res://Sprites/": "green"
+"res://Sprites/": "green",
+"res://Themes/": "blue"
 }
 
 [global_group]

@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="SM_Throw_FlipDirection" load_steps=2 format=3 uid="uid://cfxury5gggggw"]
-
-[ext_resource type="Script" uid="uid://mhf346yeofqv" path="res://Scripts/SubweaponModifiers/SM_Throw_FlipDirection.gd" id="1_qtjrm"]
-
-[resource]
-script = ExtResource("1_qtjrm")
-metadata/_custom_type_script = "uid://mhf346yeofqv"

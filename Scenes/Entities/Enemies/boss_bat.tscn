@@ -1,0 +1,173 @@
+[gd_scene load_steps=19 format=3 uid="uid://cau13j7i6ul64"]
+
+[ext_resource type="Texture2D" uid="uid://b0ldoc2jy5fmh" path="res://Sprites/Enemies/boss_bat_0.png" id="1_53chg"]
+[ext_resource type="Script" uid="uid://vy7q1pasj84i" path="res://Scripts/Entities/Enemies/boss_bat.gd" id="1_lvlhb"]
+[ext_resource type="Texture2D" uid="uid://bx6buryn8kxcs" path="res://Sprites/Enemies/boss_bat_1.png" id="2_e1hph"]
+[ext_resource type="BehaviorTree" uid="uid://brenrddjvk5pa" path="res://ai/trees/bat_boss.tres" id="2_ga3je"]
+[ext_resource type="Script" uid="uid://dq5h6yydckjc1" path="res://Scripts/Components/hurtbox.gd" id="3_e1hph"]
+[ext_resource type="Texture2D" uid="uid://roppnfjfjkkp" path="res://Sprites/Enemies/boss_bat_2.png" id="3_tjmj5"]
+[ext_resource type="Script" uid="uid://dntc3c582m5w8" path="res://Scripts/Components/hitbox.gd" id="4_tjmj5"]
+[ext_resource type="Script" uid="uid://5byn62y1oa76" path="res://Scripts/Components/health.gd" id="5_lvlhb"]
+[ext_resource type="Script" uid="uid://coh7npk3nxwn6" path="res://Scripts/Components/flicker.gd" id="8_tjmj5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tlx02"]
+radius = 8.0
+
+[sub_resource type="Animation" id="Animation_a4lga"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_53chg")]
+}
+
+[sub_resource type="Animation" id="Animation_tlx02"]
+resource_name = "attacking"
+length = 0.20001
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_53chg"), ExtResource("2_e1hph"), ExtResource("1_53chg")]
+}
+
+[sub_resource type="Animation" id="Animation_gyqvb"]
+resource_name = "idle"
+length = 0.001
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_tjmj5")]
+}
+
+[sub_resource type="Animation" id="Animation_iw2av"]
+resource_name = "relocating"
+length = 0.40001
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_53chg"), ExtResource("2_e1hph"), ExtResource("1_53chg")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yega2"]
+_data = {
+&"RESET": SubResource("Animation_a4lga"),
+&"attacking": SubResource("Animation_tlx02"),
+&"idle": SubResource("Animation_gyqvb"),
+&"relocating": SubResource("Animation_iw2av")
+}
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_yai3p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tjmj5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lvlhb"]
+
+[node name="Boss_Bat" type="AnimatableBody2D" node_paths=PackedStringArray("health", "behavior_reference")]
+z_index = 2
+collision_layer = 0
+sync_to_physics = false
+script = ExtResource("1_lvlhb")
+horizontal_attack_distance = 100.0
+attack_duration = 2.0
+attack_y_offset = 12.0
+health = NodePath("Collision Components/Health")
+behavior_reference = NodePath("BTPlayer")
+stun_time = 0.8
+boss_theme_music = "MUS_Boss"
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_tlx02")
+debug_color = Color(0.518228, 0.00308484, 0.480965, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("1_53chg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_yega2")
+}
+autoplay = "idle"
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("2_ga3je")
+blackboard_plan = SubResource("BlackboardPlan_yai3p")
+
+[node name="Collision Components" type="Node2D" parent="."]
+
+[node name="Hurtbox" type="Area2D" parent="Collision Components" node_paths=PackedStringArray("health")]
+collision_layer = 8
+collision_mask = 32
+script = ExtResource("3_e1hph")
+health = NodePath("../Health")
+metadata/_custom_type_script = "uid://dq5h6yydckjc1"
+
+[node name="HurtboxArea" type="CollisionShape2D" parent="Collision Components/Hurtbox"]
+shape = SubResource("CircleShape2D_tjmj5")
+debug_color = Color(0.662745, 0.360784, 0.462745, 0.419608)
+
+[node name="Hitbox" type="Area2D" parent="Collision Components"]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("4_tjmj5")
+metadata/_custom_type_script = "uid://dntc3c582m5w8"
+
+[node name="HitboxArea" type="CollisionShape2D" parent="Collision Components/Hitbox"]
+shape = SubResource("CircleShape2D_lvlhb")
+debug_color = Color(0.662745, 0.360784, 0.462745, 0.419608)
+
+[node name="Health" type="Node" parent="Collision Components" node_paths=PackedStringArray("damage_sound_emitter", "hurtbox")]
+script = ExtResource("5_lvlhb")
+max_health = 12.0
+damage_sound_emitter = NodePath("../DamageEmitter")
+hurtbox = NodePath("../Hurtbox")
+metadata/_custom_type_script = "uid://5byn62y1oa76"
+
+[node name="Flicker" type="Node" parent="Collision Components" node_paths=PackedStringArray("_targetSprite")]
+script = ExtResource("8_tjmj5")
+_targetSprite = NodePath("../../Sprite2D")
+_originalColor = Color(1, 1, 1, 1)
+_flickerColor = Color(0.843137, 0.87451, 0.231373, 1)
+_flickerTimes = 4
+_flickerTimeIndividual = 0.2
+metadata/_custom_type_script = "uid://coh7npk3nxwn6"
+
+[node name="DamageEmitter" type="FmodEventEmitter2D" parent="Collision Components"]
+event_guid = "{e122641b-c20b-4c14-8aa6-de4b8c5e3c2f}"
+
+[connection signal="damaged" from="Collision Components/Health" to="." method="_on_health_damaged"]
+[connection signal="damaged" from="Collision Components/Health" to="Collision Components/Flicker" method="_on_health_damaged"]
+[connection signal="death" from="Collision Components/Health" to="." method="_on_health_death"]

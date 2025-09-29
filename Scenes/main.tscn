@@ -1,44 +1,42 @@
-[gd_scene load_steps=82 format=4 uid="uid://cqscvl3qsinqc"]
+[gd_scene load_steps=79 format=4 uid="uid://cqscvl3qsinqc"]
 
 [ext_resource type="Texture2D" uid="uid://de12hl6rn1ppj" path="res://Sprites/UI/inbetween.png" id="1_hdf80"]
-[ext_resource type="PackedScene" uid="uid://bt0m7fahlwwhn" path="res://Scenes/player.tscn" id="2_8gbba"]
 [ext_resource type="Texture2D" uid="uid://gfe4ej8yt3w4" path="res://Sprites/UI/bat1.png" id="3_jwpg7"]
-[ext_resource type="Script" uid="uid://dynvr0i6g3si1" path="res://Scripts/Functional/door_transition_manager.gd" id="6_gt3je"]
+[ext_resource type="Script" uid="uid://dynvr0i6g3si1" path="res://Scripts/Events/door_transition_event_manager.gd" id="6_gt3je"]
 [ext_resource type="Texture2D" uid="uid://cs26y0taqxgiv" path="res://Sprites/Player/Single/CharacterIdle.png" id="7_3pmx8"]
 [ext_resource type="Texture2D" uid="uid://bb16ggcj6powd" path="res://Sprites/Player/Single/run_0.png" id="8_1w6v2"]
 [ext_resource type="Texture2D" uid="uid://0yb5oojirqb8" path="res://Sprites/UI/sub-weapon border.png" id="8_344ge"]
+[ext_resource type="PackedScene" uid="uid://bt0m7fahlwwhn" path="res://Scenes/Entities/Player/player.tscn" id="8_536cc"]
 [ext_resource type="Script" uid="uid://b6g1rf8olebxg" path="res://Scripts/UI/subweapon_ui.gd" id="8_hptm8"]
 [ext_resource type="Texture2D" uid="uid://cvfw1s415q2iq" path="res://Sprites/Subweapons/Placeholder_Subweapon.png" id="8_ynf5e"]
-[ext_resource type="Resource" uid="uid://dir5gqc6p8et0" path="res://Resources/Subweapons/Data/Knife_Data.tres" id="9_hdf80"]
 [ext_resource type="Texture2D" uid="uid://b5gd580ul1xbt" path="res://Sprites/Player/Single/run_1.png" id="9_ueoa1"]
 [ext_resource type="Texture2D" uid="uid://dny2pv3h5k1en" path="res://Sprites/Player/Single/run_2.png" id="10_6vcvc"]
-[ext_resource type="Script" uid="uid://bs8y3t0lfpxkk" path="res://Scripts/Resources/player_resource.gd" id="10_jwpg7"]
-[ext_resource type="Script" uid="uid://blsahv2cipsds" path="res://Scripts/Functional/transition_manager.gd" id="10_kltya"]
-[ext_resource type="Script" uid="uid://b23qyew1k8tgn" path="res://Scripts/Functional/camera_manager.gd" id="10_neg2b"]
+[ext_resource type="Script" uid="uid://blsahv2cipsds" path="res://Scripts/Events/transition_event_manager.gd" id="10_kltya"]
+[ext_resource type="Script" uid="uid://b23qyew1k8tgn" path="res://Scripts/Camera/camera_manager.gd" id="10_neg2b"]
 [ext_resource type="Texture2D" uid="uid://dinxm4by2wync" path="res://Sprites/UI/heart.png" id="13_jkdf5"]
 [ext_resource type="Script" uid="uid://ccdpmgf0myc5u" path="res://Scripts/UI/ammo_ui.gd" id="13_wsu2k"]
 [ext_resource type="FontFile" uid="uid://4ya1hpanvmia" path="res://Fonts/Qapixa-5y9Pa.ttf" id="14_wsu2k"]
-[ext_resource type="Script" uid="uid://ccbs3viy4b7up" path="res://Scripts/UI/player_health.gd" id="15_h1bgf"]
+[ext_resource type="Script" uid="uid://ccbs3viy4b7up" path="res://Scripts/UI/player_health_ui.gd" id="15_h1bgf"]
 [ext_resource type="Texture2D" uid="uid://0y1u20bwoahh" path="res://Sprites/Cutscene/background_intro.png" id="15_hdf80"]
 [ext_resource type="Texture2D" uid="uid://cvdmsr55qpof1" path="res://Sprites/Cutscene/mist.png" id="15_k2e45"]
 [ext_resource type="Texture2D" uid="uid://cd80uqbnj86wb" path="res://Sprites/Cutscene/moon.png" id="16_536cc"]
 [ext_resource type="Script" uid="uid://dueddiht74nx5" path="res://Scripts/UI/intro_ui.gd" id="16_hpc6h"]
-[ext_resource type="PackedScene" uid="uid://dvny2qjcq2m18" path="res://Scenes/UI/player_bar_slot.tscn" id="16_k12tt"]
 [ext_resource type="Texture2D" uid="uid://bay0i7w5bq1to" path="res://Sprites/Player/Single/char_face_back.png" id="17_536cc"]
 [ext_resource type="Texture2D" uid="uid://b12n3cuk5bvqu" path="res://Sprites/UI/PlayerBarSlotEmpty.png" id="17_b3802"]
 [ext_resource type="Texture2D" uid="uid://du4k6gyxjp5os" path="res://Sprites/UI/PlayerBarSlot.png" id="18_fevyy"]
 [ext_resource type="Script" uid="uid://dbb6e5tffbn2q" path="res://Scripts/UI/gameplay_ui.gd" id="18_kltya"]
-[ext_resource type="Script" uid="uid://bh1yjisousnpq" path="res://Scenes/enemy_health.gd" id="19_fevyy"]
-[ext_resource type="PackedScene" uid="uid://cv6pqx4n8mqhk" path="res://Scenes/UI/enemy_bar_slot.tscn" id="20_ee4r6"]
 [ext_resource type="Texture2D" uid="uid://btojmi0evh0r5" path="res://Sprites/UI/EnemyBarSlotEmpty.png" id="21_gt3je"]
 [ext_resource type="Texture2D" uid="uid://0src6ru887bk" path="res://Sprites/UI/EnemyBarSlot.png" id="22_3pmx8"]
-[ext_resource type="Resource" uid="uid://d4jdenihj3l0q" path="res://Resources/player_resource.tres" id="26_e08e2"]
+[ext_resource type="Resource" uid="uid://d4jdenihj3l0q" path="res://Resources/Player/player_resource.tres" id="26_e08e2"]
 [ext_resource type="Script" uid="uid://b3liisx2fnh7d" path="res://Scripts/UI/menu_ui.gd" id="28_6vcvc"]
 [ext_resource type="Texture2D" uid="uid://dq2ayh5wtrwwi" path="res://Sprites/UI/yvan5es92g091.png" id="28_7k868"]
-[ext_resource type="Theme" uid="uid://c4y647t1lso3h" path="res://UI/Themes/menu.tres" id="28_ueoa1"]
+[ext_resource type="PackedScene" uid="uid://dvny2qjcq2m18" path="res://Scenes/UI/player_bar_slot.tscn" id="28_aqgau"]
+[ext_resource type="Theme" uid="uid://c4y647t1lso3h" path="res://Themes/menu.tres" id="28_ueoa1"]
+[ext_resource type="Script" uid="uid://bh1yjisousnpq" path="res://Scripts/UI/enemy_health_ui.gd" id="31_8cuat"]
+[ext_resource type="PackedScene" uid="uid://cv6pqx4n8mqhk" path="res://Scenes/UI/enemy_bar_slot.tscn" id="32_o1aky"]
 [ext_resource type="Texture2D" uid="uid://c363padkm5d6o" path="res://Sprites/UI/bat2.png" id="35_hdf80"]
 [ext_resource type="Script" uid="uid://cxod5uquyq1tj" path="res://Scripts/UI/intermission_ui.gd" id="35_r33sp"]
-[ext_resource type="Script" uid="uid://0h6cqey43d7" path="res://Scenes/debug_ui.gd" id="36_hdf80"]
+[ext_resource type="Script" uid="uid://0h6cqey43d7" path="res://Scripts/UI/debug_ui.gd" id="39_kwxat"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hdf80"]
 size = Vector2(320, 56)
@@ -186,24 +184,6 @@ _data = {
 &"idle": SubResource("Animation_hdf80"),
 &"start": SubResource("Animation_jwpg7")
 }
-
-[sub_resource type="Resource" id="Resource_k2e45"]
-resource_local_to_scene = true
-script = ExtResource("10_jwpg7")
-Speed = 80.0
-LastDirection = 1.0
-stair_movement_multiplier = 2.2
-Gravity = 459.0
-FallingCap = 9108.0
-FallingMultiplier = 2.0
-JumpForce = 200.0
-StartingHealth = 10
-DeadTime = 3.0
-KnockbackVector = Vector2(0.5, -0.5)
-KnockbackForce = 100.0
-AttackTime = 0.5
-CurrentSubweapon = ExtResource("9_hdf80")
-metadata/_custom_type_script = "uid://bs8y3t0lfpxkk"
 
 [sub_resource type="Gradient" id="Gradient_aqgau"]
 offsets = PackedFloat32Array(0)
@@ -1366,10 +1346,10 @@ bank_paths = ["res://Banks/Desktop/Master.strings.bank", "res://Banks/Desktop/Ma
 
 [node name="FmodListener2D" type="FmodListener2D" parent="Audio"]
 
-[node name="Player" parent="." instance=ExtResource("2_8gbba")]
+[node name="Player" parent="." instance=ExtResource("8_536cc")]
 z_index = 5
 position = Vector2(-272, 40)
-_playerResource = SubResource("Resource_k2e45")
+player_resource = ExtResource("26_e08e2")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -1636,7 +1616,7 @@ mouse_filter = 2
 theme = SubResource("Theme_hdf80")
 script = ExtResource("15_h1bgf")
 player_resource = ExtResource("26_e08e2")
-bar_scene = ExtResource("16_k12tt")
+bar_scene = ExtResource("28_aqgau")
 empty_bar_texture = ExtResource("17_b3802")
 full_bar_texture = ExtResource("18_fevyy")
 
@@ -1674,8 +1654,8 @@ offset_bottom = 48.0
 grow_horizontal = 2
 mouse_filter = 2
 theme = SubResource("Theme_hdf80")
-script = ExtResource("19_fevyy")
-bar_scene = ExtResource("20_ee4r6")
+script = ExtResource("31_8cuat")
+bar_scene = ExtResource("32_o1aky")
 empty_bar_texture = ExtResource("21_gt3je")
 full_bar_texture = ExtResource("22_3pmx8")
 
@@ -1812,7 +1792,7 @@ anchor_bottom = 1.0
 offset_right = -1047.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("36_hdf80")
+script = ExtResource("39_kwxat")
 mute_music = false
 player_character = NodePath("../../Player")
 player_speed_multiplier = 6.0

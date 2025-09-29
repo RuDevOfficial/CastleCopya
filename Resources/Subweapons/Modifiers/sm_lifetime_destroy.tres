@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="SM_Lifetime_Destroy" load_steps=2 format=3 uid="uid://ck18xr5mtnf4e"]
+
+[ext_resource type="Script" uid="uid://dpfcqpomlc6du" path="res://Scripts/Objects/Subweapons/Modifiers/BM_Lifetime_Destroy.gd" id="1_hwm4o"]
+
+[resource]
+script = ExtResource("1_hwm4o")
+metadata/_custom_type_script = "uid://dpfcqpomlc6du"

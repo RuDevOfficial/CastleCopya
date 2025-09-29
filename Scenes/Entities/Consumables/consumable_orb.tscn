@@ -1,0 +1,92 @@
+[gd_scene load_steps=10 format=3 uid="uid://bjs2syx2btck7"]
+
+[ext_resource type="Script" uid="uid://iwffiahns2n" path="res://Scripts/Entities/Consumables/consumable_orb.gd" id="1_pjj2j"]
+[ext_resource type="Texture2D" uid="uid://cqqgh34uqmljf" path="res://Sprites/Consumables/orb_0.png" id="2_hei4f"]
+[ext_resource type="Texture2D" uid="uid://b3r46nqsm146m" path="res://Sprites/Consumables/orb_1.png" id="3_ovvfs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sqoif"]
+size = Vector2(14, 14)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t0yud"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_hei4f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ovvfs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bdkck"]
+radius = 7.0
+
+[sub_resource type="Animation" id="Animation_hei4f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_pjj2j"]
+resource_name = "appear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667, 0.4, 0.433333, 0.466667, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ovvfs"]
+_data = {
+&"RESET": SubResource("Animation_hei4f"),
+&"appear": SubResource("Animation_pjj2j")
+}
+
+[node name="Orb" type="RigidBody2D"]
+collision_layer = 0
+lock_rotation = true
+continuous_cd = 1
+script = ExtResource("1_pjj2j")
+appear_sound = "Orb_Appear"
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_sqoif")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+z_index = 5
+sprite_frames = SubResource("SpriteFrames_t0yud")
+autoplay = "default"
+frame_progress = 0.4465
+
+[node name="Area" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
+shape = SubResource("CircleShape2D_bdkck")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ovvfs")
+}
+autoplay = "appear"
+
+[connection signal="area_entered" from="Area" to="." method="_on_player_enter_area"]

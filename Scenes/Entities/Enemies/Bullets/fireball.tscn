@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://nd4s3gq1agpe"]
+
+[ext_resource type="Script" uid="uid://boehiejtd3r5c" path="res://Scripts/Entities/Enemies/Projectiles/fireball.gd" id="1_3au1w"]
+[ext_resource type="Texture2D" uid="uid://c075sxxhisckc" path="res://Sprites/Particles/fireball.png" id="1_dwc0o"]
+[ext_resource type="Script" uid="uid://dntc3c582m5w8" path="res://Scripts/Components/hitbox.gd" id="2_3prtb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_00da8"]
+radius = 2.5
+
+[node name="Fireball" type="RigidBody2D"]
+collision_layer = 0
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_3au1w")
+speed = 100.0
+lifetime = 3.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 3
+texture_filter = 1
+texture = ExtResource("1_dwc0o")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 4
+script = ExtResource("2_3prtb")
+metadata/_custom_type_script = "uid://dntc3c582m5w8"
+
+[node name="HitboxArea" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-0.5, 0)
+shape = SubResource("CircleShape2D_00da8")
+debug_color = Color(0.662745, 0.360784, 0.462745, 0.419608)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(0.3, 0.3)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

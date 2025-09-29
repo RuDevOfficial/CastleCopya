@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="SM_Throw_AddOffset" load_steps=2 format=3 uid="uid://343crtbby1bq"]
-
-[ext_resource type="Script" uid="uid://cmji2kwnkw2us" path="res://Scripts/SubweaponModifiers/SM_Throw_AddOffset.gd" id="1_nm0xt"]
-
-[resource]
-script = ExtResource("1_nm0xt")
-offset = Vector2(0, 0)
-metadata/_custom_type_script = "uid://cmji2kwnkw2us"
