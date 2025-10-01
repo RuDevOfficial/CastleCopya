@@ -1,4 +1,5 @@
 extends Node2D
+# This is created in a separate scene for decoupling purposes
 
 @onready var particle : GPUParticles2D = $GPUParticles2D
 

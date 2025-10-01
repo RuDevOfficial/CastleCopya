@@ -1,5 +1,7 @@
 extends Node2D
 class_name PathEnemyGenerator
+# A type of enemy generator that spawns a new enemy alongside a point
+# in the 2D path given
 
 @onready var path_follow : PathFollow2D = $SpawnPath/PathFollow2D
 @onready var generation_timer : Timer = $Timer

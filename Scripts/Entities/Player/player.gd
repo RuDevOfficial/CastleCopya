@@ -1,6 +1,10 @@
 extends CharacterBody2D
 class_name PlayerCharacter
 
+# This player resource is used to store all dynamic data and is a piece of core
+# functionality. It contains data that is passed as a copy to other scripts (such
+# as the health script taking max health) but also used to share information between
+# all states. You can expand it by adding new fields onto the player_resource resource.
 @export var player_resource : PlayerResource
 @export var _animationTree : AnimationTree
 
@@ -16,46 +20,11 @@ func _ready() -> void:
 	set_default_values()
 	hide_player()
 
+# In here you can set the default values to other scripts
 func set_default_values():
 	_health.set_health(player_resource.StartingHealth)
 
-func freeze_player(levelResource : LevelResource) -> void:
-	if (levelResource != null):
-		if (levelResource.LookLeftOnLoad == false): player_resource.LastDirection =  1
-		else: player_resource.LastDirection = -1
-	
-	_animationTree.active = false
-	player_resource.CanMove = false
-
-func hide_player() -> void:
-	process_mode = Node.PROCESS_MODE_DISABLED
-	set_physics_process(false)
-	disable_mode = CollisionObject2D.DISABLE_MODE_MAKE_STATIC
-	visible = false
-
-func show_player() -> void:
-	process_mode = Node.PROCESS_MODE_INHERIT
-	set_physics_process(true)
-	disable_mode = CollisionObject2D.DISABLE_MODE_REMOVE
-	visible = true
-
-func reset_player() -> void:
-	global_position = last_spawn_position
-	velocity.x = 0
-	player_resource.CanMove = false
-
-func activate_player() -> void:
-	_animationTree.active = true
-	player_resource.CanMove = true
-	show_player()
-
-func _on_scene_switcher_on_level_finish_loading(levelResource : LevelResource) -> void:
-	_health._current = player_resource.StartingHealth
-	activate_player()
-
-func get_state(new_name : String) -> Node:
-	return get_node("FSM").get_node(new_name)
-
+# Connect any signal that affects the player here
 func connect_signals() -> void:
 	
 	SignalBus.on_level_generated.connect(func(level_resource, level_instance):
@@ -88,6 +57,7 @@ func connect_signals() -> void:
 			)
 	
 	# THIS IS ONLY FOR DEBUG PURPOSES
+	# You should make sure this is either commented or removed for release builds
 	SignalBus.on_debug_teleport_to_boss.connect(func():
 		var paths_node_parent : Node2D = owner.get_node("Level").get_child(0).get_node("Paths")
 		for path in paths_node_parent.get_children():
@@ -98,3 +68,41 @@ func connect_signals() -> void:
 			global_position = cam_path.to_global(cam_path.curve.get_point_in(0))
 			break
 	)
+
+func hide_player() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
+	set_physics_process(false)
+	disable_mode = CollisionObject2D.DISABLE_MODE_MAKE_STATIC
+	visible = false
+
+func show_player() -> void:
+	process_mode = Node.PROCESS_MODE_INHERIT
+	set_physics_process(true)
+	disable_mode = CollisionObject2D.DISABLE_MODE_REMOVE
+	visible = true
+
+func reset_player() -> void:
+	global_position = last_spawn_position
+	velocity.x = 0
+	player_resource.CanMove = false
+
+func freeze_player(levelResource : LevelResource) -> void:
+	if (levelResource != null):
+		if (levelResource.LookLeftOnLoad == false): player_resource.LastDirection =  1
+		else: player_resource.LastDirection = -1
+	
+	_animationTree.active = false
+	player_resource.CanMove = false
+
+# Allows the player to move and enables animations before showing the player.
+func activate_player() -> void:
+	_animationTree.active = true
+	player_resource.CanMove = true
+	show_player()
+
+func _on_scene_switcher_on_level_finish_loading(levelResource : LevelResource) -> void:
+	_health._current = player_resource.StartingHealth
+	activate_player()
+
+func get_state(new_name : String) -> Node:
+	return get_node("FSM").get_node(new_name)

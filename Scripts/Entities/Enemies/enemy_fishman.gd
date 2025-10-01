@@ -5,6 +5,7 @@ class_name EnemyFishman
 @export var vector_offset : Vector2
 @export var splash_particle_scene : PackedScene
 
+# Object pooling is not necessary in Godot
 var bullet_instance : Node2D
 var returned_to_water : bool = false
 
@@ -24,7 +25,7 @@ func on_ready() -> void:
 	await get_tree().process_frame
 	get_parent().add_child(bullet_instance)
 
-# if the enemy base class has a _process method and theres
+# If the enemy base class has a _process method and theres
 # stuff in it this will overwrite it
 func _process(delta: float) -> void:
 	if (blackboard.get_var("direction") == 1): sprite.flip_h = true

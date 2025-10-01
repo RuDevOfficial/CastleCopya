@@ -1,4 +1,5 @@
 extends Enemy
+class_name EnemyZombie
 
 func on_connect_signals() -> void:
 	pass

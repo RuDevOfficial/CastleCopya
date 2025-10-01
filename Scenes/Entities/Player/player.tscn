@@ -3103,10 +3103,10 @@ script = ExtResource("1_tx1dd")
 initial_state = NodePath("Normal")
 player_resource = ExtResource("4_7dp3o")
 
-[node name="Normal" type="Node" parent="FSM" node_paths=PackedStringArray("_body2D", "_animationTree", "subweapon_manager", "stair_area")]
+[node name="Normal" type="Node" parent="FSM" node_paths=PackedStringArray("character_body", "animation_tree", "subweapon_manager", "stair_area")]
 script = ExtResource("2_gymyn")
-_body2D = NodePath("../..")
-_animationTree = NodePath("../../Animation/AnimationTree")
+character_body = NodePath("../..")
+animation_tree = NodePath("../../Animation/AnimationTree")
 subweapon_manager = NodePath("../../Managers/Subweapon Manager")
 stair_area = NodePath("../../Contact/InteractArea")
 

@@ -10,13 +10,12 @@ var is_attacking : bool = false
 func Enter() -> void:
 	is_attacking = true
 	
-	_animationTree.set("parameters/conditions/attack", true)
-	_animationTree.set("parameters/conditions/notAttack", false)
-	
 	var crouched : int
 	if (player_resource.WasCrouched == false): crouched = 1
 	else: crouched = -1
 	
+	_animationTree.set("parameters/conditions/attack", true)
+	_animationTree.set("parameters/conditions/notAttack", false)
 	_animationTree.set("parameters/Attacking/blend_position", Vector2(player_resource.LastDirection, crouched))
 	
 	_attackTimer.start(player_resource.AttackTime)
@@ -30,6 +29,7 @@ func Exit() -> void:
 func Update(_delta : float) -> void:
 	pass
 
+# The player can't jump, but can still fall
 func Physics_Update(_delta : float) -> void:
 	
 	var addedGravity = player_resource.Gravity * _delta

@@ -1,5 +1,6 @@
 extends State
 class_name PlayerStairs
+# This state is kind of a mess, this might get removed and replace in a template update
 
 @export var controller : CharacterBody2D
 @export var area : Area2D
@@ -12,13 +13,15 @@ var start_stair_vector : Vector2
 
 var begin_at_start : bool = true
 var stairs_go_up : bool = false
-var stair_vector : Vector2
-var last_axis : Vector2
+
+var stair_vector : Vector2 # The vector direction of the staits from the first to second point
+var last_axis : Vector2 # Last direction the player went through while on stairs
 
 var attacking_on_stairs : bool = false
 
 func _ready() -> void:
-	
+	# This signal teleports the player to a different set of stairs.
+	# This can be seen when going to the underwater area of the test level.
 	SignalBus.on_warp_entered.connect(overwrite_path)
 
 func Enter():
@@ -31,7 +34,7 @@ func Enter():
 	
 	var axis : Vector2 = Vector2.DOWN * Input.get_axis("enter_stairs_up", "enter_stairs_down")
 	
-		# CHECK THE FIRST 2 POINTS
+	# CHECK THE FIRST 2 POINTS
 	var point_0 : Vector2 = path_node.curve.get_point_position(0)
 	var point_1 : Vector2 = path_node.curve.get_point_position(1)
 		
@@ -90,41 +93,13 @@ func Exit():
 
 func Update(delta: float):
 	
-	if (Input.is_action_just_pressed("attack") && attacking_on_stairs == false):
-		attacking_on_stairs = true
-		var timer : SceneTreeTimer = get_tree().create_timer(player_resource.AttackTime)
-		timer.timeout.connect(func(): 
-			attacking_on_stairs = false
-			animation_tree.set("parameters/conditions/attacking_stair", false)
-			animation_tree.set("parameters/conditions/not_attacking_stair", true))
-		
-		# DO LOGIC ANIMATION HERE
-		animation_tree.set("parameters/conditions/attacking_stair", true)
-		animation_tree.set("parameters/conditions/not_attacking_stair", false)
-		
-		var left_input = PlayerInput.get_last_input().x
-		if (start_stair_vector.x > 0 && start_stair_vector.y < 0): 
-			animation_tree.set("parameters/AttackStair/blend_position", Vector2(left_input, 1))
-		elif (start_stair_vector.x > 0 && start_stair_vector.y > 0):
-			animation_tree.set("parameters/AttackStair/blend_position", Vector2(left_input, -1))
+	update_attack_handling()
 	
+	# Makes sure that no further logic is being ticked when the player is attacking
 	if (attacking_on_stairs == true): return
 	
-	if (PlayerInput.is_non_zero()):
-			if (start_stair_vector.x > 0 && start_stair_vector.y < 0): 
-				if (PlayerInput.is_inputting_up_right_corner(false)): animation_tree.set("parameters/Stairs/blend_position", Vector2(1, -1))
-				else: animation_tree.set("parameters/Stairs/blend_position", Vector2(-1, 1))
-			elif (start_stair_vector.x > 0 && start_stair_vector.y > 0):
-				if (PlayerInput.is_inputting_down_right_corner(false)): animation_tree.set("parameters/Stairs/blend_position", Vector2(1, 1))
-				else: animation_tree.set("parameters/Stairs/blend_position", Vector2(-1, -1))
-	else:
-		animation_tree.set("parameters/Stairs/blend_position", Vector2(PlayerInput.get_last_input().x, 0))
-	
-	if (follow_path.progress_ratio == 1 || follow_path.progress_ratio == 0):
-		controller.motion_mode = CharacterBody2D.MOTION_MODE_GROUNDED
-		player_resource.LastDirection = PlayerInput.get_input().x
-		Exiting.emit(self, "Normal")
-		return
+	update_player_input()
+	update_path_exit_reached()
 
 func Physics_Update(delta: float):
 	if (PlayerInput.is_non_zero() == false): return
@@ -147,6 +122,7 @@ func Physics_Update(delta: float):
 		
 	controller.global_position = follow_path.global_position
 
+# This method changes the path the player is in
 func overwrite_path(position : Vector2, camera_path_index : int, 
 path : Path2D, path_progress : float, is_entrance : bool) -> void:
 	if (player_resource.IsOnStairs == false): return
@@ -206,3 +182,40 @@ path : Path2D, path_progress : float, is_entrance : bool) -> void:
 	controller.motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	animation_tree.set("parameters/conditions/not_on_stairs", false)
 	animation_tree.set("parameters/conditions/on_stairs", true)
+
+func update_attack_handling() -> void:
+	if (Input.is_action_just_pressed("attack") && attacking_on_stairs == false):
+		attacking_on_stairs = true
+		var timer : SceneTreeTimer = get_tree().create_timer(player_resource.AttackTime)
+		timer.timeout.connect(func(): 
+			attacking_on_stairs = false
+			animation_tree.set("parameters/conditions/attacking_stair", false)
+			animation_tree.set("parameters/conditions/not_attacking_stair", true))
+		
+		# DO LOGIC ANIMATION HERE
+		animation_tree.set("parameters/conditions/attacking_stair", true)
+		animation_tree.set("parameters/conditions/not_attacking_stair", false)
+		
+		var left_input = PlayerInput.get_last_input().x
+		if (start_stair_vector.x > 0 && start_stair_vector.y < 0): 
+			animation_tree.set("parameters/AttackStair/blend_position", Vector2(left_input, 1))
+		elif (start_stair_vector.x > 0 && start_stair_vector.y > 0):
+			animation_tree.set("parameters/AttackStair/blend_position", Vector2(left_input, -1))
+
+func update_player_input() -> void:
+	if (PlayerInput.is_non_zero()):
+			if (start_stair_vector.x > 0 && start_stair_vector.y < 0): 
+				if (PlayerInput.is_inputting_up_right_corner(false)): animation_tree.set("parameters/Stairs/blend_position", Vector2(1, -1))
+				else: animation_tree.set("parameters/Stairs/blend_position", Vector2(-1, 1))
+			elif (start_stair_vector.x > 0 && start_stair_vector.y > 0):
+				if (PlayerInput.is_inputting_down_right_corner(false)): animation_tree.set("parameters/Stairs/blend_position", Vector2(1, 1))
+				else: animation_tree.set("parameters/Stairs/blend_position", Vector2(-1, -1))
+	else:
+		animation_tree.set("parameters/Stairs/blend_position", Vector2(PlayerInput.get_last_input().x, 0))
+
+func update_path_exit_reached() -> void:
+	if (follow_path.progress_ratio == 1 || follow_path.progress_ratio == 0):
+		controller.motion_mode = CharacterBody2D.MOTION_MODE_GROUNDED
+		player_resource.LastDirection = PlayerInput.get_input().x
+		Exiting.emit(self, "Normal")
+		return
