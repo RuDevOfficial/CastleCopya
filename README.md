@@ -1,6 +1,14 @@
+<p align="center">
+  <img src="https://i.imgur.com/oduxKEJ.png" width="400" alt="CastleCopya logo">
+</p>
+
+# CastleCopya - Castlevania-inspired template project for Godot 4
+
+>**🛈 Supported Godot Engine:**  **4.4.1**
+
 CastleCopya is a non-commercial template project for Godot meant to save you time from developing a castlevania-like game! It contains all the necessary basic features so you can get right to modifying it and adding your own spin to the formula!
 
-This project tries to mimic the original Castlevania features (including knockback!), but not with 100% accuracy.
+If you enjoyed using it...
 
 # Core Features
 | Feature  | Description | Global
