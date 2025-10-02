@@ -113,13 +113,8 @@ max_health = 3.0
 hurtbox = NodePath("../../Contact/Hurtbox")
 metadata/_custom_type_script = "uid://5byn62y1oa76"
 
-[node name="Flicker" type="Node" parent="Components" node_paths=PackedStringArray("_targetSprite")]
+[node name="Flicker" type="Node" parent="Components"]
 script = ExtResource("6_fctnx")
-_targetSprite = NodePath("../../Sprite")
-_originalColor = Color(1, 1, 1, 1)
-_flickerColor = Color(1, 1, 0.270588, 1)
-_flickerTimes = 3
-_flickerTimeIndividual = 0.1
 
 [node name="Contact" type="Node2D" parent="."]
 

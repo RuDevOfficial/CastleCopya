@@ -1,33 +1,34 @@
 extends Node
 class_name Flicker
+# Health-based component that flickers a single or multiple children sprites
 
-@export var _targetSprite : Sprite2D
+@export var target_sprite : Sprite2D
 
-@export var _targetetSprites : Array[Sprite2D]
+@export var targeted_sprites : Array[Sprite2D]
 
-@export var _originalColor : Color
-@export var _flickerColor : Color
-@export var _flickerTimes : int
-@export var _flickerTimeIndividual : float
+@export var original_color : Color = Color.WHITE
+@export var flicker_color : Color
+@export var flicker_times : int
+@export var time_per_single_flicker : float
 
 var Flickering : bool = false
 
 func _on_health_damaged(_amount: float, _knockback: Vector2) -> void:
 	Flickering = true
-	if (_targetSprite != null): flicker_one()
+	if (target_sprite != null): flicker_one()
 	else: flicker_multiple()
 	Flickering = false
 
 func flicker_one():
-	for i in _flickerTimes:
-		_targetSprite.modulate = _flickerColor
-		await get_tree().create_timer(_flickerTimeIndividual / 2.0).timeout
-		_targetSprite.modulate = _originalColor
-		await get_tree().create_timer(_flickerTimeIndividual / 2.0).timeout
+	for i in flicker_times:
+		target_sprite.modulate = flicker_color
+		await get_tree().create_timer(time_per_single_flicker / 2.0).timeout
+		target_sprite.modulate = original_color
+		await get_tree().create_timer(time_per_single_flicker / 2.0).timeout
 
 func flicker_multiple():
-	for i in _flickerTimes:
-		for sprite in _targetetSprites: sprite.modulate = _flickerColor
-		await get_tree().create_timer(_flickerTimeIndividual / 2.0).timeout
-		for sprite in _targetetSprites: sprite.modulate = _originalColor
-		await get_tree().create_timer(_flickerTimeIndividual / 2.0).timeout
+	for i in flicker_times:
+		for sprite in targeted_sprites: sprite.modulate = flicker_color
+		await get_tree().create_timer(time_per_single_flicker / 2.0).timeout
+		for sprite in targeted_sprites: sprite.modulate = original_color
+		await get_tree().create_timer(time_per_single_flicker / 2.0).timeout

@@ -21,6 +21,7 @@ func initialize() -> void:
 
 func _on_health_damaged(amount: float, knockback: Vector2) -> void:
 	SignalBus.on_enemy_hit.emit(self, health.max_health, health.get_current())
+	AudioManager.do_one_shot("EnemyDamage")
 	
 	behavior_reference.blackboard.set_var("speed", 0)
 	await get_tree().create_timer(stun_time).timeout

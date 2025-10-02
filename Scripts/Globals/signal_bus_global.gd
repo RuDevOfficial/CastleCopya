@@ -1,4 +1,5 @@
 extends Node
+# One of the core classes. Meant to generate global signals that any class can use.
 
 signal on_level_loaded
 

@@ -1,11 +1,15 @@
 extends Node
+# This class generates a packaged scene list of all available enemies.
+# Enemies are in the folder Scenes/Entities/Enemies. If you move this somewhere else
+# you will need to update the string path!
+
+# Currently it only supports spawning enemies from the edges of the screen.
+
+var enemy_list : Dictionary[String, PackedScene]
 
 var current_enemy_name : String
 var timer : Timer
 var camera_player_distance_threshold : float = 50.0
-
-@export var enemy_list : Dictionary[String, PackedScene]
-
 var player : PlayerCharacter
 
 func _init() -> void:
@@ -20,6 +24,7 @@ func _init() -> void:
 func _ready() -> void:
 	dir_contents("res://Scenes/Entities/Enemies/")
 	player = get_tree().get_first_node_in_group("player")
+	SignalBus.on_player_death.connect(deactivate_spawner)
 
 func dir_contents(path):
 	var dir = DirAccess.open(path)
@@ -68,13 +73,14 @@ func spawn_current_enemy_at_edge_screen():
 			if (camera_player_distance >= 0): spawn_direction = -1
 			else: spawn_direction = 1
 		else: spawn_direction = player.player_resource.LastDirection
-		print(camera_player_distance)
 		
 		var new_enemy : Enemy = enemy_list.get(current_enemy_name).instantiate()
 		new_enemy.global_position.y = player.global_position.y
 		new_enemy.global_position.x = camera.get_screen_center_position().x + (8 * spawn_direction) + (get_window().content_scale_size.x/8 * spawn_direction)
 		
 		new_enemy.data.initial_direction = spawn_direction * -1
+		new_enemy.was_generated = true
+		
 		new_enemy.remain_active(true)
 		
 		level.get_node("Entities/Enemies").add_child(new_enemy)

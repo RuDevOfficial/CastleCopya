@@ -1,7 +1,7 @@
 [gd_scene load_steps=24 format=3 uid="uid://c8vruwrcheskn"]
 
 [ext_resource type="Script" uid="uid://clng5y8w3bly8" path="res://Scripts/Entities/Enemies/enemy_fishman.gd" id="1_ab8wu"]
-[ext_resource type="PackedScene" uid="uid://nd4s3gq1agpe" path="res://Scenes/Entities/Enemies/Bullets/fireball.tscn" id="2_rusam"]
+[ext_resource type="PackedScene" uid="uid://nd4s3gq1agpe" path="res://Scenes/Entities/Bullets/fireball.tscn" id="2_rusam"]
 [ext_resource type="Resource" uid="uid://dnkjvff7ebuxk" path="res://Resources/EnemyData/fishman_data.tres" id="2_swt04"]
 [ext_resource type="PackedScene" uid="uid://b4ln2drx4wgo0" path="res://Scenes/Entities/Particles/splash_particle.tscn" id="3_jb47p"]
 [ext_resource type="Texture2D" uid="uid://dxx1fsv20dclw" path="res://Sprites/Enemies/fishman1.png" id="3_ryp7x"]

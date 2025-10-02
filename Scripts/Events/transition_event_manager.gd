@@ -8,12 +8,16 @@ var already_transitioning : bool = false
 var last_transition_state : GStateManager.GameState = GStateManager.GameState.Ready
 var is_player_respawning : bool = false
 
+
 func _ready() -> void:
 	set_process_input(false)
 	set_process_shortcut_input(false)
 	set_process_unhandled_input(false)
 	
-	GameplayManager.on_start_gameplay_transition.connect(try_transition_in_gameplay)
+	GStateManager.on_enter_gameplay.connect(func(): already_transitioning = false)
+	GStateManager.on_exit_gameplay.connect(func(): already_transitioning = true)
+	
+	SignalBus.on_player_death.connect(try_transition_in_gameplay)
 
 func try_transition(state : GStateManager.GameState) -> void:
 	if (can_transition()):

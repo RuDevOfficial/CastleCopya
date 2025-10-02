@@ -1,4 +1,11 @@
 extends Node
+# This project uses FMOD version 2.02.30, so this class manages bank loading and audio triggering.
+# Game has 2 banks, SFX and MUSIC.
+# If you change the directory of the banks you will need to change the load_bank string
+# like: FmodServer.load_bank("res://Banks/Desktop/Master.strings.bank" <-----!
+#
+# When triggering a sound effect the string required is the same as the FMOD's event name
+# Example: Events: SFX/AtackWhip -> AudioManager.do_one_shot("AttackWhip")
 
 var music_emitter : FmodEventEmitter2D
 var music_stopped : bool = true

@@ -1,5 +1,7 @@
 extends Node
 class_name GameStateManager
+# One of the core classes. Handles the state of the game, calls signals for each state.
+# This is the place if you need to add for example a "Options", "Credits" or "Savefile" states
 
 # VERY IMPORTANT TURN TO FALSE WHEN EXPORTING A BUILD!
 var is_debug_mode : bool = false
@@ -76,6 +78,9 @@ func exit_intermission() -> void: on_exit_intermission.emit()
 #endregion
 
 func connect_signals() -> void:
+	
+	# The play button starts the game, loads the level inmediatly if the player
+	# already saw the cutscene
 	var play_button : Button = get_tree().root.get_node("Main/UI/Menu/VBoxContainer/Play Button")
 	play_button.pressed.connect(func():
 		var game_data : GameplayDataResource = SaveManager.get_current_gameplay_data()
@@ -94,7 +99,7 @@ func connect_signals() -> void:
 		)
 	
 	SignalBus.on_clear_level.connect(func():
-		await get_tree().create_timer(4).timeout #HARDCODED TIME TODO CHANGE
+		await get_tree().create_timer(4).timeout #HARDCODED TIME, CAN BE CHANGED
 		transition_manager.try_transition(GameState.Intermission)
 		)
 	

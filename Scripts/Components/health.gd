@@ -7,7 +7,7 @@
 #* license that can be found in the LICENSE file or at
 #* https://opensource.org/licenses/MIT.
 #* =============================================================================
-#*
+#* MODIFIED
 class_name Health
 extends Node
 ## Tracks health and emits signal when damaged or dead.
@@ -26,27 +26,27 @@ signal damaged(amount: float, knockback: Vector2)
 @export var hurtbox : Hurtbox
 var is_invincible : bool = false
 
-var _current : float
+var current : float
 var is_damaged : bool = false
 
 var last_damage_amount : float = 0
 var last_knockback : Vector2
 
 func _ready() -> void:
-	_current = max_health
+	current = max_health
 
 
 func take_damage(amount: float, knockback: Vector2) -> void:
 	if is_invincible == true: return
-	if _current <= 0.0: return
+	if current <= 0.0: return
 	
 	last_damage_amount = amount
 	last_knockback = knockback
 	
-	_current -= amount
-	_current = max(_current, 0.0)
+	current -= amount
+	current = max(current, 0.0)
 	is_damaged = true
-	if _current <= 0.0:
+	if current <= 0.0:
 		death.emit()
 		
 		await get_tree().process_frame
@@ -75,7 +75,7 @@ func re_enable():
 
 ## Returns current health.
 func get_current() -> float:
-	return _current
+	return current
 
 func set_health(new_amount : int):
-	_current = new_amount
+	current = new_amount

@@ -3076,13 +3076,12 @@ invincible_time = 1.0
 hurtbox = NodePath("../../Contact/Hurtbox")
 metadata/_custom_type_script = "uid://5byn62y1oa76"
 
-[node name="Flicker" type="Node" parent="Components" node_paths=PackedStringArray("_targetetSprites")]
+[node name="Flicker" type="Node" parent="Components" node_paths=PackedStringArray("targeted_sprites")]
 script = ExtResource("4_sweqm")
-_targetetSprites = [NodePath("../../Sprites/Upper"), NodePath("../../Sprites/Lower")]
-_originalColor = Color(1, 1, 1, 1)
-_flickerColor = Color(0.999945, 0.541284, 0.476812, 1)
-_flickerTimes = 5
-_flickerTimeIndividual = 0.2
+targeted_sprites = [NodePath("../../Sprites/Upper"), NodePath("../../Sprites/Lower"), NodePath("../../Sprites/Whip")]
+flicker_color = Color(0.870588, 0, 0, 1)
+flicker_times = 4
+time_per_single_flicker = 0.3
 metadata/_custom_type_script = "uid://coh7npk3nxwn6"
 
 [node name="Managers" type="Node" parent="."]

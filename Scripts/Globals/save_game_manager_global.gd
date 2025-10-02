@@ -1,5 +1,8 @@
 extends Node
 class_name SaveGameManager
+# Class that manages saving and loading data
+# Currently there is only one save file being used, although
+# the support for multiple save files is already here. Just change the current_save_file_index.
 
 signal on_generate_new_gameplay_save_data(game_data_resource : GameplayDataResource)
 signal on_save_gameplay_data(game_data_resource : GameplayDataResource)
@@ -81,9 +84,8 @@ func save_gameplay_data(index : int = 0) -> void:
 	file.store_var(save_files[index].game_data_to_dictionary())
 	on_save_gameplay_data.emit(save_files[index])
 
-# THIS METHOD NEEDS TO BE REMOVED
-func load_current_gameplay_data() -> GameplayDataResource:
-	return load_gameplay_data(current_save_file_index)
+#func load_current_gameplay_data() -> GameplayDataResource:
+	#return load_gameplay_data(current_save_file_index)
 
 func load_gameplay_data(index : int = 0) -> GameplayDataResource:
 	var file_path = "user://saves/save_game_" + str(index) + ".txt"

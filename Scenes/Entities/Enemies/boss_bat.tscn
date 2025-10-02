@@ -156,13 +156,12 @@ damage_sound_emitter = NodePath("../DamageEmitter")
 hurtbox = NodePath("../Hurtbox")
 metadata/_custom_type_script = "uid://5byn62y1oa76"
 
-[node name="Flicker" type="Node" parent="Collision Components" node_paths=PackedStringArray("_targetSprite")]
+[node name="Flicker" type="Node" parent="Collision Components" node_paths=PackedStringArray("target_sprite")]
 script = ExtResource("8_tjmj5")
-_targetSprite = NodePath("../../Sprite2D")
-_originalColor = Color(1, 1, 1, 1)
-_flickerColor = Color(0.843137, 0.87451, 0.231373, 1)
-_flickerTimes = 4
-_flickerTimeIndividual = 0.2
+target_sprite = NodePath("../../Sprite2D")
+flicker_color = Color(0.662351, 0.66235, 0, 1)
+flicker_times = 2
+time_per_single_flicker = 0.2
 metadata/_custom_type_script = "uid://coh7npk3nxwn6"
 
 [node name="DamageEmitter" type="FmodEventEmitter2D" parent="Collision Components"]

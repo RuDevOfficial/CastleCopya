@@ -1,5 +1,6 @@
 extends RigidBody2D
 class_name Enemy
+# Base class on which all enemies must inherit
 
 var blackboard : Blackboard
 
@@ -12,7 +13,7 @@ var blackboard : Blackboard
 @export var can_be_stunned : bool
 @export var disable_contact_on_stun : bool
 
-# COMPONENTS
+# REQUIRED COMPONENTS
 @onready var health_component : Health = $Components/Health
 @onready var flicker_component : Flicker = $Components/Flicker
 
@@ -25,12 +26,14 @@ var blackboard : Blackboard
 @onready var hitbox : Hitbox = $Contact/Hitbox
 @onready var sprite : Sprite2D = $Sprite
 
-# Dynamic variables
 var original_speed : float
-var original_node_path : NodePath
+var visible_screen_node_path : NodePath
+
+# Filter for enemies that were placed deliberatly on the stage or generated
+var was_generated : bool = false
 
 func _ready() -> void:
-	original_node_path = $VisibleOnScreenEnabler2D.enable_node_path
+	visible_screen_node_path = $VisibleOnScreenEnabler2D.enable_node_path
 	
 	health_component.set_health(data.starting_health)
 	blackboard = behavior_player.blackboard
@@ -53,8 +56,8 @@ func set_default_values() -> void:
 	
 	# CONTACT / HEALTH RELATED VALUES
 	hitbox.damage = data.initial_contact_damage
-	flicker_component._flickerTimes = data.initial_flicker_amount
-	flicker_component._flickerTimeIndividual = data.stun_time / (data.initial_flicker_amount * 2)
+	flicker_component.flicker_times = data.initial_flicker_amount
+	flicker_component.time_per_single_flicker = data.stun_time / (data.initial_flicker_amount * 2)
 
 func _on_health_damaged(amount: float, knockback: Vector2) -> void:
 	
@@ -97,7 +100,7 @@ func stun() -> void:
 	if (disable_contact_on_stun == true): hitbox.monitoring = true
 
 func remain_active(active : bool) -> void:
-	if (active): $VisibleOnScreenEnabler2D.enable_node_path = original_node_path
+	if (active): $VisibleOnScreenEnabler2D.enable_node_path = visible_screen_node_path
 	else: $VisibleOnScreenEnabler2D.enable_node_path = ""
 
 # "VIRTUAL" METHODS to OVERRIDE

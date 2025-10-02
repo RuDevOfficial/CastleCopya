@@ -22,6 +22,7 @@ func _ready() -> void:
 func generate_new_enemy() -> void:
 	if (generating_enemies == false): return
 	
+	# Getting a random point from the path
 	path_follow.progress_ratio = randf()
 	
 	var new_enemy : Enemy = enemy_scene.instantiate()

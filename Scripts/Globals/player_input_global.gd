@@ -1,16 +1,20 @@
 extends Node
+# A script used to get a more precise player input.
 
 var left_input : int
 var right_input : int
-
-var horizontal_input : int
+# ⬇️
+var horizontal_input : int 
 
 var down_input : int
 var up_input : int
-
+# ⬇️
 var vertical_input : int
 
+# The most recent player input
 var player_input : Vector2
+
+# The most recent player input that was different from the previous
 var last_different_player_input : Vector2
 
 var last_corner_input : CornerInput
