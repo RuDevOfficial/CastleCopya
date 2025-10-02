@@ -1,4 +1,5 @@
 extends Control
+# Class that manages the subweapon icon
 
 @export var icon_texture_rect : TextureRect
 

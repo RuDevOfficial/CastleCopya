@@ -216,7 +216,7 @@ autostart = true
 
 [node name="Triggers" type="Node2D" parent="Entities"]
 
-[node name="SpawnerTrigger" type="Area2D" parent="Entities/Triggers"]
+[node name="StartSpawnerTrigger" type="Area2D" parent="Entities/Triggers"]
 z_index = 10
 position = Vector2(-88, 0)
 collision_layer = 0
@@ -226,7 +226,18 @@ activate_spawner = true
 enemy_per_seconds = 3.0
 enemy_name = "small_bat"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Triggers/SpawnerTrigger"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Triggers/StartSpawnerTrigger"]
+shape = SubResource("RectangleShape2D_jd3ge")
+debug_color = Color(0.631477, 0.00156579, 0.800223, 0.42)
+
+[node name="EndSpawnerTrigger" type="Area2D" parent="Entities/Triggers"]
+z_index = 10
+position = Vector2(2504, 0)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("9_jd3ge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Triggers/EndSpawnerTrigger"]
 shape = SubResource("RectangleShape2D_jd3ge")
 debug_color = Color(0.631477, 0.00156579, 0.800223, 0.42)
 
@@ -334,4 +345,5 @@ z_index = 1
 [connection signal="area_entered" from="Entities/Warps/Warp_1_1/Area" to="Entities/Warps/Warp_1_1" method="_on_area_entered"]
 [connection signal="screen_entered" from="Entities/Generators/FishGenerator/VisibleOnScreenEnabler2D" to="Entities/Generators/FishGenerator" method="_on_screen_entered"]
 [connection signal="screen_exited" from="Entities/Generators/FishGenerator/VisibleOnScreenEnabler2D" to="Entities/Generators/FishGenerator" method="_on_screen_exited"]
-[connection signal="area_entered" from="Entities/Triggers/SpawnerTrigger" to="Entities/Triggers/SpawnerTrigger" method="_on_area_entered"]
+[connection signal="area_entered" from="Entities/Triggers/StartSpawnerTrigger" to="Entities/Triggers/StartSpawnerTrigger" method="_on_area_entered"]
+[connection signal="area_entered" from="Entities/Triggers/EndSpawnerTrigger" to="Entities/Triggers/EndSpawnerTrigger" method="_on_area_entered"]

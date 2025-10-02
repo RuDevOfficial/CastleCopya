@@ -1,18 +1,19 @@
 extends Node
 class_name SubweaponManager
+# Player class that manages the subweapon system.
 
 var max_uses : int = 20
 var current_uses : int = 0
-@export var starting_uses : int
 
 var cooldown_reached : bool = true
 
+@export var starting_uses : int
 @export var current_subweapon_data : SubweaponDataResource
+@export var animation_tree : AnimationTree
 
 @onready var delay_timer : Timer = $DelayTimer
 @onready var cooldown_timer : Timer = $CooldownTimer
 
-@export var animation_tree : AnimationTree
 var state_machine : AnimationNodeStateMachinePlayback
 
 signal on_weapon_refill

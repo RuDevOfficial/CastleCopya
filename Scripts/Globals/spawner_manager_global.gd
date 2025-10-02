@@ -49,9 +49,7 @@ func activate_spawner(time : float) -> void:
 	
 	timer.start(time)
 	spawn_current_enemy_at_edge_screen()
-
 func deactivate_spawner() -> void: timer.stop()
-
 func swap_spawned_enemy(new_name : String) -> void: current_enemy_name = new_name
 func is_spawner_active() -> bool: return timer.is_stopped() == false
 

@@ -1,5 +1,6 @@
 extends SubweaponModifierResource
 class_name SM_Throw_FlipDirection
+# Flips the direction based on the linear velocity when thrown
 
 func Modify(new_reference : Subweapon):
 	super.Modify(new_reference)

@@ -1,5 +1,7 @@
 extends Node2D
 class_name Whipable
+# Base class that lets an object be whipped
+# Drops "drops" from a list
 
 @export var consumable_list : Array[Drop]
 @export var particle_scene : PackedScene
@@ -74,7 +76,7 @@ func show_object() -> void:
 	
 	sprite.visible = true
 	
-	additional_show_object()
+	additional_show_object() # OVERWRITTABLE (see block_whippable.gd)
 
 
 func hide_object() -> void:
@@ -86,7 +88,7 @@ func hide_object() -> void:
 	
 	sprite.visible = false
 	
-	additional_hide_object()
+	additional_hide_object() # OVERWRITTABLE (see block_whippable.gd)
 
 func additional_show_object() -> void: pass
 func additional_hide_object() -> void: pass

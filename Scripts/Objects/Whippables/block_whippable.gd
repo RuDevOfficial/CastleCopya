@@ -1,4 +1,5 @@
 extends Whipable
+# Whipable that acts as a solid block on which the player can stand on top of or collide with
 
 @export var static_body : StaticBody2D
 

@@ -1,4 +1,5 @@
 extends Area2D
+# Simple 2D area that can turn on, change the spawning enemy or turn off the generator.
 
 @export var activate_spawner : bool
 @export var enemy_per_seconds : float

@@ -1,10 +1,12 @@
 extends Control
+# Class that manages all intermission logic, including the animation.
 
 @onready var bat : Node2D = $Bat
-@export var point_list_parent : Control
-var control_list : Array[Control]
-
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
+
+@export var point_list_parent : Control
+
+var control_list : Array[Control]
 
 func _ready() -> void:
 	for node in point_list_parent.get_children():

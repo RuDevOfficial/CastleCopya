@@ -1,9 +1,15 @@
 extends Node
+# This class manages everything related to levels/stages.
+# This currently supports only level after level, no level skipping.
+
+var current_level_index : int = 0
 
 var target_parent_node : Node2D
 
+# This list is filled with LevelResources inside the folder "Resources/Levels"
+# In order to properly have one level after another it's recommended ot have a number
+# first in the name, like "0_ForgottenCrossroads"
 var level_list : Array[LevelResource]
-@export var current_level_index : int = 0
 var current_level_instance : Node2D
 
 var orb_scene : PackedScene
@@ -47,6 +53,7 @@ func increase_current_level() -> void:
 	current_level_index = clampi(current_level_index + 1, 0, level_list.size() - 1)
 	SaveManager.overwrite_current_gameplay_data_values("CURRENT_LEVEL", current_level_index, true)
 
+# This function gets triggered when the player reaches the last camera path.
 func generate_end_event() -> void:
 	match get_current_level_resource().StageEndEvent:
 		LevelResource.EndEvent.None: create_orb()

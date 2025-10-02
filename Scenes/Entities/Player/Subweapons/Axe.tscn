@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://wekg70uebo2j" path="res://Scripts/Objects/Subweapons/subweapon.gd" id="1_do707"]
 [ext_resource type="Script" uid="uid://crim1wgeqdu30" path="res://Scripts/Resources/subweapon_modifier_resource.gd" id="2_qn3gj"]
 [ext_resource type="Texture2D" uid="uid://cyr4pscgfnvym" path="res://Sprites/Subweapons/Axe_Subweapon.png" id="2_v382s"]
-[ext_resource type="Script" uid="uid://cilelrwfmet63" path="res://Scripts/Objects/Subweapons/Modifiers/SM_Throw_2DLinearX.gd" id="3_cjegy"]
+[ext_resource type="Script" uid="uid://cilelrwfmet63" path="res://Scripts/Objects/Subweapons/Modifiers/SM_Throw_Vector.gd" id="3_cjegy"]
 [ext_resource type="Resource" uid="uid://lqidg8xjjdhp" path="res://Resources/Subweapons/Instanced/axe_scene_subweapon_resource.tres" id="4_cjegy"]
 [ext_resource type="Script" uid="uid://dntc3c582m5w8" path="res://Scripts/Components/hitbox.gd" id="4_v382s"]
 

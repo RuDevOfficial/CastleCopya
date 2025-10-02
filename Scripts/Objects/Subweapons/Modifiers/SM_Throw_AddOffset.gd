@@ -1,5 +1,6 @@
 extends SubweaponModifierResource
 class_name SM_Throw_AddOffset
+# Adds a positional offset when thrown
 
 @export var offset : Vector2
 

@@ -1,5 +1,7 @@
 extends SubweaponModifierResource
 class_name SM_Throw_2DVector
+# Starts the projectile with starting velocity from a director vector when thrown
+
 @export var vector : Vector2
 @export var force : float
 

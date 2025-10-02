@@ -1,4 +1,5 @@
 extends PlayerHealthUIManager
+# Class that manages all enemy UI related logic.
 
 var previous_enemy = null
 

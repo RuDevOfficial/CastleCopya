@@ -1,6 +1,8 @@
 extends Control
+# Class that manages all intro UI logic, including the animation.
 
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
+
 
 signal intro_cutscene_finished
 

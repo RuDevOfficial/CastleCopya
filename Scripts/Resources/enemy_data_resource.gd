@@ -1,5 +1,7 @@
 extends Resource
 class_name EnemyDataResource
+# Base resource for enemies. This data is taken when building the enemy at runtime.
+# All data is read only
 
 @export var starting_health : int
 @export var stun_time : float

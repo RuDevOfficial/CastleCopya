@@ -1,5 +1,7 @@
 extends Resource
 class_name SubweaponDataResource
+# Resource that holds all the data related to a specific subweapon.
+# All data is read only
 
 @export_category("Graphic")
 @export var Icon : Texture2D

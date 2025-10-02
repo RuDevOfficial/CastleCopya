@@ -1,4 +1,5 @@
 extends Control
+# Class that shows the current hearts available.
 
 @export var label : Label
 @export var player : PlayerCharacter

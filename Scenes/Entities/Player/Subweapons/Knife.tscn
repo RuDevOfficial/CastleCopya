@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://wekg70uebo2j" path="res://Scripts/Objects/Subweapons/subweapon.gd" id="1_scxiy"]
 [ext_resource type="Script" uid="uid://crim1wgeqdu30" path="res://Scripts/Resources/subweapon_modifier_resource.gd" id="2_mh4l0"]
-[ext_resource type="Script" uid="uid://cbxuk1l3io7ka" path="res://Scripts/Objects/Subweapons/Modifiers/SM_Throw_2DVector.gd" id="3_ijgsj"]
+[ext_resource type="Script" uid="uid://cbxuk1l3io7ka" path="res://Scripts/Objects/Subweapons/Modifiers/SM_Throw_Linear.gd" id="3_ijgsj"]
 [ext_resource type="Script" uid="uid://mhf346yeofqv" path="res://Scripts/Objects/Subweapons/Modifiers/SM_Throw_FlipDirection.gd" id="4_mh4l0"]
 [ext_resource type="Resource" uid="uid://e0ja16n1bgmj" path="res://Resources/Subweapons/Instanced/knife_scene_subweapon_resource.tres" id="4_scxiy"]
 [ext_resource type="Script" uid="uid://cmji2kwnkw2us" path="res://Scripts/Objects/Subweapons/Modifiers/SM_Throw_AddOffset.gd" id="5_ijgsj"]

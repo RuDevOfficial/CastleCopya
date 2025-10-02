@@ -1,5 +1,6 @@
 extends Node2D
 class_name Subweapon
+# Base class, it's affected by modifiers applied via composition instead of inheritance
 
 @export var Modifiers : Array[SubweaponModifierResource]
 @export var Subweapon_Resource : SubweaponResource

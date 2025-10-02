@@ -1,6 +1,10 @@
 @tool
 extends Resource
 class_name LevelResource
+# Resource that stores all necessary information of a level.
+# (see Resources/Levels for an example)
+# All data is read only (never modified at runtime)
+# You can set up the player's starting position from the inspector window
 
 @export var level_scene : PackedScene
 @export var level_boss : PackedScene

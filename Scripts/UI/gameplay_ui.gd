@@ -1,4 +1,5 @@
 extends Control
+# Class that enables or disables gameplay UI
 
 @onready var bounds_rect : Control = $ColorRect
 

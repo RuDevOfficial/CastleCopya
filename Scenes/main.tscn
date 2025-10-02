@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=4 uid="uid://cqscvl3qsinqc"]
+[gd_scene load_steps=82 format=4 uid="uid://cqscvl3qsinqc"]
 
 [ext_resource type="Texture2D" uid="uid://de12hl6rn1ppj" path="res://Sprites/UI/inbetween.png" id="1_hdf80"]
 [ext_resource type="Texture2D" uid="uid://gfe4ej8yt3w4" path="res://Sprites/UI/bat1.png" id="3_jwpg7"]
@@ -9,8 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://bt0m7fahlwwhn" path="res://Scenes/Entities/Player/player.tscn" id="8_536cc"]
 [ext_resource type="Script" uid="uid://b6g1rf8olebxg" path="res://Scripts/UI/subweapon_ui.gd" id="8_hptm8"]
 [ext_resource type="Texture2D" uid="uid://cvfw1s415q2iq" path="res://Sprites/Subweapons/Placeholder_Subweapon.png" id="8_ynf5e"]
+[ext_resource type="Resource" uid="uid://dir5gqc6p8et0" path="res://Resources/Subweapons/Data/knife_data_resource.tres" id="9_536cc"]
 [ext_resource type="Texture2D" uid="uid://b5gd580ul1xbt" path="res://Sprites/Player/Single/run_1.png" id="9_ueoa1"]
 [ext_resource type="Texture2D" uid="uid://dny2pv3h5k1en" path="res://Sprites/Player/Single/run_2.png" id="10_6vcvc"]
+[ext_resource type="Script" uid="uid://bs8y3t0lfpxkk" path="res://Scripts/Resources/player_data_resource.gd" id="10_aqgau"]
 [ext_resource type="Script" uid="uid://blsahv2cipsds" path="res://Scripts/Events/transition_event_manager.gd" id="10_kltya"]
 [ext_resource type="Script" uid="uid://b23qyew1k8tgn" path="res://Scripts/Camera/camera_manager.gd" id="10_neg2b"]
 [ext_resource type="Texture2D" uid="uid://dinxm4by2wync" path="res://Sprites/UI/heart.png" id="13_jkdf5"]
@@ -184,6 +186,24 @@ _data = {
 &"idle": SubResource("Animation_hdf80"),
 &"start": SubResource("Animation_jwpg7")
 }
+
+[sub_resource type="Resource" id="Resource_8cuat"]
+resource_local_to_scene = true
+script = ExtResource("10_aqgau")
+Speed = 80.0
+LastDirection = 1.0
+stair_movement_multiplier = 2.2
+Gravity = 459.0
+FallingCap = 9108.0
+FallingMultiplier = 2.0
+JumpForce = 200.0
+StartingHealth = 3
+DeadTime = 3.0
+KnockbackVector = Vector2(0.5, -0.5)
+KnockbackForce = 100.0
+AttackTime = 0.5
+CurrentSubweapon = ExtResource("9_536cc")
+metadata/_custom_type_script = "uid://bs8y3t0lfpxkk"
 
 [sub_resource type="Gradient" id="Gradient_aqgau"]
 offsets = PackedFloat32Array(0)
@@ -1349,11 +1369,11 @@ bank_paths = ["res://Banks/Desktop/Master.strings.bank", "res://Banks/Desktop/Ma
 [node name="Player" parent="." instance=ExtResource("8_536cc")]
 z_index = 5
 position = Vector2(-272, 40)
+player_resource = SubResource("Resource_8cuat")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Menu" type="Control" parent="UI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1783,6 +1803,7 @@ libraries = {
 }
 
 [node name="Debug" type="Control" parent="UI" node_paths=PackedStringArray("player_character", "camera", "camera_manager")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1851,6 +1872,7 @@ text = "Go To Boss"
 
 [connection signal="area_entered" from="Camera2D/TopArea" to="UI/Gameplay" method="_on_camera_top_area_entered"]
 [connection signal="area_entered" from="Camera2D/BottomArea" to="UI/Gameplay" method="_on_bottom_area_entered"]
+[connection signal="pressed" from="UI/Menu/VBoxContainer/Play Button" to="UI/Menu" method="_on_play_button_pressed"]
 [connection signal="pressed" from="UI/Menu/VBoxContainer/Go to Gameplay" to="UI/Menu" method="_on_go_to_gameplay_pressed"]
 [connection signal="pressed" from="UI/Menu/VBoxContainer/Delete Save" to="UI/Menu" method="_on_delete_save_pressed"]
 [connection signal="pressed" from="UI/Debug/VBoxContainer/Win" to="UI/Debug" method="_on_win_pressed"]

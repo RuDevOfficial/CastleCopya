@@ -1,4 +1,6 @@
 extends Control
+# Class that manages all debug logic.
+# It is recommended to disable this before export or even delete it to make sure it can't be accessed.
 
 @export_category("Audio")
 @export var mute_music : bool = true

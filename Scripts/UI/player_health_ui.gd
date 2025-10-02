@@ -1,5 +1,6 @@
 extends Control
 class_name PlayerHealthUIManager
+# Class that manages all player UI related logic.
 
 @export var player_resource : PlayerResource
 @export var bar_scene : PackedScene

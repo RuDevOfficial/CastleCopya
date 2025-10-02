@@ -1,4 +1,7 @@
 extends Node2D
+# Warps are 2D areas that teleport the player to a different area,
+# it can also teleport to a different set of stairs if the player was in a stair
+# state before triggering the area
 
 @export var camera_path_index : int
 @export var snap_path_progress : float

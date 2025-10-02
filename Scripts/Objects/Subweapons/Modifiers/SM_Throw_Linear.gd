@@ -1,5 +1,6 @@
 extends SubweaponModifierResource
 class_name SM_Throw_2DLinearX
+# Throws the subweapon only in the x axis when thrown
 
 func Modify(new_reference : Subweapon):
 	super.Modify(new_reference)

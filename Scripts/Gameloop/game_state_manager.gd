@@ -79,8 +79,7 @@ func exit_intermission() -> void: on_exit_intermission.emit()
 
 func connect_signals() -> void:
 	
-	# The play button starts the game, loads the level inmediatly if the player
-	# already saw the cutscene
+	# The play button starts the game, loads the level if the player already saw the cutscene
 	var play_button : Button = get_tree().root.get_node("Main/UI/Menu/VBoxContainer/Play Button")
 	play_button.pressed.connect(func():
 		var game_data : GameplayDataResource = SaveManager.get_current_gameplay_data()
@@ -98,6 +97,7 @@ func connect_signals() -> void:
 		transition_manager.try_transition(GameState.Gameplay)
 		)
 	
+	# If a level is clear it transitions to an intermission cutscene
 	SignalBus.on_clear_level.connect(func():
 		await get_tree().create_timer(4).timeout #HARDCODED TIME, CAN BE CHANGED
 		transition_manager.try_transition(GameState.Intermission)
