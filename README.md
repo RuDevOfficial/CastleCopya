@@ -8,7 +8,11 @@
 
 CastleCopya is a non-commercial template project for Godot meant to save you time from developing a castlevania-like game! It contains all the necessary basic features so you can get right to modifying it and adding your own spin to the formula!
 
-If you enjoyed using it...
+If you want to show your appreciation or need help feel free to follow me on [bluesky](https://bsky.app/profile/ru-dev-official.itch.io) and send me a DM!
+
+Want to play some of my games? Check out my [Itch.io](https://ru-dev-official.itch.io/) page!
+
+# Installation
 
 # Core Features
 | Feature  | Description | Global
