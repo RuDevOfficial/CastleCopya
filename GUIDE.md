@@ -117,7 +117,7 @@ When the camera system recognizes that the **current path is the last one** the 
 
 The order of each path is decided by the child order, in order to ensure each one is correctly placed make sure to rename them with just numbers.
 
-### The Warp
+### Warping
 
 There is only one way to ignore the path order and it's with _Warps_. This object contains an _Area2D_ that checks for a player collision, and a _Point_, which is where the player is teleported to. A warp can choose which path index to go to. You can make one direction teleports by only adding one warp, or add 2 in order to allow a return.
 
@@ -127,4 +127,47 @@ This warp can also be tied to a set of stairs and specified if it's an entrance 
 
 **It is recommended** to rename _Warps_ apropriately to easily recognize if they are connected or not. For example with **Warp_0_0** and **Warp_0_1** or **Warp_A_0** and **Warp_A_1** we know that they are related.
 
-![Warp Gif](https://i.imgur.com/qJpVS3Z.gif)
+## Level Structure
+
+Levels must follow the same structure as seen in the example *0_entrance_hall.tscn*. These are made of multiple child nodes, which include: Entities, TileMap, Paths, PlayerSpawnPosition, OrbSpawnPosition and BossSpawnPosition.
+
+It is adviced to place any entities in their respective child nodes in order to organize all objects a level might contain, such as Enemies, Whippables (such as blocks and candles), Stairs, Doors, Warps, Generators and Triggers.
+
+The TileMap node should contain all level graphics, including any layer that contains static hazards such as spikes, and the Paths node must contain all camera paths for the levels, explained in the section "**The Camera System**".
+
+Finally the starting player position, the place where the orb spawns after a EndEvent is triggered/boss is defeated and the place where the boss itself appears have a dedicated Node.
+
+![Example](https://i.imgur.com/07A0pAi.png)
+
+**It's recommended to just duplicate a level scene such as the one shown and modify it later than building one from scratch.**
+
+## Subweapon Structure
+
+Subweapons are one of the key pillars for any castlevania-like game. In order to fully implement one you must make the following files:
+- Subweapon Data Resource
+- Subweapon Resource
+- Subweapon Icon
+- Consumable Script
+- Consumable Scene
+- Subweapon Scene
+
+### Subweapon Data Resource
+
+This resource contains all data related to the subweapon's before a subweapon scene is instantiated: icon, throw delay, cooldown, cost, animation speed, scene and both grounded and airborn throw offsets.
+- **Throw Delay**: The time it takes to actually spawn it
+- **Cooldown**: The time it takes to throw one after another
+- **Cost**: The amount of hearts it consumes before it's thrown
+- **Vertical Ground Throw Offset**: Positional offset applied when thrown while grounded
+- **Vertical Air Throw Offset**: Positional offset applied when thrown while in the air
+- **Scene**: The packaged scene that will be instantiated
+
+![example](https://i.imgur.com/CdndQ6T.png)
+
+### Subweapon Resource
+
+This resource contains only the necessary data for the instanciated subweapon. Only contains lifetime, damage, speed and sound key.
+- **Lifetime**: The amount of time it takes before it stops updating (*does not queue_free() by default*)
+- **Damage**: Self explanatory
+- **Speed**: Self explanatory
+- **Sound** Key: String key used to generate a sound via the AudioManager global script
+
