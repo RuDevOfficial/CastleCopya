@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/DTcFa66.png" width="400" alt="CastleCopya logo">
+  <img src="https://i.imgur.com/yz5RhBs.png" width="400" alt="CastleCopya logo">
 </p>
 
 # CastleCopya - Castlevania-inspired template project for Godot 4
