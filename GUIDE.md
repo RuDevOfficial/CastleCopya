@@ -9,10 +9,10 @@ This file is meant to be a supplement for you to understand the project as soon 
 # Guide Order
 
 - Folder Structure
+- Execution Loop
 - The Main Scene
 - The Player Character
 - The Camera System
-- Execution Loop
 - Level Structure
 - Subweapon Structure
 - Enemy Structure
@@ -24,6 +24,27 @@ This file is meant to be a supplement for you to understand the project as soon 
 This project is organized in a set of folders for easy browsing and comprehension. The _addons_ and _ai_ folders are standard godot ones you can see at any other project. The _banks_ and _FMOD_ folders contains the exported banks and the project respectively, which shouldn't be modified or moved (in the case you do you'll need to specify again where the banks are in FMOD's project settings).
 
 ![Folder Structure](https://i.imgur.com/ZwCtd9d.png)
+
+## Execution Loop
+
+The whole execution loop begins inside the Game State Manager class, which handles all logic related to state switching between the main menu, intro cutscenes, intermissions and gameplay. Critical classes subscribe to events tied to the start and exit of each state (such as *on_enter_menu* and *on_exit_menu*) which activates or deactivates them.
+
+| State  | Description | Scripts connected to On Enter & Exit Signals| 
+| ------------- |----   |-|
+| Ready | Starting state, inmediatle switches to *Menu* | none       | 
+| Menu | Main menu state | menu_ui.gd |
+| Options | Options state, currently unused | none |
+| Intro | State where all intro cutscene logic is triggered | none |
+| Intermission | Transitional state used to link levels together | intermission_ui.gd |
+| Gameplay | State where the player goes through a level | camera_manager.gd, transition_event_manager.gd, gameplay_ui.gd|
+
+**This are state transitions that can happen in the game:**
+- Player opens the game -> Ready state
+- Player selects play -> Ready to Intro state (first time) | Ready to Gameplay state
+- Player dies -> Gameplay to Gameplay state
+- Player collects the orb -> Gameplay to Intermission state
+- Intermission (next stage animation) plays -> Intermission to Gameplay state
+
 
 ## The Main Scene
 
@@ -106,4 +127,4 @@ This warp can also be tied to a set of stairs and specified if it's an entrance 
 
 **It is recommended** to rename _Warps_ apropriately to easily recognize if they are connected or not. For example with **Warp_0_0** and **Warp_0_1** or **Warp_A_0** and **Warp_A_1** we know that they are related.
 
-Here's an example gif of the warp in action:
+![Here's an example gif of the warp in action](https://i.imgur.com/qJpVS3Z.gif)
