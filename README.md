@@ -12,9 +12,9 @@ If you want to show your appreciation or need help feel free to follow me on [bl
 
 Want to play some of my games? Check out my [Itch.io](https://ru-dev-official.itch.io/) page!
 
-# Installation
+## Installation
 
-# Core Features
+## Core Features
 | Feature  | Description | Global
 | ------------- |:-------------:|:-:|
 | Camera Manager    | Manages the game's camera during the gameplay state via camera paths     | No |
@@ -27,19 +27,22 @@ Want to play some of my games? Check out my [Itch.io](https://ru-dev-official.it
 | Audio Manager | Allows for both music and sound effect generation by using FMOD | Yes |
 | Spawner Manager | Spawns enemies continuously over time, is activated or deactivated via 2D areas | Yes |
 
-# Supported Godot Versions
+## Supported Godot Versions
 
 | 3.X  | 4.X |
 | ------------- |:-------------:|
 | Unsupported     | 4.4.1     |
 
-# Credits
+## How does it work?
+Although the code has plenty of comments if you need a guide you can check it out [here](https://github.com/RuDevOfficial/CastleCopya/blob/main/GUIDE.md)
+
+## Credits
 |Graphics|Audio & Sound Effects| Godot Plugins |
 |-|:-:|:-:|
 |Konami (Castlevania I) | Konami (Castlevania I) | FMOD Studio GDExtension|
 |[Programancer](https://programancer.itch.io/) - Paid Commercial|| [LimboAI](https://github.com/limbonaut/limboai) |
 
-# Warning
+## Warning
 All graphical assets are a combination of paid itch.io assets and ripped assets from Konami's Castlevania. If you are planning to do a commercial game make sure you've completely changed or removed all of them!
 
 All sound (music & sound) assets are ripped from Castlevania I, make sure you remove them as well if you are doing a commercial product!
