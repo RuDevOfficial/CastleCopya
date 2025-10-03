@@ -13,16 +13,17 @@ This file is meant to be a supplement for you to understand the project as soon 
 - The Player Character
 - The Camera System
 - Execution Loop
-- Subweapon Composition
-- Enemy Composition
+- Level Structure
+- Subweapon Structure
+- Enemy Structure
+- Stair Structure
+- The Resources
 
 ## Folder Structure
 
 This project is organized in a set of folders for easy browsing and comprehension. The _addons_ and _ai_ folders are standard godot ones you can see at any other project. The _banks_ and _FMOD_ folders contains the exported banks and the project respectively, which shouldn't be modified or moved (in the case you do you'll need to specify again where the banks are in FMOD's project settings).
 
-| Folder  | Description  | Color |
-| ------------- |----|-|
-| Collider | Capsule collider used to collide with only the stage | |
+![Folder Structure](https://i.imgur.com/ZwCtd9d.png)
 
 ## The Main Scene
 
@@ -77,3 +78,32 @@ When it comes to sprites it contains both an upper and lower sprites, whip and a
 | Dead | Timed state, can't move or do anything | Normal |
 
 ## The Camera System
+
+This system (inside the *CameraManager* node in *Main.tscn*) gets any 2D camera and it forces to be within the bounds of a path, this path can either go horizontally or vertically and can be connected one after another and can stop & resume tracking the player.
+
+When the game triggers a door transition this system is momentarily paused to allow for a smooth transition between separated paths (see the *_process* method on the _camera_manager.gd_ script)
+
+### Camera Paths
+
+A camera path is a script that inherits the Path2D node and contains the following boolean options:
+- Connects to Previous Path: If the player reaches the start of the current path, do we go one step back to the previous?
+- Connects to Next Path: If the player reaches the end of the current path, do we go to the next one?
+- Is Last Path: Is this the last path of the level?
+
+![Example Path](https://i.imgur.com/Qmvzer9.png)
+
+When the camera system recognizes that the **current path is the last one** the camera stays completely still and generates one of 2 _EndEvents_: none (spawns an orb inmediatle that upon collection finishes the level) and boss (spawns a boss you have to defeat in order to get the same orb).
+
+The order of each path is decided by the child order, in order to ensure each one is correctly placed make sure to rename them with just numbers.
+
+### The Warp
+
+There is only one way to ignore the path order and it's with _Warps_. This object contains an _Area2D_ that checks for a player collision, and a _Point_, which is where the player is teleported to. A warp can choose which path index to go to. You can make one direction teleports by only adding one warp, or add 2 in order to allow a return.
+
+![Warp Example](https://i.imgur.com/EkUF7ll.png)
+
+This warp can also be tied to a set of stairs and specified if it's an entrance (is tied to the beginning of the set of stairs) or not. Depending on the answer the player will be put more at the beginning or end of the stair's direction vector.
+
+**It is recommended** to rename _Warps_ apropriately to easily recognize if they are connected or not. For example with **Warp_0_0** and **Warp_0_1** or **Warp_A_0** and **Warp_A_1** we know that they are related.
+
+Here's an example gif of the warp in action:
