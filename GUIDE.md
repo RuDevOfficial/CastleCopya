@@ -207,3 +207,21 @@ For example there's the Knife subweapon, which contains the following modifiers:
 So, if you wanted to make a weapon that both moves in a linear fashion while also moving in circles you could mix a linear modifier only triggered when thrown alongside a circular modifier that updates on each physics frame.
 
 **Make sure to add the apropriate subweapon resource in the script!**
+
+## Enemy Structure
+
+When an enemy is instanciated it's added inside *EnemyManager*'s enemy list, which disables or enables enemies (while also removing generated ones) at specific points (like disabling all enemies once the black curtain is at 100% opacity after the player's character dies).
+
+![code example](https://i.imgur.com/eG4KMUI.png)
+
+For an enemy to be considered valid a Rigidbody2D must be the root and include the following children: Collider, Sprite, BTPlayer, AnimationPlayer, VisibleOnScreenEnabler, Health & Flicker, Hurtbox & Hitbox and Particles.
+
+![example](https://i.imgur.com/aOroRla.png)
+
+The scene's root contains the *enemy.gd* script, which requrires an *enemy_data_resource*. This resource has all the important **read-only** data used to propagate the necessary information to their respective components, so you only need to modify the data resource.
+
+![example](https://i.imgur.com/Zps3AQa.png)
+
+Enemy behavior is not built in the enemy script, but rather executed inside the BTPlayer, a tool used to create AI behaviors via [behaviour trees](https://robohub.org/introduction-to-behavior-trees/). This allows the dev to build and reuse common behaviors that other enemies can use.
+
+To understand how LimboAI works you can read about it [here](https://github.com/limbonaut/limboai).
