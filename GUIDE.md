@@ -165,7 +165,7 @@ This resource contains all data related to the subweapon's before a subweapon sc
 ### Subweapon Resource
 
 This resource contains only the necessary data for the instanciated subweapon. Only contains lifetime, damage, speed and sound key.
-- **Lifetime**: The amount of time it takes before it stops updating (*does not queue_free() by default*)
+- **Lifetime**: The amount of time it takes before *queue_free()* is triggered
 - **Damage**: Self explanatory
 - **Speed**: Self explanatory
 - **Sound** Key: String key used to generate a sound via the AudioManager global script
@@ -183,3 +183,27 @@ All currently implemented subweapons inherit from the base class *consumable.gd*
 This scene is made of 3 nodes with a Rigidbody2D node as their root, CollisionShape2D, Sprite2D and Trigger.
 
 ![example](https://i.imgur.com/ge7i9w9.png)
+
+### Subweapon Scene
+
+This is the actual projectile that the player will spawn upon use. The root is a Rigidbody2D with the *subweapon.gd* script and contains a Collider, Sprite, Hitbox and AnimationPlayer nodes.
+
+![example](https://i.imgur.com/E3pGuJR.png)
+
+As you can see all implemented subweapons do not contain their own script, but instead they use *modifiers*. These modifiers affect the behaviour of the projectile in different points:
+- On Ready (Modify)
+- On Thrown
+- On Update (Process)
+- On PhysicsUpdate (Physics Process)
+- On Contact (Area Entered)
+- On Lifetime Reached
+
+They are applied inside the *subweapon.gd* script tied to the scene's root inside an array. Since they are resources you don't need to save each one, but generate it on the fly.
+
+For example there's the Knife subweapon, which contains the following modifiers: throw_linear, throw_flip_direction and throw_offset. First one sets the velocity vector to be only in the x axis, flip direction changes the sprite's flip_h boolean depending on the horizontal speed and the throw_offset just applies a vector 2 offset depending on the direction.
+
+![example](https://i.imgur.com/yu23OLB.png)
+
+So, if you wanted to make a weapon that both moves in a linear fashion while also moving in circles you could mix a linear modifier only triggered when thrown alongside a circular modifier that updates on each physics frame.
+
+**Make sure to add the apropriate subweapon resource in the script!**
