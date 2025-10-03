@@ -127,4 +127,8 @@ This warp can also be tied to a set of stairs and specified if it's an entrance 
 
 **It is recommended** to rename _Warps_ apropriately to easily recognize if they are connected or not. For example with **Warp_0_0** and **Warp_0_1** or **Warp_A_0** and **Warp_A_1** we know that they are related.
 
-![Here's an example gif of the warp in action](https://i.imgur.com/qJpVS3Z.gif)
+<img src="https://i.imgur.com/qJpVS3Z.gif" alt="Warp Example" width="1920">
+
+## Level Structure
+
+TODO
