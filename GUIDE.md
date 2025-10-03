@@ -147,7 +147,6 @@ Subweapons are one of the key pillars for any castlevania-like game. In order to
 - Subweapon Data Resource
 - Subweapon Resource
 - Subweapon Icon
-- Consumable Script
 - Consumable Scene
 - Subweapon Scene
 
@@ -159,7 +158,7 @@ This resource contains all data related to the subweapon's before a subweapon sc
 - **Cost**: The amount of hearts it consumes before it's thrown
 - **Vertical Ground Throw Offset**: Positional offset applied when thrown while grounded
 - **Vertical Air Throw Offset**: Positional offset applied when thrown while in the air
-- **Scene**: The packaged scene that will be instantiated
+- **Scene**: The packaged scene that will be instanciated
 
 ![example](https://i.imgur.com/CdndQ6T.png)
 
@@ -171,3 +170,16 @@ This resource contains only the necessary data for the instanciated subweapon. O
 - **Speed**: Self explanatory
 - **Sound** Key: String key used to generate a sound via the AudioManager global script
 
+![example](https://i.imgur.com/X7cf9s7.png)
+
+### Consumable Scene
+
+You could initialize the player alongside a default subweapon by going to the player's *Subweapon Manager* and applying a subweapon data, but you will often find them by breaking candles. This means there needs to be a collectable that changes the player's current subweapon, these fall in the umbrella term called "consumables" (such as hearts), and are triggered when the player collides with the object's area.
+
+All currently implemented subweapons inherit from the base class *consumable.gd* called *consumable_subweapon.gd*, but a different one can be created, overwritting the *consume_item()* method for extra functionality (like spawning some particles when collecting a specific consumable).
+
+![example](https://i.imgur.com/FaZg07w.png)
+
+This scene is made of 3 nodes with a Rigidbody2D node as their root, CollisionShape2D, Sprite2D and Trigger.
+
+![example](https://i.imgur.com/ge7i9w9.png)
