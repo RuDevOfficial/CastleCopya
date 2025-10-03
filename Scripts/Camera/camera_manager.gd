@@ -59,6 +59,7 @@ func connect_signals() -> void:
 	
 	SignalBus.on_warp_entered.connect(overwrite_current_path)
 	
+	# Debug
 	SignalBus.on_debug_teleport_to_boss.connect(func(): 
 		var last_path : CameraPath = level_path_list.back()
 		overwrite_current_path(

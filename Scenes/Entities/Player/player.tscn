@@ -53,7 +53,7 @@
 [ext_resource type="Texture2D" uid="uid://dcljuguqu8olf" path="res://Sprites/Player/Single/Halves/char44.png" id="51_vq3lt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e6mvm"]
-radius = 8.0
+radius = 7.0
 height = 27.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xuaoq"]

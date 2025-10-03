@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://0l0f58gvb3l3"]
 
-[ext_resource type="Script" uid="uid://ddneme0pecniw" path="res://Scripts/Entities/Consumables/consumable_axe.gd" id="1_wrym6"]
+[ext_resource type="Script" uid="uid://ddneme0pecniw" path="res://Scripts/Entities/Consumables/consumable_subweapon.gd" id="1_wrym6"]
 [ext_resource type="Resource" uid="uid://ck4cen2q31hco" path="res://Resources/Subweapons/Data/axe_data_resource.tres" id="2_lpfo2"]
 [ext_resource type="Texture2D" uid="uid://cyr4pscgfnvym" path="res://Sprites/Subweapons/Axe_Subweapon.png" id="2_rgg8q"]
 

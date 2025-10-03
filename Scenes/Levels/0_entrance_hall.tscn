@@ -73,6 +73,7 @@ position = Vector2(2480, 16)
 [node name="Blocks" type="Node2D" parent="Entities/Whipables"]
 
 [node name="Stairs" type="Node2D" parent="Entities"]
+visible = false
 
 [node name="6-R-Stair" parent="Entities/Stairs" instance=ExtResource("2_8ojd1")]
 z_index = 2
@@ -195,6 +196,7 @@ position = Vector2(-32, -80)
 [node name="Generators" type="Node2D" parent="Entities"]
 
 [node name="FishGenerator" type="Node2D" parent="Entities/Generators"]
+visible = false
 z_index = 3
 position = Vector2(1464, 360)
 script = ExtResource("10_p1rwp")
@@ -202,12 +204,15 @@ generation_wait_time = 3.0
 enemy_scene = ExtResource("3_jd3ge")
 
 [node name="SpawnPath" type="Path2D" parent="Entities/Generators/FishGenerator"]
+visible = false
 curve = SubResource("Curve2D_hmdjn")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Entities/Generators/FishGenerator/SpawnPath"]
+visible = false
 position = Vector2(-64, 0)
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="Entities/Generators/FishGenerator"]
+visible = false
 position = Vector2(172, 0)
 scale = Vector2(9.2, 1)
 
@@ -218,7 +223,7 @@ autostart = true
 
 [node name="StartSpawnerTrigger" type="Area2D" parent="Entities/Triggers"]
 z_index = 10
-position = Vector2(-88, 0)
+position = Vector2(-88, 176)
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("9_jd3ge")
