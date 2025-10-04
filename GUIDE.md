@@ -18,6 +18,7 @@ This file is meant to be a supplement for you to understand the project as soon 
 - Enemy Structure
 - Stair Structure
 - Save & Loading
+- The Signal Bus
 
 ## Folder Structure
 
@@ -291,3 +292,9 @@ This class does not generate the existing data by itself, instead the **GStateMa
 Another example is the play_button is connected to a method that gets the current gameplay data, and depending if the intro has already been viewed it decides to play the introduction cutscene or not.
 
 ![example](https://i.imgur.com/Y8WWv9F.png)
+
+## The Signal Bus
+
+In case you are new to Godot, signal buses are an easy way to emit and connect to signals from any other class. This is made by creating a global class which only holds signals. This is what the **SignalBus** on this project is.
+
+![signal bus](https://i.imgur.com/kkMyIk3.png)
