@@ -128,6 +128,18 @@ This warp can also be tied to a set of stairs and specified if it's an entrance 
 
 **It is recommended** to rename _Warps_ apropriately to easily recognize if they are connected or not. For example with **Warp_0_0** and **Warp_0_1** or **Warp_A_0** and **Warp_A_1** we know that they are related.
 
+### Doors
+
+Doors are another method to connect separated paths. They are made of a StaticBody2D root with a *door.gd* script attached, and has a Collider, Sprite, Area2D and AnimationPlayer as children.
+
+![door](https://i.imgur.com/Zy5ABl3.png)
+
+To add them to a level place it somewhere inbetween two horizontal camera paths, and select the next camera path index.
+
+![door add](https://i.imgur.com/Ji5yJ9u.png)
+
+**Note**: The current implementation only works for horizontal scrolling.
+
 ## Level Structure
 
 Levels must follow the same structure as seen in the example *0_entrance_hall.tscn*. These are made of multiple child nodes, which include: Entities, TileMap, Paths, PlayerSpawnPosition, OrbSpawnPosition and BossSpawnPosition.
