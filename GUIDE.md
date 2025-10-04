@@ -4,7 +4,7 @@
 
 # A Guide for CastleCopya
 
-This file is meant to be a supplement for you to understand the project as soon as possible, if there is something that has not been explicitly explained and should be added here you can contact me on [bluesky](https://bsky.app/profile/ru-dev-official.itch.io).
+This file is meant to be a supplement for you to understand the project as soon as possible, if there is something that has not been explicitly explained (or badly explained, english is not my main language) and should be added here you can contact me on [bluesky](https://bsky.app/profile/ru-dev-official.itch.io).
 
 # Guide Order
 
