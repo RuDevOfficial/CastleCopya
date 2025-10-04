@@ -1,25 +1,17 @@
-[gd_scene load_steps=20 format=4 uid="uid://b6753ah8pxkfj"]
+[gd_scene load_steps=17 format=4 uid="uid://b6753ah8pxkfj"]
 
 [ext_resource type="TileSet" uid="uid://di8sh37mranj8" path="res://Sprites/Tilesets/entrance_hall.tres" id="1_yih0l"]
 [ext_resource type="Script" uid="uid://plo3dhuwq6cp" path="res://Scripts/Data Class/camera_path.gd" id="2_7dpq4"]
 [ext_resource type="PackedScene" uid="uid://cl2f4low7gcps" path="res://Scenes/Interactables/Stairs/6_r_stair.tscn" id="2_8ojd1"]
 [ext_resource type="PackedScene" uid="uid://7686kwe7c603" path="res://Scenes/Entities/Whipables/blue_candle.tscn" id="3_6c8jj"]
 [ext_resource type="PackedScene" uid="uid://dpx8fx26l5fro" path="res://Scenes/Interactables/door.tscn" id="3_dj1sa"]
-[ext_resource type="PackedScene" uid="uid://c8vruwrcheskn" path="res://Scenes/Entities/Enemies/fishman.tscn" id="3_jd3ge"]
 [ext_resource type="PackedScene" uid="uid://bt0y8r8wegbi" path="res://Scenes/Interactables/Stairs/5_l_stair.tscn" id="4_p8slq"]
 [ext_resource type="PackedScene" uid="uid://cs7j32405l3gv" path="res://Scenes/Interactables/Stairs/6_l_stair.tscn" id="5_4cphq"]
 [ext_resource type="Script" uid="uid://cf0w7pirj7wqe" path="res://Scripts/Objects/Interactables/warp_point.gd" id="5_cgiji"]
 [ext_resource type="Script" uid="uid://bqk074efbqdlw" path="res://Scripts/Objects/Interactables/spawner_trigger.gd" id="9_jd3ge"]
-[ext_resource type="Script" uid="uid://b3fpmetjn5ry8" path="res://Scripts/Entities/Generators/generator_path.gd" id="10_p1rwp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8slq"]
 size = Vector2(128, 16)
-
-[sub_resource type="Curve2D" id="Curve2D_hmdjn"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -64, 0, 0, 0, 0, 0, 368, 0)
-}
-point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jd3ge"]
 size = Vector2(20, 144)
@@ -195,30 +187,6 @@ position = Vector2(-32, -80)
 
 [node name="Generators" type="Node2D" parent="Entities"]
 
-[node name="FishGenerator" type="Node2D" parent="Entities/Generators"]
-visible = false
-z_index = 3
-position = Vector2(1464, 360)
-script = ExtResource("10_p1rwp")
-generation_wait_time = 3.0
-enemy_scene = ExtResource("3_jd3ge")
-
-[node name="SpawnPath" type="Path2D" parent="Entities/Generators/FishGenerator"]
-visible = false
-curve = SubResource("Curve2D_hmdjn")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Entities/Generators/FishGenerator/SpawnPath"]
-visible = false
-position = Vector2(-64, 0)
-
-[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="Entities/Generators/FishGenerator"]
-visible = false
-position = Vector2(172, 0)
-scale = Vector2(9.2, 1)
-
-[node name="Timer" type="Timer" parent="Entities/Generators/FishGenerator"]
-autostart = true
-
 [node name="Triggers" type="Node2D" parent="Entities"]
 
 [node name="StartSpawnerTrigger" type="Area2D" parent="Entities/Triggers"]
@@ -348,7 +316,5 @@ z_index = 1
 [connection signal="area_entered" from="Entities/Warps/Warp_0_1/Area" to="Entities/Warps/Warp_0_1" method="_on_area_entered"]
 [connection signal="area_entered" from="Entities/Warps/Warp_1_0/Area" to="Entities/Warps/Warp_1_0" method="_on_area_entered"]
 [connection signal="area_entered" from="Entities/Warps/Warp_1_1/Area" to="Entities/Warps/Warp_1_1" method="_on_area_entered"]
-[connection signal="screen_entered" from="Entities/Generators/FishGenerator/VisibleOnScreenEnabler2D" to="Entities/Generators/FishGenerator" method="_on_screen_entered"]
-[connection signal="screen_exited" from="Entities/Generators/FishGenerator/VisibleOnScreenEnabler2D" to="Entities/Generators/FishGenerator" method="_on_screen_exited"]
 [connection signal="area_entered" from="Entities/Triggers/StartSpawnerTrigger" to="Entities/Triggers/StartSpawnerTrigger" method="_on_area_entered"]
 [connection signal="area_entered" from="Entities/Triggers/EndSpawnerTrigger" to="Entities/Triggers/EndSpawnerTrigger" method="_on_area_entered"]

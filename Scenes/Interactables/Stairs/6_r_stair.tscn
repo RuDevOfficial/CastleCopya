@@ -20,32 +20,26 @@ point_count = 2
 visible = false
 
 [node name="InitialStep" type="Sprite2D" parent="Sprites"]
-visible = false
 position = Vector2(0, -8)
 texture = ExtResource("1_57ds3")
 
 [node name="Rail" type="Sprite2D" parent="Sprites"]
-visible = false
 position = Vector2(8, -24)
 texture = ExtResource("2_8rafe")
 
 [node name="Rail2" type="Sprite2D" parent="Sprites"]
-visible = false
 position = Vector2(24, -40)
 texture = ExtResource("2_8rafe")
 
 [node name="Step2" type="Sprite2D" parent="Sprites"]
-visible = false
 position = Vector2(24, -24)
 texture = ExtResource("3_fxs3k")
 
 [node name="Step3" type="Sprite2D" parent="Sprites"]
-visible = false
 position = Vector2(40, -40)
 texture = ExtResource("3_fxs3k")
 
 [node name="End" type="Sprite2D" parent="Sprites"]
-visible = false
 position = Vector2(48, -56)
 texture = ExtResource("4_4ynpu")
 

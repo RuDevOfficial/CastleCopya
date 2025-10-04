@@ -24,7 +24,7 @@ func _ready() -> void:
 	target_parent_node = get_tree().root.get_node("Main/Level")
 	orb_scene = preload("res://Scenes/Entities/Consumables/consumable_orb.tscn")
 	
-	current_level_index = SaveManager.get_current_gameplay_data().CURRENT_LEVEL
+	current_level_index = SaveManager.get_current_savefile_data().CURRENT_LEVEL
 	
 	connect_signals()
 

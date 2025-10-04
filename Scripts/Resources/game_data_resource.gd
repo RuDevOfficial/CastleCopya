@@ -4,11 +4,13 @@ class_name GameDataResource
 # You could store all options here for example.
 
 var LAST_SAVE_DATA_INDEX : int = 0
+# Add your new value here!
 
 func game_data_to_dictionary() -> Dictionary:
 	
 	var new_dictionary = { 
 		"LAST_SAVE_DATA_INDEX" = 0 # NEVER DELETE THIS ONE!
+		# Add your new entry here!
 	}
 	
 	return new_dictionary
@@ -16,3 +18,4 @@ func game_data_to_dictionary() -> Dictionary:
 func dictionary_to_game_data(dictionary) -> void:
 	
 	LAST_SAVE_DATA_INDEX = dictionary["LAST_SAVE_DATA_INDEX"]
+	# Finally, get the value back from the dictionary here!

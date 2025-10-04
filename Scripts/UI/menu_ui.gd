@@ -25,7 +25,7 @@ func _on_go_to_gameplay_pressed() -> void:
 	GStateManager.change_state(GStateManager.GameState.Gameplay)
 
 func _on_delete_save_pressed() -> void:
-	SaveManager.clear_save_data(SaveManager.current_save_file_index)
+	SaveManager.clear_savefile_data(SaveManager.current_save_file_index)
 
 func _on_play_button_pressed() -> void: pass
 	# the play button should have the piece of code instead of game_state_manager

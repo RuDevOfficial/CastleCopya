@@ -67,8 +67,8 @@ func enter_intro() -> void: on_enter_intro.emit()
 func exit_intro() -> void: on_exit_intro.emit()
 
 func enter_gameplay() -> void:
-	var current_gameplay_data : GameplayDataResource = SaveManager.get_current_gameplay_data()
-	StageManager.generate_new_level(current_gameplay_data.CURRENT_LEVEL)
+	var current_savefile_data : SavefileDataResource = SaveManager.get_current_savefile_data()
+	StageManager.generate_new_level(current_savefile_data.CURRENT_LEVEL)
 	on_enter_gameplay.emit()
 func exit_gameplay() -> void: on_exit_gameplay.emit()
 
@@ -82,11 +82,11 @@ func connect_signals() -> void:
 	# The play button starts the game, loads the level if the player already saw the cutscene
 	var play_button : Button = get_tree().root.get_node("Main/UI/Menu/VBoxContainer/Play Button")
 	play_button.pressed.connect(func():
-		var game_data : GameplayDataResource = SaveManager.get_current_gameplay_data()
+		var game_data : SavefileDataResource = SaveManager.get_current_savefile_data()
 		if (game_data.INTRO_VIEWED == false):
 			game_data.INTRO_VIEWED = true
 			transition_manager.try_transition(GameState.Intro)
-			SaveManager.save_gameplay_data(SaveManager.current_save_file_index) 
+			SaveManager.save_savefile_data(SaveManager.current_save_file_index) 
 		else:
 			if (is_debug_mode): transition_manager.try_transition(GameState.Intro)
 			else: transition_manager.try_transition(GameState.Gameplay)
