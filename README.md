@@ -12,6 +12,8 @@ If you want to show your appreciation or need help feel free to follow me on [bl
 
 Want to play some of my games? Check out my [Itch.io](https://ru-dev-official.itch.io/) page!
 
+Want a **guide**? Read it [here](https://github.com/RuDevOfficial/CastleCopya/blob/main/GUIDE.md)!
+
 ## Installation
 
 ## Core Features / Classes
@@ -27,19 +29,10 @@ Want to play some of my games? Check out my [Itch.io](https://ru-dev-official.it
 | Audio Manager | Allows for both music and sound effect generation by using FMOD | Yes |
 | Spawner Manager | Spawns enemies continuously over time, is activated or deactivated via 2D areas | Yes |
 
-## Supported Godot Versions
-
-| 3.X  | 4.X |
-| ------------- |:-------------:|
-| Unsupported     | 4.4.1     |
-
-## How does it work?
-Although the code has plenty of comments if you need a guide you can check it out [here](https://github.com/RuDevOfficial/CastleCopya/blob/main/GUIDE.md)
-
 ## Credits
 |Graphics|Audio & Sound Effects| Godot Plugins |
 |-|:-:|:-:|
-|Konami (Castlevania I) | Konami (Castlevania I) | FMOD Studio GDExtension|
+|Konami (Castlevania I) | Konami (Castlevania I) | [FMOD Studio GDExtension](https://github.com/utopia-rise/fmod-gdextension) |
 |[Programancer](https://programancer.itch.io/) - Paid Commercial|| [LimboAI](https://github.com/limbonaut/limboai) |
 
 ## Warning
