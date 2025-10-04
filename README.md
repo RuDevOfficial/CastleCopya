@@ -14,8 +14,8 @@ Want to play some of my games? Check out my [Itch.io](https://ru-dev-official.it
 
 ## Installation
 
-## Core Features
-| Feature  | Description | Global
+## Core Features / Classes
+| Feature / Class  | Description | Global
 | ------------- |:-------------:|:-:|
 | Camera Manager    | Manages the game's camera during the gameplay state via camera paths     | No |
 | Game State Manager | Tasked with executing signals on each game's state | Yes |

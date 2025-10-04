@@ -4,7 +4,7 @@
 
 # A Guide for CastleCopya
 
-This file is meant to be a supplement for you to understand the project as soon as possible, if there is something that has not been explicitly explained and should be added here you can contact me on [bluesky](https://bsky.app/profile/ru-dev-official.itch.io).
+This file is meant to be a supplement for you to understand the project as soon as possible, if there is something that has not been explicitly explained (or badly explained, english is not my main language) and should be added here you can contact me on [bluesky](https://bsky.app/profile/ru-dev-official.itch.io).
 
 # Guide Order
 
@@ -17,7 +17,8 @@ This file is meant to be a supplement for you to understand the project as soon 
 - Subweapon Structure
 - Enemy Structure
 - Stair Structure
-- The Resources
+- Save & Loading
+- The Signal Bus
 
 ## Folder Structure
 
@@ -127,6 +128,18 @@ This warp can also be tied to a set of stairs and specified if it's an entrance 
 
 **It is recommended** to rename _Warps_ apropriately to easily recognize if they are connected or not. For example with **Warp_0_0** and **Warp_0_1** or **Warp_A_0** and **Warp_A_1** we know that they are related.
 
+### Doors
+
+Doors are another method to connect separated paths. They are made of a StaticBody2D root with a *door.gd* script attached, and has a Collider, Sprite, Area2D and AnimationPlayer as children.
+
+![door](https://i.imgur.com/Zy5ABl3.png)
+
+To add them to a level place it somewhere inbetween two horizontal camera paths, and select the next camera path index.
+
+![door add](https://i.imgur.com/Ji5yJ9u.png)
+
+**Note**: The current implementation only works for horizontal scrolling.
+
 ## Level Structure
 
 Levels must follow the same structure as seen in the example *0_entrance_hall.tscn*. These are made of multiple child nodes, which include: Entities, TileMap, Paths, PlayerSpawnPosition, OrbSpawnPosition and BossSpawnPosition.
@@ -140,6 +153,10 @@ Finally the starting player position, the place where the orb spawns after a End
 ![Example](https://i.imgur.com/07A0pAi.png)
 
 **It's recommended to just duplicate a level scene such as the one shown and modify it later than building one from scratch.**
+
+## The Stage/Level Manager
+
+
 
 ## Subweapon Structure
 
@@ -225,3 +242,71 @@ The scene's root contains the *enemy.gd* script, which requrires an *enemy_data_
 Enemy behavior is not built in the enemy script, but rather executed inside the BTPlayer, a tool used to create AI behaviors via [behaviour trees](https://robohub.org/introduction-to-behavior-trees/). This allows the dev to build and reuse common behaviors that other enemies can use.
 
 To understand how LimboAI works you can read about it [here](https://github.com/limbonaut/limboai).
+
+## Stair Structure
+
+![stairs](https://i.imgur.com/VfuWkxf.png)
+
+Currently stairs are built with 3 key nodes: Sprites, Triggers & Path.
+- Sprites hold all individual sprites for each step (although they are hidden in favour of tilemap sprites).
+- Triggers contain the entry and exit points. If the player's *InteractArea* is colliding with the entry or exit point areas and presses W or S (depending on the stair orientation) they will switch to the stair movement state.
+- Path is the actual path the player character will move through.
+
+### The Path
+
+For the player character to follow the path they snap to the *Follow* node's global position, this node's position is updated by adding or removing delta_time (alongside a multiplier) depending on the path's direction vector and the player's input.
+
+![example](https://i.imgur.com/mKpDSkG.png)
+
+**Note**: *The current system has a side effect where the player character would reach the top of the stairs at the same time independently of how short or large they are, which should be corrected in a future update*.
+
+## Save & Loading
+
+This template has a built-in save & loading manager that allows for multiple save files (although only the first one is ever used) and easy data additions, and all this is inside the *SaveManager* class (*save_manager_global.gd*).
+
+These files are saved on your AppData\Roaming\Godot\app_userdata\CastleCopya, and there are two types:
+- game_data.txt: Holds all save-independent data, such as the current selected save file index. If you need to add things like options data this is the place to do so.
+- saves/save_game_X.txt (X is any number): Specific save-file data. Currently only contains if the player already saw the intro cutscene or not and the current level they are in.
+
+When the game is open, the manager looks for these files: if game_data does not exist it's generated, if not a single save_data exists only one is generated. If the files already exist they are converted to their proper resources, which are SavefileDataResource and GameDataResource.
+
+### Adding new data to Savefile and GameData resources
+
+To add new game data is as easy as going to the *game_data_resource.gd* script, declaring a new value, adding a new dictionary entry with their corresponding default value and add assign it again on the *dictionary_to_game_data(dictionary)* method.
+
+![game_data](https://i.imgur.com/gGRluYw.png)
+
+The same applies to the **SavefileDataResource**.
+
+![save_file](https://i.imgur.com/UKpWTpw.png)
+
+### Methods
+
+|Name| Description|
+|-|-|
+|preload_savefiles() | Checks for the saves directory, converts any saves to SavefileDataResource and adds it to the *save_files* array |
+|get_current_save_file_on_load()| Locates existing or generates a new game_data file, converts it to GameDataResource and obtains their LAST_SAVE_DATA_INDEX value |
+|check_for_existing_data()| Checks if the saves directory already exists|
+|generate_savefile_data()| Checks the amount of files inside the saves folder and generates a new savefile .txt file |
+|save_savefile_data(**index : int**)| Converts all resource values to their respective .txt file, given an index |
+|load_savefile_data(**index : int**)| Loads all values from the respective .txt file to a resource, given an index |
+|get_current_savefile_data()| Self explanatory, returns a SavefileDataResource |
+|overwrite_current_savefile_data_values(**key : String, value, do_save : bool**)| Overwrites specific dictionary values  from the current savefile. The parameter *do_save* allows to also save the savefile data upon overwrite |
+|overwrite_savefile_data_values(**index : int, key : String, value, do_save : bool**)| Same as the previous, but you can choose an index |
+|clear_savefile_data(**index : int**)| Self explanatory |
+
+### Usage Example
+
+This class does not generate the existing data by itself, instead the **GStateManager** class calls *check_for_existing_data()* on runtime. When entering the **gameplay** state it calls *get_current_savefile_data()* and uses the *CURRENT_LEVEL* value as an entry parameter for the *StageManager* class.
+
+![example](https://i.imgur.com/lyP2Gcy.png)
+
+Another example is the play_button is connected to a method that gets the current gameplay data, and depending if the intro has already been viewed it decides to play the introduction cutscene or not.
+
+![example](https://i.imgur.com/Y8WWv9F.png)
+
+## The Signal Bus
+
+In case you are new to Godot, signal buses are an easy way to emit and connect to signals from any other class. This is made by creating a global class which only holds signals. This is what the **SignalBus** on this project is.
+
+![signal bus](https://i.imgur.com/kkMyIk3.png)
