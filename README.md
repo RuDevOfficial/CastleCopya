@@ -16,6 +16,8 @@ Want a **guide**? Read it [here](https://github.com/RuDevOfficial/CastleCopya/bl
 
 ## Installation
 
+Download the source code of this repository, download Godot (with the proper version) and import the project!
+
 ## Core Features / Classes
 | Feature / Class  | Description | Global
 | ------------- |:-------------:|:-:|
