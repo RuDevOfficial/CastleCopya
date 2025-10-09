@@ -154,10 +154,6 @@ Finally the starting player position, the place where the orb spawns after a End
 
 **It's recommended to just duplicate a level scene such as the one shown and modify it later than building one from scratch.**
 
-## The Stage/Level Manager
-
-
-
 ## Subweapon Structure
 
 Subweapons are one of the key pillars for any castlevania-like game. In order to fully implement one you must make the following files:
