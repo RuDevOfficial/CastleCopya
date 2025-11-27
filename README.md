@@ -6,6 +6,8 @@
 
 >**🛈 Supported Godot Engine:**  **4.4.1**
 
+![final gif](https://github.com/user-attachments/assets/977b0780-c91d-4a38-a7e1-e71af5844acb)
+
 CastleCopya is a non-commercial template project for Godot meant to save you time from developing a castlevania-like game! It contains all the necessary basic features so you can get right to modifying it and adding your own spin to the formula!
 
 If you want to show your appreciation or need help feel free to follow me on [bluesky](https://bsky.app/profile/ru-dev-official.itch.io) and send me a DM!
