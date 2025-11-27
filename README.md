@@ -37,6 +37,11 @@ Download the source code of this repository, download Godot (with the proper ver
 |Konami (Castlevania I) | Konami (Castlevania I) | [FMOD Studio GDExtension](https://github.com/utopia-rise/fmod-gdextension) |
 |[Programancer](https://programancer.itch.io/) - Paid Commercial|| [LimboAI](https://github.com/limbonaut/limboai) |
 
+## Fonts Used
+- Pixel_NES, made by Neale Davison [*Free for Personal Use*]
+- Calamity, found on Fontstruct.com, made by Doph [*Non-Commercial License*]
+- Qapixa-5y9Pa, made by Wahyu Eka Prasetya [*Free for Personal Use*]
+
 ## Warning
 All graphical assets are a combination of paid itch.io assets and ripped assets from Konami's Castlevania. If you are planning to do a commercial game make sure you've completely changed or removed all of them!
 
